@@ -1,0 +1,101 @@
+{
+ "extName": {
+  "message": "Scarlet DM — Integration",
+  "description": "Extension name (max 45 chars)"
+ },
+ "extDesc": {
+  "message": "Sends downloads, links and videos (HLS) from the browser to Scarlet DM."
+ },
+ "menuLink": {
+  "message": "Download with Scarlet DM"
+ },
+ "menuMedia": {
+  "message": "Download this media with Scarlet DM"
+ },
+ "menuSelection": {
+  "message": "Download the selected links"
+ },
+ "menuPageMedia": {
+  "message": "Download this page's video/music (YouTube, SoundCloud…)"
+ },
+ "menuPage": {
+  "message": "Download all files on this page"
+ },
+ "noFiles": {
+  "message": "No files found."
+ },
+ "noFilesPage": {
+  "message": "No files found on the page."
+ },
+ "offline": {
+  "message": "Scarlet DM is not open (or browser integration is turned off in Preferences)."
+ },
+ "checking": {
+  "message": "checking…"
+ },
+ "connected": {
+  "message": "connected"
+ },
+ "appClosed": {
+  "message": "app closed"
+ },
+ "detected": {
+  "message": "Media detected in this tab"
+ },
+ "btnPageMedia": {
+  "message": "Download this page's video/music"
+ },
+ "btnPage": {
+  "message": "Download page files"
+ },
+ "btnShow": {
+  "message": "Open Scarlet DM"
+ },
+ "prefs": {
+  "message": "Preferences"
+ },
+ "optIntercept": {
+  "message": "Capture browser downloads"
+ },
+ "optMinSize": {
+  "message": "Ignore files smaller than (KB)"
+ },
+ "optSkipHtml": {
+  "message": "Don't capture web pages"
+ },
+ "optSkipDomains": {
+  "message": "Skip these sites (e.g. drive.google.com, mega.nz)"
+ },
+ "phSkipDomains": {
+  "message": "one per line or comma-separated"
+ },
+ "optSkipExts": {
+  "message": "Skip these extensions (e.g. pdf, jpg)"
+ },
+ "optPort": {
+  "message": "App port"
+ },
+ "noMedia": {
+  "message": "No video or audio detected. Play the video and open this again."
+ },
+ "hlsStream": {
+  "message": "HLS stream"
+ },
+ "download": {
+  "message": "Download"
+ },
+ "sent": {
+  "message": "Sent to Scarlet DM."
+ },
+ "pageSent": {
+  "message": "Page sent: choose the quality in Scarlet DM."
+ },
+ "linksSent": {
+  "message": "$COUNT$ link(s) sent.",
+  "placeholders": {
+   "count": {
+    "content": "$1"
+   }
+  }
+ }
+}

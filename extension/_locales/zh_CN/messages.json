@@ -1,0 +1,100 @@
+{
+ "extName": {
+  "message": "Scarlet DM — 浏览器集成"
+ },
+ "extDesc": {
+  "message": "把浏览器中的下载、链接和视频（HLS）发送到 Scarlet DM。"
+ },
+ "menuLink": {
+  "message": "使用 Scarlet DM 下载"
+ },
+ "menuMedia": {
+  "message": "使用 Scarlet DM 下载此媒体"
+ },
+ "menuSelection": {
+  "message": "下载选中的链接"
+ },
+ "menuPageMedia": {
+  "message": "下载此页面的视频/音乐（YouTube、SoundCloud…）"
+ },
+ "menuPage": {
+  "message": "下载此页面上的所有文件"
+ },
+ "noFiles": {
+  "message": "未找到文件。"
+ },
+ "noFilesPage": {
+  "message": "页面上未找到文件。"
+ },
+ "offline": {
+  "message": "Scarlet DM 未打开（或在首选项中关闭了浏览器集成）。"
+ },
+ "checking": {
+  "message": "正在检查…"
+ },
+ "connected": {
+  "message": "已连接"
+ },
+ "appClosed": {
+  "message": "应用已关闭"
+ },
+ "detected": {
+  "message": "此标签页中检测到的媒体"
+ },
+ "btnPageMedia": {
+  "message": "下载此页面的视频/音乐"
+ },
+ "btnPage": {
+  "message": "下载页面文件"
+ },
+ "btnShow": {
+  "message": "打开 Scarlet DM"
+ },
+ "prefs": {
+  "message": "首选项"
+ },
+ "optIntercept": {
+  "message": "接管浏览器下载"
+ },
+ "optMinSize": {
+  "message": "忽略小于此大小的文件（KB）"
+ },
+ "optSkipHtml": {
+  "message": "不接管网页"
+ },
+ "optSkipDomains": {
+  "message": "跳过这些网站（例如 drive.google.com、mega.nz）"
+ },
+ "phSkipDomains": {
+  "message": "每行一个或用逗号分隔"
+ },
+ "optSkipExts": {
+  "message": "跳过这些扩展名（例如 pdf、jpg）"
+ },
+ "optPort": {
+  "message": "应用端口"
+ },
+ "noMedia": {
+  "message": "未检测到视频或音频。请先播放视频再打开这里。"
+ },
+ "hlsStream": {
+  "message": "HLS 流"
+ },
+ "download": {
+  "message": "下载"
+ },
+ "sent": {
+  "message": "已发送到 Scarlet DM。"
+ },
+ "pageSent": {
+  "message": "页面已发送：请在 Scarlet DM 中选择质量。"
+ },
+ "linksSent": {
+  "message": "已发送 $COUNT$ 个链接。",
+  "placeholders": {
+   "count": {
+    "content": "$1"
+   }
+  }
+ }
+}

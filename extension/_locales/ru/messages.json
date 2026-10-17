@@ -1,0 +1,100 @@
+{
+ "extName": {
+  "message": "Scarlet DM — Интеграция"
+ },
+ "extDesc": {
+  "message": "Передаёт загрузки, ссылки и видео (HLS) из браузера в Scarlet DM."
+ },
+ "menuLink": {
+  "message": "Скачать через Scarlet DM"
+ },
+ "menuMedia": {
+  "message": "Скачать этот медиафайл через Scarlet DM"
+ },
+ "menuSelection": {
+  "message": "Скачать выделенные ссылки"
+ },
+ "menuPageMedia": {
+  "message": "Скачать видео/музыку с этой страницы (YouTube, SoundCloud…)"
+ },
+ "menuPage": {
+  "message": "Скачать все файлы с этой страницы"
+ },
+ "noFiles": {
+  "message": "Файлы не найдены."
+ },
+ "noFilesPage": {
+  "message": "На странице не найдено файлов."
+ },
+ "offline": {
+  "message": "Scarlet DM не открыт (или интеграция с браузером выключена в Настройках)."
+ },
+ "checking": {
+  "message": "проверка…"
+ },
+ "connected": {
+  "message": "подключено"
+ },
+ "appClosed": {
+  "message": "приложение закрыто"
+ },
+ "detected": {
+  "message": "Медиа, найденные на этой вкладке"
+ },
+ "btnPageMedia": {
+  "message": "Скачать видео/музыку с этой страницы"
+ },
+ "btnPage": {
+  "message": "Скачать файлы страницы"
+ },
+ "btnShow": {
+  "message": "Открыть Scarlet DM"
+ },
+ "prefs": {
+  "message": "Настройки"
+ },
+ "optIntercept": {
+  "message": "Перехватывать загрузки браузера"
+ },
+ "optMinSize": {
+  "message": "Пропускать файлы меньше (КБ)"
+ },
+ "optSkipHtml": {
+  "message": "Не перехватывать веб-страницы"
+ },
+ "optSkipDomains": {
+  "message": "Пропускать эти сайты (напр.: drive.google.com, mega.nz)"
+ },
+ "phSkipDomains": {
+  "message": "по одному в строке или через запятую"
+ },
+ "optSkipExts": {
+  "message": "Пропускать эти расширения (напр.: pdf, jpg)"
+ },
+ "optPort": {
+  "message": "Порт приложения"
+ },
+ "noMedia": {
+  "message": "Видео или аудио не найдено. Запустите видео и откройте это окно снова."
+ },
+ "hlsStream": {
+  "message": "поток HLS"
+ },
+ "download": {
+  "message": "Скачать"
+ },
+ "sent": {
+  "message": "Отправлено в Scarlet DM."
+ },
+ "pageSent": {
+  "message": "Страница отправлена: выберите качество в Scarlet DM."
+ },
+ "linksSent": {
+  "message": "Отправлено ссылок: $COUNT$.",
+  "placeholders": {
+   "count": {
+    "content": "$1"
+   }
+  }
+ }
+}

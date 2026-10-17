@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Scarlet DM</title>
+<style>
+  :root { --bg:#0a0a0c; --panel:#111114; --panel2:#17171b; --border:#26262c; --text:#ededf1; --muted:#8d8d97;
+          --accent:#e3222f; --accent-hi:#ff3d49; --sel:#3b0f15; }
+  * { box-sizing: border-box; }
+  body { margin:0; width:360px; background:var(--bg); color:var(--text); font:13px "Segoe UI", system-ui, sans-serif; }
+  header { display:flex; align-items:center; gap:10px; padding:12px 14px; background:var(--panel); border-bottom:1px solid var(--border); }
+  header img { width:28px; height:28px; }
+  header h1 { font-size:15px; margin:0; flex:1; }
+  .pill { font-size:11px; padding:3px 8px; border-radius:10px; background:var(--panel2); color:var(--muted); }
+  .pill.on { background:var(--sel); color:var(--accent-hi); }
+  section { padding:12px 14px; border-bottom:1px solid var(--border); }
+  h2 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 8px; }
+  label.row { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:6px 0; cursor:pointer; }
+  input[type=checkbox] { appearance:none; width:34px; height:18px; border-radius:9px; background:#2b2b32; position:relative; cursor:pointer; flex:none; }
+  input[type=checkbox]::after { content:""; position:absolute; top:3px; left:3px; width:12px; height:12px; border-radius:50%; background:#fff; transition:left .15s; }
+  input[type=checkbox]:checked { background:var(--accent); }
+  input[type=checkbox]:checked::after { left:19px; }
+  input[type=number] { width:80px; background:var(--panel2); color:var(--text); border:1px solid var(--border); border-radius:6px; padding:4px 6px; }
+  button { background:var(--panel2); color:var(--text); border:1px solid var(--border); border-radius:6px; padding:7px 10px; cursor:pointer; font:inherit; }
+  button:hover { border-color:#7d141c; }
+  button.primary { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+  button.primary:hover { background:var(--accent-hi); }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  ul { list-style:none; margin:0; padding:0; max-height:220px; overflow:auto; }
+  li { display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid #18181c; }
+  li .info { flex:1; min-width:0; }
+  li .name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  li .meta { color:var(--muted); font-size:11px; }
+  li button { padding:4px 9px; }
+  .empty { color:var(--muted); font-size:12px; }
+  #msg { color:var(--accent-hi); font-size:12px; min-height:16px; padding:0 14px 10px; }
+  label.col { display:flex; flex-direction:column; gap:5px; margin:8px 0; color:var(--muted); font-size:12px; }
+  textarea, input[type=text] { width:100%; background:var(--panel2); color:var(--text); border:1px solid var(--border);
+    border-radius:6px; padding:5px 7px; font:inherit; font-size:12px; resize:vertical; }
+</style>
+</head>
+<body>
+<header>
+  <img src="icons/48.png" alt="">
+  <h1>Scarlet DM</h1>
+  <span id="status" class="pill" data-i18n="checking"></span>
+</header>
+<section>
+  <h2 data-i18n="detected"></h2>
+  <ul id="media"></ul>
+</section>
+<section>
+  <button id="pagemedia" class="primary" style="width:100%;margin-bottom:8px" data-i18n="btnPageMedia"></button>
+  <div class="grid">
+    <button id="page" data-i18n="btnPage"></button>
+    <button id="show" data-i18n="btnShow"></button>
+  </div>
+</section>
+<section>
+  <h2 data-i18n="prefs"></h2>
+  <label class="row"><span data-i18n="optIntercept"></span> <input type="checkbox" id="intercept"></label>
+  <label class="row"><span data-i18n="optMinSize"></span> <input type="number" id="minSize" min="0" step="64"></label>
+  <label class="row"><span data-i18n="optSkipHtml"></span> <input type="checkbox" id="skipHtml"></label>
+  <label class="col"><span data-i18n="optSkipDomains"></span>
+    <textarea id="skipDomains" rows="2" data-i18n-ph="phSkipDomains"></textarea></label>
+  <label class="col"><span data-i18n="optSkipExts"></span>
+    <input type="text" id="skipExts" placeholder="pdf, jpg, png"></label>
+  <label class="row"><span data-i18n="optPort"></span> <input type="number" id="port" min="1024" max="65535"></label>
+</section>
+<div id="msg"></div>
+<script src="popup.js"></script>
+</body>
+</html>

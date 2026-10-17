@@ -1,0 +1,114 @@
+# Compila e testa o Scarlet DM em Windows, Linux e macOS (Intel e Apple Silicon).
+# Em todo push/PR: gera os pacotes como "artifacts". Ao criar uma tag v* (ex.: v2.0.0): publica um Release.
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.10" }
+      - name: Dependências (PyInstaller com bootloader compilado aqui = menos alarme falso de antivírus)
+        shell: cmd
+        run: |
+          python -m pip install -r requirements.txt libtorrent
+          set PYINSTALLER_COMPILE_BOOTLOADER=1
+          python -m pip install --no-binary pyinstaller pyinstaller==6.20.0
+      - name: Inno Setup
+        run: choco install innosetup --no-progress -y
+      - name: Testes do motor
+        shell: cmd
+        run: |
+          python tests\test_engine.py .
+          python tests\test_hls.py .
+          python tests\test_api.py .
+      - name: Build (app + instalador + pacotes)
+        shell: cmd
+        run: build_exe.bat release
+      - name: Autoteste do .exe
+        shell: cmd
+        run: dist\ScarletDM\ScarletDM.exe --selftest --out selftest.json & type selftest.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: |
+            release/*.exe
+            release/*.zip
+
+  linux:
+    runs-on: ubuntu-22.04          # glibc antiga = o AppImage roda nas distros de 2022 para cá
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.10" }
+      - name: Bibliotecas do sistema (Qt/xcb/áudio)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libgl1 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-image0 \
+            libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-xinerama0 libxcb-xkb1 \
+            libdbus-1-3 libpulse0 libfuse2 xvfb ffmpeg
+      - name: Dependências
+        run: |
+          python -m pip install -r requirements.txt pyinstaller==6.20.0
+          python -m pip install libtorrent || echo 'sem libtorrent: build sai sem torrent'
+      - name: Testes do motor
+        run: |
+          xvfb-run -a python tests/test_engine.py .
+          xvfb-run -a python tests/test_hls.py .
+          xvfb-run -a python tests/test_api.py .
+      - name: Build (AppImage + tar.gz) com autoteste
+        run: xvfb-run -a bash tools/build_unix.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: release/*
+
+  macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-13]   # Apple Silicon e Intel
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Dependências
+        run: |
+          python -m pip install -r requirements.txt pyinstaller==6.20.0
+          python -m pip install libtorrent || echo 'sem libtorrent: build sai sem torrent'
+      - name: Testes do motor
+        run: |
+          python tests/test_engine.py .
+          python tests/test_api.py .
+      - name: Build (.app + .dmg) com autoteste
+        run: bash tools/build_unix.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-${{ matrix.os }}
+          path: release/*.dmg
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [windows, linux, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: out, merge-multiple: true }
+      - name: Somas SHA-256
+        run: cd out && sha256sum * > SHA256SUMS.txt
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: out/*
+          generate_release_notes: true

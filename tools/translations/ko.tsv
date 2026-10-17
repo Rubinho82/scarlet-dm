@@ -1,0 +1,503 @@
+0	구성 요소 다운로드가 완료되지 않았습니다
+1	잘못된 ffmpeg 패키지
+2	잘못된 Deno 패키지
+3	일부 조각이 다운로드되지 않았습니다
+4	링크가 올바른 HLS 재생 목록이 아닙니다
+5	라이브 방송은 지원하지 않습니다(#EXT-X-ENDLIST 없는 재생 목록)
+6	빈 재생 목록
+7	변형이 없는 마스터 재생 목록
+8	잘못된 AES-128 키
+9	보호된 콘텐츠({metodo}/DRM)는 지원하지 않습니다
+10	SSL 인증서 오류(사이트를 신뢰한다면 환경설정에서 확인을 끄세요)
+11	서버에 연결할 수 없습니다
+12	서버가 응답을 멈췄습니다
+13	디스크가 가득 찼습니다
+14	다운로드가 끝나기 전에 중단되었습니다
+15	접근이 거부되었거나 링크가 만료되었습니다(「링크 변경」 사용)
+16	파일이 서버에 더 이상 없습니다
+17	링크가 파일이 아닌 웹 페이지를 열었습니다(로그인 필요 또는 링크 만료)
+18	{algo} 체크섬이 일치하지 않습니다
+19	{disco}에 공간이 부족합니다: {falta} 부족, 여유 {livre}
+20	서버가 더 이상 분할 다운로드를 허용하지 않습니다
+21	잘못된 범위
+22	서버의 파일 크기가 바뀌었습니다. 「다시 시작」을 사용하세요
+23	DRM으로 보호된 콘텐츠(Spotify, Netflix, Deezer…)는 다운로드할 수 없습니다. YouTube, SoundCloud, Vimeo 등의 음악과 동영상은 됩니다.
+24	이 설치에서는 토렌트를 지원하지 않습니다
+25	백신이 위협을 발견했습니다 — 이 파일을 열지 마세요
+26	예약: 다운로드를 재개했습니다
+27	예약: 다운로드를 일시 정지했습니다
+28	잘못된 .torrent 파일: {erro}
+29	감시 폴더에서 토렌트를 추가했습니다: {nome}
+30	감시 폴더의 잘못된 토렌트: {nome} ({erro})
+31	최고 화질
+32	동영상 엔진이 아직 설치되지 않았습니다 — 다운로드를 시작할 때 자동으로 받습니다
+33	동영상 엔진 준비 중…
+34	동영상 변환기 다운로드 중(처음 한 번만)…
+35	YouTube 구성 요소 다운로드 중(처음 한 번만)…
+36	동영상 엔진을 사용할 수 없습니다
+37	동영상: {q}, 조각당 연결 {n}개
+38	환경설정 › 사이트 동영상 › 업데이트를 시도해 보세요
+39	{caminho}에 저장했습니다
+40	동영상을 읽을 수 없습니다
+41	필요한 구성 요소를 받을 수 없습니다({erro}). 인터넷 연결을 확인하고 다시 시도하세요.
+42	사이트가 연결을 거부했습니다. 다시 시도 중({n}/2)…
+43	마무리 중
+44	다운로드가 오류로 끝났습니다({rc})
+45	제목을 미리 읽을 수 없습니다: {erro}
+46	오디오와 비디오 합치는 중
+47	오디오 변환 중
+48	커버 추가 중
+49	정보 기록 중
+50	자막 삽입 중
+51	파일 확인 중
+52	메타데이터 가져오는 중
+53	시딩 중(비율 {r})
+54	자세한 내용을 보려면 다운로드를 선택하세요
+55	재생
+56	열기
+57	폴더 열기
+58	링크 복사
+59	모두 재생
+60	ZIP으로 압축
+61	폴더로 이동…
+62	링크 복사
+63	일반
+64	구간 지도
+65	속도
+66	받고 싶지 않은 파일의 체크를 해제하세요.
+67	파일
+68	로그
+69	활성 연결
+70	시작
+71	끝
+72	받은 양
+73	연결
+74	파일
+75	크기
+76	진행률
+77	다운로드를 선택하세요
+78	전체(회색)
+79	 재생
+80	목록에 {len}개 · 완료 {len2}개({format_size}) · 진행 중 {act}개 · 현재 속도 {format_speed}
+81	다운로드 {len}개 선택됨
+82	전체 크기 {format_size} · 완료 {len}개 · 진행 중 {sum}개
+83	클릭하여 재생
+84	예(분할)
+85	HLS 스트림 → MP4
+86	 {len}개 재생
+87	클릭하여 열기
+88	 · {eta} 남음
+89	피어 {peers}개(시드 {seeds}개)
+90	구간 {len}개
+91	일치 ✓
+92	일치하지 않음
+93	예
+94	토렌트
+95	조각별로 확인됨
+96	구간 {len}개 · 활성 연결 {act}개 · {format_size} / {format_size2}
+97	{name}: {format_speed} · 전체(회색)
+99	아니요
+100	완료됨
+101	토렌트 메타데이터 기다리는 중
+102	사이트 동영상/음악
+103	사이트 동영상: 현재 파일의 {p}%
+105	설치되지 않음 — 필요할 때 자동으로 받습니다
+106	속도 제한
+107	취소
+108	적용
+109	다운로드 추가
+110	링크 붙여넣기: 파일(http/ftp), YouTube/SoundCloud/Vimeo/X/Instagram 동영상…, magnet, .m3u8 — 한 줄에 하나씩. 일괄: foto[001-100].jpg
+111	동영상
+112	오디오만
+113	찾아보기…
+114	파일 이름
+115	자동
+116	바로 시작
+117	  고급 옵션
+118	환경설정의 기본값
+119	이름=값; 다른=값
+120	Authorization: Bearer …\nX-Other: 값
+121	예상 해시(선택): 완료 시 파일을 확인
+122	HLS 스트림(.m3u8)으로 처리
+123	동영상/음악 페이지로 처리
+127	헤더
+128	체크섬
+129	.torrent 열기…
+130	다운로드
+131	폴더 선택
+132	토렌트 열기
+133	토렌트 (*.torrent)
+134	오디오만
+135	삭제
+136	디스크에서도 파일 삭제
+137	다시 묻지 않기(환경설정 › 일반에서 변경 가능)
+138	미완성 파일(.sdm)은 항상 삭제됩니다.
+139	자동 종료
+140	모든 다운로드가 끝났습니다.
+141	지금 종료
+142	닫기
+143	환경설정
+144	다운로드 폴더
+145	종류별 하위 폴더로 나누기(동영상, 음악, 프로그램…)
+146	파일이 이미 있으면
+147	삭제 버튼
+148	창을 닫으면 알림 영역에 남아 있기
+149	클립보드를 감시하고 복사한 링크 제안
+150	Windows와 함께 시작(알림 영역에 최소화)
+151	다운로드 중 PC 절전 방지
+152	언어
+153	간결한 목록(행 높이 낮게)
+154	동영상/노래를 두 번 클릭하면 Scarlet 플레이어에서 열기
+155	화면 확대(재시작 필요)
+156	다운로드
+157	네트워크 문제로 실패한 다운로드 자동 재시도(최대 5회)
+158	파일이 삭제된 다운로드를 목록에서 제거
+159	완료된 다운로드를 목록에서 제거
+160	웹 페이지는 받지 않기(링크가 파일이 아니면 경고)
+161	받은 파일을 인터넷에서 온 것으로 표시(Windows 보안)
+162	받은 파일에 서버 날짜 사용
+163	목록 백업 간격
+164	연결
+165	동시 다운로드
+166	다운로드당 연결
+167	서버당 최대
+168	전체 최대 연결
+169	연결당 재시도
+170	읽기 시간 초과
+171	SSL 인증서 확인(권장)
+172	서버가 불만을 보내면(HTTP 429/503) Scarlet이 스스로 연결을 줄입니다.
+173	다운로드 속도 제한
+174	다운로드 제한
+175	제한 없음
+176	업로드 제한(토렌트)
+177	하단 바의 속도 버튼으로 제한을 빠르게 켜고 끌 수 있습니다.
+178	프록시
+179	직접 연결(프록시 없음)
+180	시스템 프록시 사용
+181	수동 프록시
+182	주소
+183	브라우저
+184	브라우저 확장 프로그램에서 링크 받기
+185	로컬 포트
+186	브라우저에서 온 링크에 확인 창 표시
+187	사이트 동영상
+188	확인 중…
+189	동영상 엔진
+190	동영상 변환기
+191	YouTube 구성 요소
+192	지금 구성 요소 설치 / 업데이트
+193	매주 엔진 업데이트(사이트가 자주 바뀝니다)
+194	기본 다운로드 형식
+195	기본 해상도
+196	기본 FPS
+197	기본 오디오 형식
+198	MP3 음질
+199	동영상 형식
+200	H.264/AAC 우선(TV와 오래된 휴대폰에서도 재생)
+201	자막 받아서 삽입(포르투갈어와 영어)
+202	YouTube, YouTube Music, SoundCloud, Vimeo, X/Twitter, Instagram, TikTok, Facebook, Twitch, Reddit, Bandcamp 등 1000개 이상의 사이트에서 작동합니다. DRM이 있는 서비스(Spotify, Netflix, Deezer…)는 안 됩니다. 받을 권리가 있는 것만 받으세요.
+203	수신 포트
+204	완료 후에도 계속 시딩
+205	비율에 도달하면 시딩 중지
+206	암호화
+207	DHT(트래커 없이 더 많은 피어 찾기)
+208	로컬 피어 검색(로컬 네트워크의 피어)
+209	공유기 포트 열기(UPnP / NAT-PMP)
+210	uTP(네트워크를 막지 않는 프로토콜)
+211	.torrent 폴더 감시
+212	폴더에서 찾은 토렌트를 묻지 않고 시작
+213	다운로드 후 원본 .torrent 파일 삭제
+214	magnet 링크와 .torrent 파일에 Scarlet DM 사용
+215	엔진
+216	백신
+217	다운로드가 끝나면 각 파일을 백신으로 검사
+218	프로그램
+219	Windows Defender는 자동, 파일은 %path% 사용
+220	인수
+221	위협이 있으면 다운로드가 빨간색으로 표시되고 경고를 받습니다.
+222	알림
+223	다운로드 완료 시 알림
+224	다운로드 추가 시 알림
+225	다운로드 실패 시 알림
+226	Scarlet 창이 앞에 없을 때만 알림
+227	알림과 함께 소리 재생
+228	예약
+229	매일 예약 사용
+230	모두 재개 시각
+231	모두 일시 정지 시각
+232	인터넷이 한가한 밤에 다운로드할 때 유용합니다.
+233	원격 접속
+234	같은 네트워크의 휴대폰이나 다른 PC에서 다운로드 제어 허용
+235	포트
+236	생성
+237	비밀번호
+238	저장하면 하단 바의 「원격」 배지에 주소가 표시됩니다. 처음에는 Windows가 방화벽 허용을 물을 수 있습니다.
+239	고급
+240	.m3u8 스트림 화질
+241	다운로드가 끝나면 프로그램 실행
+242	인수(%path%)
+243	데이터 폴더
+244	저장
+245	프로그램 선택
+246	저장했습니다. 다른 프로그램이 이미 기본값이면 Windows의 「기본 앱」에서 확인해야 합니다. 지금 그 화면을 열까요?
+247	최대 속도(예: 750 KB, 3 MB):
+248	해상도
+249	형식
+250	품질
+251	다운로드 형식
+252	저장 위치
+253	이 동영상에는 60 fps 버전이 없습니다
+254	이 형식은 원본 오디오를 재인코딩 없이 유지합니다
+255	Spotify, Netflix, Deezer 등 DRM(복사 방지)이 있는 서비스는 받을 수 없습니다. YouTube, SoundCloud, Vimeo 등 1000개 이상의 사이트는 됩니다.
+256	 (일괄 목록 펼침)
+257	동영상/음악 정보 읽는 중…
+258	링크 확인 중…
+259	HLS 스트림(.m3u8): 분할로 받아서 MP4로 저장합니다
+260	이 링크는 파일이 아닌 웹 페이지를 엽니다. 동영상 페이지라면 고급 옵션에서 「동영상 페이지로 처리」를 체크하세요.
+261	크기 알 수 없음
+262	이어받기 가능, 다중 연결
+263	이어받기 불가(연결 1개)
+264	libtorrent가 설치되지 않음(pip install libtorrent)
+265	백신 경로(.exe)
+266	찾을 수 없음 — 스트림은 .ts로 남습니다
+267	새 언어는 Scarlet DM을 다음에 시작할 때 적용됩니다.
+268	.torrent 파일 {len}개: {names}
+269	여러 동영상/노래
+270	선택한 품질이 모두에 적용됩니다.
+271	토렌트를 사용할 수 없습니다: pip install libtorrent  로 설치하세요
+273	찾았습니다({detalhe}). 품질을 고르고 다운로드를 클릭하세요.
+274	다운로드 {count}개를 목록에서 삭제할까요?
+275	{left}초 후 컴퓨터가 종료됩니다.
+276	{APP_NAME} 정보
+277	버전 {VERSION}
+278	파일당 다중 연결, 이어받기, 대기열, 속도 제한, 예약, 사이트 동영상과 음악, HLS 스트림, 토렌트, 백신, 원격 접속, 브라우저 연동을 갖춘 다운로드 관리자.\n\n토렌트: {__version__ifltelseindisponível}\n사이트 동영상: {prontoifytdlp_command}\nffmpeg: {find_ffmpeg}\n데이터: {app_data_dir}
+279	이름 바꾸기(파일 (1).ext)
+280	덮어쓰기
+281	항상 묻기
+282	목록에서만 제거
+283	제거하고 파일 삭제
+284	MP4(어디서나 재생)
+285	암호화 선호
+286	암호화 필수
+287	끔
+288	프로그램 (*.exe)
+289	ffmpeg (ffmpeg.exe);;실행 파일 (*.exe)
+290	사용 가능한 최고 화질
+291	최소 크기
+292	프로그램 (*.exe *.bat *.cmd);;모두 (*.*)
+293	여유 공간: {format_size}
+294	 · 동영상/음악 {sum}개
+295	링크 {len}개가 추가됩니다{extra}{kinds}
+296	SSL 인증서 오류
+297	항목 {res}개의 재생 목록 — 모두 추가됩니다
+298	재생 목록: 항목 {res}개
+299	최대 {h}p
+300	{res} — 그래도 추가하고 나중에 다시 시도할 수 있습니다
+301	공간 부족: {format_size} 필요, 여유 {format_size2}
+302	자동(Windows 언어)
+303	자동: {defender}
+304	토렌트: {dn}
+305	폴더를 사용할 수 없습니다: {e}
+306	저장할 수 없습니다: {e}
+307	서버 응답 없음({__name__})
+308	버전 {v} ✓
+309	오류: {erro}
+310	다운로드 추가 (Ctrl+N)
+311	시작 / 재개 (Space)
+312	일시 정지 (Space)
+313	삭제 (Del)
+314	모두 재개
+315	모두 일시 정지
+316	다운로드 검색…
+317	환경설정 (Ctrl+,)
+318	메뉴
+319	무시
+320	아직 다운로드가 없습니다.\n +  를 클릭하거나, 링크를 붙여넣거나(Ctrl+V), 창으로 끌어오세요.
+321	전체 다운로드 속도
+322	전체 업로드 속도(토렌트)
+323	제한 없음
+324	클릭하여 속도 제한 켜기/끄기
+325	제한 선택
+326	브라우저 연동
+327	원격
+328	휴대폰 원격 접속 — 클릭하여 주소 복사
+329	자세히
+330	자세히 패널 표시/숨기기
+331	사용자 지정…
+332	다운로드 추가…\tCtrl+N
+333	클립보드에서 링크 붙여넣기\tCtrl+V
+334	파일에서 링크 가져오기…
+335	.torrent 파일 열기…
+336	링크 내보내기…
+337	완료된 항목 목록에서 제거
+338	속도 제한
+339	모두 끝나면 PC 종료
+340	환경설정…\tCtrl+,
+341	정보
+342	종료\tCtrl+Q
+343	창 보이기
+344	다운로드 추가…
+345	링크 붙여넣기
+346	종료
+347	처음부터 다시 시작
+348	대기열 맨 위로
+349	대기열 맨 아래로
+350	삭제…\tDel
+352	폴더로 이동
+353	링크 변경
+354	새 링크(이전 링크가 만료되었을 때 유용). 같은 파일이면 진행률이 유지됩니다.
+355	링크 가져오기
+356	텍스트 (*.txt *.csv *.html *.htm);;모두 (*.*)
+357	링크 내보내기
+358	텍스트 (*.txt)
+359	magnet 링크
+360	모든 다운로드가 끝나면 컴퓨터가 종료됩니다.
+361	연결 프로그램…
+362	일시 정지
+363	링크 변경…
+364	링크 복사\tCtrl+Shift+C
+365	해시 계산
+366	다시 시작
+367	클립보드에 링크가 없습니다.
+368	파일에서 링크를 찾지 못했습니다.
+369	브라우저: 꺼짐
+370	링크 복사됨 — 클릭하여 다운로드
+371	검색 결과가 없습니다.
+372	다운로드 완료
+373	여기에 압축 풀기
+374	ZIP으로 압축…
+375	{name}의 {upper} 계산 중…
+376	{name}의 {upper}:\n\n{value}\n\n(클립보드에 복사됨)
+377	이미 목록에 있음
+378	원격: 포트 사용 중
+379	브라우저: 포트 사용 중
+380	{first} 외 {len}개
+381	알림 영역에서 계속 실행됩니다. 종료하려면 오른쪽 클릭하세요.
+382	대기 {n_q}개
+383	다운로드 실패
+384	파일이 디스크에 더 이상 없습니다.\n「다시 시작」으로 다시 받으세요.
+385	ZIP 생성됨: {basename} ({format_size})
+386	{moved}개 항목을 {d}(으)로 이동했습니다
+387	{basename} 압축 푸는 중…
+388	압축 풀기 완료: 파일 {n}개 → {out}
+389	다운로드 {len}개를 처음부터 다시 받을까요? 현재 진행률은 사라집니다.
+390	다운로드 추가됨
+391	링크 {len}개를 {f}(으)로 내보냈습니다
+392	제한: {format_size}/s
+393	원격: {url}
+394	주소 복사됨: {url} — 휴대폰 브라우저에서 열고(같은 Wi-Fi) 환경설정의 비밀번호를 사용하세요.
+395	브라우저에서 다운로드 {len}개를 받았습니다
+396	링크 복사됨: {label}
+397	여유: {format_size}
+398	\n진행 중 {n_act}개, 대기 {n_q}개
+399	⚠ 위협 발견
+400	미디어 {n}개 재생
+401	압축 실패: {e}
+402	이동 중 {i}/{len}: {name}…
+403	이동 실패: {e}
+404	.rar/.7z/.iso는 7-Zip을 설치하세요(7-zip.org)
+405	압축 풀기 실패: {e}
+406	링크 {len}개는 이미 목록에 있습니다. 그래도 추가할까요?
+407	브라우저: 준비됨(:{port})
+408	포트 {port}를 열 수 없습니다: {error}
+409	오류: {e}
+410	{name}\n백신이 위협을 발견했습니다. 파일을 열지 마세요.
+411	{basename}을(를) 열 수 없습니다:\n{e}
+412	다운로드 {len}개 추가됨
+413	파일 {len}개 압축 중… {done100total}% ({format_size} / {format_size2})
+414	파일 없음
+415	체크섬 확인 중…
+416	오류:
+417	{txt} · 피어 {peers}개
+418	{base} · 연결 {n}개
+419	Scarlet DM — 플레이어
+420	이전 (P)
+421	재생/일시 정지 (Space)
+422	다음 (N)
+423	음소거 (M)
+424	전체 화면 (F)
+425	전체 화면 종료 (Esc)
+426	Esc 또는 두 번 클릭으로 전체 화면 종료
+428	재생할 수 없습니다: {erro}. 「열기」로 다른 프로그램에서 재생하세요.
+429	최근 60초
+430	대기 중
+431	연결 중…
+432	다운로드 중
+433	일시 정지됨
+434	완료
+435	오류
+436	처리 중…
+437	시딩 중
+438	음악
+439	문서
+440	압축 파일
+441	프로그램
+442	이미지
+443	기타
+444	전체
+445	진행 중
+446	완료됨
+447	일시 정지됨
+448	오류 있음
+449	없는 파일
+450	남은 시간
+451	이어받기 가능
+452	종류
+453	추가됨
+454	로그인
+455	비밀번호가 틀렸습니다
+456	모두 일시 정지
+457	재개
+458	링크 붙여넣기(파일, YouTube, magnet…)
+459	다운로드가 없습니다.
+460	시작
+461	사용 가능한 최고
+468	60 fps(더 부드럽게)
+469	30 fps(더 작은 파일)
+471	M4A(AAC, 재인코딩 없음)
+472	OPUS(재인코딩 없음)
+473	FLAC(무손실)
+474	320 kbps(최고)
+477	128 kbps(최저)
+=Nome	이름
+=Estado	상태
+=Restante	남은 시간
+=Pular sites, pular extensões e o tamanho mínimo ficam no ícone da extensão.	건너뛸 사이트, 확장자, 최소 크기는 확장 프로그램 아이콘에서 설정합니다.
+=Qualquer outro navegador: deixe ligado “Monitorar a área de transferência” em Geral — copie o link e o Scarlet oferece o download.	그 밖의 브라우저: 일반에서 「클립보드 감시」를 켜 두세요 — 링크를 복사하면 Scarlet이 다운로드를 제안합니다.
+=Firefox: abra about:debugging → “Este Firefox” → “Carregar extensão temporária” e escolha o manifest.json da pasta “extension-firefox” (vale até fechar o Firefox; a versão permanente é a publicada na loja de extensões da Mozilla).	Firefox: about:debugging → 「이 Firefox」 → 「임시 부가 기능 로드」를 열고 「extension-firefox」 폴더의 manifest.json을 고르세요(Firefox를 닫을 때까지 유지되며, 영구 버전은 Mozilla 부가 기능 스토어에 게시된 것입니다).
+=Chrome, Edge, Brave, Opera e Vivaldi: abra a página de extensões (chrome://extensions, edge://extensions…), ligue o “Modo do desenvolvedor”, clique em “Carregar sem compactação” e escolha a pasta “extension”.	Chrome, Edge, Brave, Opera, Vivaldi: 확장 프로그램 페이지(chrome://extensions, edge://extensions…)를 열고 「개발자 모드」를 켠 다음 「압축해제된 확장 프로그램을 로드합니다」를 눌러 「extension」 폴더를 고르세요.
+=Preparando…	준비 중…
+=Criando atalhos…	바로 가기 만드는 중…
+=Registrando…	등록 중…
+=O Scarlet DM está aberto. Feche-o (ícone perto do relógio → Sair) e clique em “Tentar de novo”.	Scarlet DM이 열려 있습니다. 닫은 뒤(시계 옆 아이콘 → 종료) 「다시 시도」를 누르세요.
+=Tentar de novo	다시 시도
+=Fechar para mim	대신 닫기
+=Instalar em	설치 위치
+=Criar atalho na Área de Trabalho	바탕 화면에 바로 가기 만들기
+=Criar atalho no Menu Iniciar	시작 메뉴에 바로 가기 만들기
+=Iniciar com o Windows (minimizado perto do relógio)	Windows와 함께 시작(시계 옆에 최소화)
+=Abrir links magnet e arquivos .torrent com o Scarlet DM	magnet 링크와 .torrent 파일을 Scarlet DM으로 열기
+=Instalar	설치
+=Pronto! O Scarlet DM foi instalado.	완료! Scarlet DM이 설치되었습니다.
+=Abrir o Scarlet DM agora	지금 Scarlet DM 열기
+=Concluir	마침
+=Remover o Scarlet DM deste computador?	이 컴퓨터에서 Scarlet DM을 제거할까요?
+=Apagar também a lista de downloads, as configurações e os componentes de vídeo	다운로드 목록, 설정, 동영상 구성 요소도 삭제
+=Os arquivos que você baixou não são apagados.	다운로드한 파일은 삭제되지 않습니다.
+=Desinstalar	제거
+=O Scarlet DM foi removido.	Scarlet DM이 제거되었습니다.
+=Para baixar direto do navegador (Chrome, Edge, Brave, Opera, Vivaldi ou Firefox), instale a extensão: Preferências › Navegador.	브라우저(Chrome, Edge, Brave, Opera, Vivaldi, Firefox)에서 바로 받으려면 확장 프로그램을 설치하세요: 환경설정 › 브라우저.
+=Instalar {app}	{app} 설치
+=Versão {v} · gerenciador de downloads	버전 {v} · 다운로드 관리자
+=Para fixar na barra de tarefas: com o Scarlet aberto, clique com o botão direito no ícone dele na barra de tarefas → “Fixar na barra de tarefas” (o Windows não deixa programas fazerem isso sozinhos).	작업 표시줄에 고정하려면: Scarlet을 연 상태에서 작업 표시줄의 아이콘을 오른쪽 클릭 → 「작업 표시줄에 고정」(Windows는 프로그램이 스스로 고정하는 것을 허용하지 않습니다).
+=Espaço necessário: {n}	필요한 공간: {n}
+=Desinstalar {app}	{app} 제거
+=Versão {v}	버전 {v}
+=Não foi possível instalar:\n{erro}	설치하지 못했습니다:\n{erro}
+=Copiando arquivos… {p}%	파일 복사 중… {p}%
+=Bem-vindo ao Scarlet DM	Scarlet DM에 오신 것을 환영합니다
+=Vamos deixar tudo pronto em 10 segundos.	10초 만에 준비를 마칩시다.
+=Salvar downloads em	다운로드 저장 위치
+=Dica: para baixar direto do navegador, instale a extensão em Preferências › Navegador. Tudo isto pode ser mudado depois nas Preferências.	팁: 브라우저에서 바로 받으려면 환경설정 › 브라우저에서 확장 프로그램을 설치하세요. 모두 나중에 환경설정에서 바꿀 수 있습니다.
+=Começar	시작하기
+=Registrado.	등록했습니다.

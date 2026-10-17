@@ -1,0 +1,100 @@
+{
+ "extName": {
+  "message": "Scarlet DM — Integrazione"
+ },
+ "extDesc": {
+  "message": "Invia download, link e video (HLS) dal browser a Scarlet DM."
+ },
+ "menuLink": {
+  "message": "Scarica con Scarlet DM"
+ },
+ "menuMedia": {
+  "message": "Scarica questo media con Scarlet DM"
+ },
+ "menuSelection": {
+  "message": "Scarica i link selezionati"
+ },
+ "menuPageMedia": {
+  "message": "Scarica il video/musica di questa pagina (YouTube, SoundCloud…)"
+ },
+ "menuPage": {
+  "message": "Scarica tutti i file di questa pagina"
+ },
+ "noFiles": {
+  "message": "Nessun file trovato."
+ },
+ "noFilesPage": {
+  "message": "Nessun file trovato nella pagina."
+ },
+ "offline": {
+  "message": "Scarlet DM non è aperto (o l'integrazione con il browser è disattivata nelle Preferenze)."
+ },
+ "checking": {
+  "message": "verifica…"
+ },
+ "connected": {
+  "message": "connesso"
+ },
+ "appClosed": {
+  "message": "app chiusa"
+ },
+ "detected": {
+  "message": "Media rilevati in questa scheda"
+ },
+ "btnPageMedia": {
+  "message": "Scarica il video/musica di questa pagina"
+ },
+ "btnPage": {
+  "message": "Scarica i file della pagina"
+ },
+ "btnShow": {
+  "message": "Apri Scarlet DM"
+ },
+ "prefs": {
+  "message": "Preferenze"
+ },
+ "optIntercept": {
+  "message": "Cattura i download del browser"
+ },
+ "optMinSize": {
+  "message": "Ignora i file più piccoli di (KB)"
+ },
+ "optSkipHtml": {
+  "message": "Non catturare pagine web"
+ },
+ "optSkipDomains": {
+  "message": "Salta questi siti (es.: drive.google.com, mega.nz)"
+ },
+ "phSkipDomains": {
+  "message": "uno per riga o separati da virgole"
+ },
+ "optSkipExts": {
+  "message": "Salta queste estensioni (es.: pdf, jpg)"
+ },
+ "optPort": {
+  "message": "Porta dell'app"
+ },
+ "noMedia": {
+  "message": "Nessun video o audio rilevato. Avvia il video e riapri questo pannello."
+ },
+ "hlsStream": {
+  "message": "flusso HLS"
+ },
+ "download": {
+  "message": "Scarica"
+ },
+ "sent": {
+  "message": "Inviato a Scarlet DM."
+ },
+ "pageSent": {
+  "message": "Pagina inviata: scegli la qualità in Scarlet DM."
+ },
+ "linksSent": {
+  "message": "$COUNT$ link inviati.",
+  "placeholders": {
+   "count": {
+    "content": "$1"
+   }
+  }
+ }
+}

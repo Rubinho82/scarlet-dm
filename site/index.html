@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scarlet DM — o gerenciador de downloads rápido e livre</title>
+<meta name="description" content="Scarlet DM: até 32 conexões por arquivo, vídeos e músicas de +1000 sites, torrents e extensão para qualquer navegador. Windows, macOS e Linux. Grátis e open source.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<meta property="og:title" content="Scarlet DM">
+<meta property="og:description" content="O gerenciador de downloads rápido, leve e livre. Windows, macOS e Linux.">
+<meta property="og:image" content="assets/screenshot.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;620;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f2f1ee; --paper:#f7f6f3; --ink:#0d0d0f; --ink2:#3d3d44; --muted:#7a7a82; --rule:#d9d7d1; --rule2:#e6e4df;
+    --accent:#d61f2c; --chip:#ecebe7; --shot:#0a0a0c; --btn:#0d0d0f; --btn-ink:#ffffff;
+    --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+    --sans:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --display:"Archivo", "Inter", system-ui, sans-serif;
+  }
+  :root[data-theme="dark"] {
+    --bg:#0a0a0c; --paper:#0e0e11; --ink:#ededf1; --ink2:#b9b9c2; --muted:#7d7d87; --rule:#25252b; --rule2:#1b1b20;
+    --accent:#ff3d49; --chip:#17171b; --shot:#000; --btn:#e3222f; --btn-ink:#ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:#0a0a0c; --paper:#0e0e11; --ink:#ededf1; --ink2:#b9b9c2; --muted:#7d7d87; --rule:#25252b; --rule2:#1b1b20;
+      --accent:#ff3d49; --chip:#17171b; --shot:#000; --btn:#e3222f; --btn-ink:#ffffff;
+    }
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 var(--sans); -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  img { max-width:100%; display:block; }
+  .mono { font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; }
+  .accent { color:var(--accent); }
+
+  /* ---------- barra superior ---------- */
+  nav { position:sticky; top:0; z-index:20; height:48px; display:flex; align-items:stretch; background:var(--bg);
+        border-bottom:1px solid var(--rule); }
+  nav .brand { display:flex; align-items:center; gap:10px; padding:0 16px; border-right:1px solid var(--rule);
+               text-decoration:none; font:700 15px var(--display); }
+  nav .brand img { width:24px; height:24px; }
+  nav .links { display:flex; align-items:center; gap:22px; padding:0 18px; }
+  nav .links a { text-decoration:none; color:var(--ink2); }
+  nav .links a:hover { color:var(--accent); }
+  nav .right { margin-left:auto; display:flex; align-items:stretch; }
+  nav .right > * { border-left:1px solid var(--rule); display:flex; align-items:center; padding:0 14px; }
+  nav select, nav button { background:none; border:none; color:var(--ink); font:inherit; cursor:pointer; }
+  nav select { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; }
+  nav select option { color:#000; }
+  nav .cta { background:var(--btn); color:var(--btn-ink); text-decoration:none; padding:0 20px; }
+  nav .cta:hover { background:var(--accent); }
+  @media (max-width:860px) { nav .links { display:none; } }
+
+  /* ---------- moldura com réguas ---------- */
+  .frame { max-width:1240px; margin:0 auto; border-left:1px solid var(--rule); border-right:1px solid var(--rule);
+           background:var(--paper); position:relative; }
+  .gutter { position:fixed; top:48px; bottom:0; width:calc((100vw - 1240px) / 2); pointer-events:none; }
+  .gutter.left { left:0; } .gutter.right { right:0; }
+  .gutter .ticks { position:absolute; top:0; bottom:0; width:22px;
+    background:repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 48px); }
+  .gutter.left .ticks { right:24px; } .gutter.right .ticks { left:24px; }
+  .gutter .pct { position:absolute; left:20px; top:30%; color:var(--accent); }
+  .spy { position:fixed; right:calc((100vw - 1240px) / 2 + 24px); top:96px; z-index:5; text-align:right; pointer-events:none; }
+  .spy div { font:700 13px var(--display); letter-spacing:.02em; text-transform:uppercase; color:var(--muted); opacity:.55;
+             transition:all .25s; line-height:1.25; }
+  .spy div.on { font-size:26px; color:var(--ink); opacity:1; }
+  @media (max-width:1300px) { .gutter, .spy { display:none; } }
+
+  section { border-bottom:1px solid var(--rule); position:relative; }
+  .label { display:flex; justify-content:space-between; padding:14px 28px; border-bottom:1px solid var(--rule2); color:var(--muted); }
+  .pad { padding:56px 64px; }
+  @media (max-width:760px) { .pad { padding:40px 20px; } .label { padding:12px 20px; } }
+  h2 { font:620 clamp(34px, 5vw, 56px)/1.05 var(--display); letter-spacing:-.02em; margin:0 0 10px; }
+  p.lead { color:var(--ink2); max-width:640px; margin:0; font-size:17px; }
+
+  /* ---------- herói ---------- */
+  .hero { text-align:center; padding:70px 24px 40px; }
+  .hero .icon { width:112px; height:112px; margin:0 auto 18px; filter:drop-shadow(0 16px 30px rgba(214,31,44,.28)); }
+  .tag { display:inline-flex; align-items:center; gap:8px; font:600 17px var(--display); margin-bottom:18px; }
+  .tag .num { background:var(--ink); color:var(--bg); font:500 11px var(--mono); padding:3px 6px; }
+  .hero h1 { font:620 clamp(42px, 7.2vw, 84px)/1.02 var(--display); letter-spacing:-.03em; margin:0 auto 22px; max-width:900px; }
+  .hero p.lead { margin:0 auto 30px; text-align:center; }
+  .btns { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:10px; padding:14px 20px; border:1px solid var(--ink); color:var(--ink);
+         text-decoration:none; font:500 11.5px var(--mono); letter-spacing:.14em; text-transform:uppercase; background:transparent;
+         transition:background .15s, color .15s, transform .15s; }
+  .btn:hover { transform:translateY(-1px); }
+  .btn.solid { background:var(--btn); color:var(--btn-ink); border-color:var(--btn); }
+  .btn.solid:hover { background:var(--accent); border-color:var(--accent); }
+  .btn.ghost:hover { background:var(--ink); color:var(--bg); }
+  .btn svg { width:14px; height:14px; }
+  .under { margin-top:12px; color:var(--muted); }
+  .platforms { margin-top:26px; color:var(--muted); }
+  .platforms a { text-decoration:none; border-bottom:1px solid var(--rule); }
+  .shot { margin:0; background:var(--shot); border-top:1px solid var(--rule); }
+  .shot .cap { display:flex; justify-content:space-between; padding:12px 28px; color:var(--muted); background:var(--paper);
+               border-bottom:1px solid var(--rule); }
+  .shot img { width:100%; }
+
+  /* ---------- grade de recursos ---------- */
+  .grid { display:grid; grid-template-columns:repeat(3, 1fr); border-top:1px solid var(--rule); }
+  .cell { padding:30px 30px 34px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule); position:relative; }
+  .cell:nth-child(3n) { border-right:none; }
+  .cell .n { position:absolute; top:14px; right:18px; color:var(--muted); }
+  .cell h3 { font:620 20px var(--display); margin:22px 0 8px; letter-spacing:-.01em; }
+  .cell p { margin:0; color:var(--ink2); font-size:14.5px; }
+  @media (max-width:900px) { .grid { grid-template-columns:1fr 1fr; } .cell:nth-child(3n) { border-right:1px solid var(--rule); }
+                             .cell:nth-child(2n) { border-right:none; } }
+  @media (max-width:600px) { .grid { grid-template-columns:1fr; } .cell { border-right:none !important; } }
+
+  .shots2 { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--rule); background:var(--shot); }
+  .shots2 figure { margin:0; border-right:1px solid var(--rule); display:flex; flex-direction:column; }
+  .shots2 figure:last-child { border-right:none; }
+  .shots2 .img { flex:1; display:grid; place-items:center; padding:26px; }
+  .shots2 figcaption { display:flex; justify-content:space-between; padding:12px 24px; color:var(--muted); background:var(--paper);
+                       border-top:1px solid var(--rule); }
+  @media (max-width:760px) { .shots2 { grid-template-columns:1fr; } .shots2 figure { border-right:none; border-bottom:1px solid var(--rule); } }
+
+  /* ---------- baixar ---------- */
+  .os { display:grid; grid-template-columns:repeat(3, 1fr); border-top:1px solid var(--rule); }
+  .os > div { padding:26px 28px 30px; border-right:1px solid var(--rule); }
+  .os > div:last-child { border-right:none; }
+  .os .head { display:flex; justify-content:space-between; color:var(--muted); margin-bottom:22px; }
+  .os .mine .head span:first-child { color:var(--accent); }
+  .os h3 { display:flex; align-items:center; gap:10px; font:620 24px var(--display); margin:0 0 6px; }
+  .os h3 .ic { width:30px; height:30px; border:1px solid var(--rule); display:grid; place-items:center; }
+  .os h3 .ic svg { width:16px; height:16px; }
+  .os .desc { color:var(--ink2); font-size:14px; margin:0 0 16px; min-height:44px; }
+  .os .btn { width:100%; justify-content:center; }
+  .files { margin-top:22px; }
+  .files .mono { color:var(--muted); margin-bottom:6px; display:block; }
+  .file { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; padding:12px 0; border-top:1px solid var(--rule2);
+          text-decoration:none; }
+  .file b { display:block; font-weight:600; font-size:14px; }
+  .file small { color:var(--ink2); font-size:13px; display:block; }
+  .file code { color:var(--muted); font:400 11px var(--mono); }
+  .file .dl { color:var(--muted); font-size:16px; }
+  .file:hover b, .file:hover .dl { color:var(--accent); }
+  .missing { opacity:.45; pointer-events:none; }
+  .missing code::after, .missing .soon::after { content:" · " attr(data-soon); }
+  @media (max-width:900px) { .os { grid-template-columns:1fr; } .os > div { border-right:none; border-bottom:1px solid var(--rule); } }
+
+  .two { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--rule); }
+  .two > div { padding:40px 44px; border-right:1px solid var(--rule); }
+  .two > div:last-child { border-right:none; }
+  .two h2 { font-size:clamp(28px, 3.4vw, 40px); }
+  @media (max-width:900px) { .two { grid-template-columns:1fr; } .two > div { border-right:none; border-bottom:1px solid var(--rule); padding:32px 20px; } }
+  .term { margin-top:22px; border:1px solid var(--rule); background:var(--bg); }
+  .term .bar { display:flex; justify-content:space-between; padding:8px 12px; border-bottom:1px solid var(--rule); color:var(--muted); }
+  .term button { background:none; border:none; color:var(--muted); cursor:pointer; font:inherit; }
+  .term pre { margin:0; padding:14px 16px; font:12.5px/1.7 var(--mono); color:var(--ink); overflow-x:auto; }
+
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+  .chip { border:1px solid var(--rule); background:var(--chip); padding:6px 10px; }
+
+  details { border-top:1px solid var(--rule2); padding:18px 0; }
+  details summary { cursor:pointer; font:600 17px var(--display); list-style:none; display:flex; justify-content:space-between; gap:20px; }
+  details summary::-webkit-details-marker { display:none; }
+  details summary::after { content:"+"; font:400 20px var(--mono); color:var(--muted); }
+  details[open] summary::after { content:"–"; }
+  details p { color:var(--ink2); margin:10px 0 0; max-width:760px; }
+
+  .final { text-align:center; padding:90px 24px; }
+  .final h2 { font-size:clamp(40px, 6vw, 72px); }
+
+  footer { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; }
+  footer > div { padding:34px 28px; border-right:1px solid var(--rule); }
+  footer > div:last-child { border-right:none; }
+  footer .mono { color:var(--muted); display:block; margin-bottom:12px; }
+  footer a { display:block; text-decoration:none; color:var(--ink2); font-size:14px; padding:3px 0; }
+  footer a:hover { color:var(--accent); }
+  .legal { display:flex; justify-content:space-between; padding:14px 28px; color:var(--muted); border-top:1px solid var(--rule); }
+  @media (max-width:760px) { footer { grid-template-columns:1fr 1fr; } footer > div { border-bottom:1px solid var(--rule); } }
+
+  .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform:none; transition:none; } html { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="#top"><img src="assets/logo.png" alt="">Scarlet DM</a>
+  <div class="links mono">
+    <a href="#recursos" data-i="nav_features">Recursos</a>
+    <a href="#telas" data-i="nav_shots">Telas</a>
+    <a href="#baixar" data-i="nav_download">Baixar</a>
+    <a href="#navegador" data-i="nav_browser">Navegador</a>
+    <a href="#duvidas" data-i="nav_faq">Dúvidas</a>
+  </div>
+  <div class="right">
+    <select id="lang" aria-label="Idioma / Language"><option value="pt">PT</option><option value="en">EN</option><option value="es">ES</option></select>
+    <button id="theme" aria-label="Tema claro ou escuro" title="Tema">◐</button>
+    <a class="cta mono" href="#baixar" data-i="nav_cta">Baixar</a>
+  </div>
+</nav>
+
+<div class="gutter left"><div class="ticks"></div></div>
+<div class="gutter right"><div class="ticks"></div><div class="pct mono" id="pct">0%</div></div>
+<div class="spy" id="spy"></div>
+
+<main class="frame" id="top">
+  <section id="inicio" data-spy="Scarlet DM">
+    <div class="label mono"><span>01 / Scarlet DM</span><span data-i="lbl_kind">Gerenciador de downloads · 2.0</span></div>
+    <div class="hero">
+      <img class="icon reveal" src="assets/logo.png" alt="Scarlet DM">
+      <div class="tag reveal"><span class="num">01</span>Scarlet <span class="accent">DM</span></div>
+      <h1 class="reveal" data-i="h1">Seus downloads na velocidade <span class="accent">máxima</span>.</h1>
+      <p class="lead reveal" data-i="sub">Até 32 conexões por arquivo, vídeos e músicas de mais de 1000 sites, torrents e extensão para qualquer navegador. Leve, sem anúncios — e o código é seu.</p>
+      <div class="btns reveal">
+        <a class="btn solid" id="primary" href="#baixar">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 2v9M4 7.5 8 11.5l4-4M3 14h10"/></svg>
+          <span>Baixar para Windows</span></a>
+        <a class="btn ghost" href="#navegador"><span data-i="btn_ext">Extensão do navegador</span></a>
+        <a class="btn ghost gh" href="#" target="_blank" rel="noopener"><span data-i="btn_gh">Ver no GitHub</span></a>
+      </div>
+      <div class="under mono" id="under">Para Windows · Instalador (64-bit)</div>
+      <div class="platforms mono"><a href="#baixar" data-i="other">Outras plataformas e downloads ↓</a></div>
+      <div class="platforms mono" style="margin-top:10px">Windows · macOS · Linux · <span data-i="free">Grátis e open source</span></div>
+    </div>
+    <figure class="shot">
+      <div class="cap mono"><span data-i="cap1">Mapa de seções — 8 conexões por arquivo</span><span>Screenshot</span></div>
+      <img src="assets/screenshot.png" alt="Scarlet DM baixando vários arquivos ao mesmo tempo">
+    </figure>
+  </section>
+
+  <section id="recursos" data-spy="Recursos" data-spy-i="spy_feat">
+    <div class="label mono"><span data-i="lbl_feat">02 / Recursos</span><span data-i="lbl_feat2">Por dentro</span></div>
+    <div class="pad"><h2 class="reveal" data-i="feat_h">O que tem <span class="accent">dentro</span>.</h2>
+      <p class="lead reveal" data-i="feat_lead">Tudo que um gerenciador de downloads precisa, sem conta, sem anúncio e sem coleta de dados.</p></div>
+    <div class="grid">
+      <div class="cell reveal"><span class="n mono">01</span><h3 data-i="f1t">Velocidade máxima</h3><p data-i="f1">Divide cada arquivo em partes e baixa com até 32 conexões. Se a internet cair, continua de onde parou.</p></div>
+      <div class="cell reveal"><span class="n mono">02</span><h3 data-i="f2t">Vídeos e músicas</h3><p data-i="f2">YouTube, SoundCloud, Vimeo, Instagram, TikTok, X e +1000 sites. Até 4K, 30 ou 60 fps, ou MP3 até 320 kbps.</p></div>
+      <div class="cell reveal"><span class="n mono">03</span><h3 data-i="f3t">Torrents e magnet</h3><p data-i="f3">Escolha os arquivos do torrent, limite o upload e pare de compartilhar quando quiser.</p></div>
+      <div class="cell reveal"><span class="n mono">04</span><h3 data-i="f4t">Qualquer navegador</h3><p data-i="f4">Extensão para Chrome, Edge, Brave, Opera, Vivaldi e Firefox. Nos outros, é só copiar o link.</p></div>
+      <div class="cell reveal"><span class="n mono">05</span><h3 data-i="f5t">Player embutido</h3><p data-i="f5">Assista ao que baixou sem sair do app: tela cheia, atalhos e prévia do tempo na barra.</p></div>
+      <div class="cell reveal"><span class="n mono">06</span><h3 data-i="f6t">Leve de verdade</h3><p data-i="f6">Quase zero de CPU parado e poucos MB de RAM na bandeja. Roda até em PC antigo.</p></div>
+      <div class="cell reveal"><span class="n mono">07</span><h3 data-i="f7t">Agendador e limites</h3><p data-i="f7">Baixe de madrugada, limite a velocidade com um clique e desligue o PC quando terminar.</p></div>
+      <div class="cell reveal"><span class="n mono">08</span><h3 data-i="f8t">Pelo celular</h3><p data-i="f8">Acompanhe e adicione downloads pelo navegador do celular na mesma Wi-Fi, com senha.</p></div>
+      <div class="cell reveal"><span class="n mono">09</span><h3 data-i="f9t">11 idiomas</h3><p>Português, English, Español, Français, Deutsch, Italiano, Русский, Türkçe, 中文, 日本語, 한국어.</p></div>
+    </div>
+  </section>
+
+  <section id="telas" data-spy="Telas" data-spy-i="spy_shots">
+    <div class="label mono"><span data-i="lbl_shots">03 / Telas</span><span>Screenshots</span></div>
+    <div class="shots2">
+      <figure><div class="img"><img src="assets/shot-youtube.png" alt="Adicionar vídeo do YouTube escolhendo a qualidade" loading="lazy"></div>
+        <figcaption class="mono"><span data-i="cap2">Vídeo do YouTube — escolha a qualidade</span><span>01</span></figcaption></figure>
+      <figure><div class="img"><img src="assets/shot-languages.png" alt="Preferências em japonês" loading="lazy"></div>
+        <figcaption class="mono"><span data-i="cap3">Preferências — em 11 idiomas</span><span>02</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="baixar" data-spy="Baixar" data-spy-i="spy_get">
+    <div class="label mono"><span data-i="lbl_get">04 / Baixar</span><span data-i="lbl_get2">Grátis · open source</span></div>
+    <div class="pad"><h2 class="reveal" data-i="get_h">Baixe o Scarlet <span class="accent">DM</span>.</h2>
+      <p class="lead reveal" data-i="get_lead">Escolha o seu sistema. Os componentes de vídeo são baixados sozinhos na primeira vez que você precisar.</p></div>
+    <div class="os">
+      <div data-os="win">
+        <div class="head mono"><span class="mine-tag">Plataforma</span><span>01</span></div>
+        <h3><span class="ic"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5 6.5 1.8v5.6H1zm6.3-.8L15 .7v6.7H7.3zM1 8.4h5.5v5.7L1 13.4zm6.3 0H15v6.9l-7.7-1z"/></svg></span>Windows</h3>
+        <p class="desc" data-i="win_desc">Windows 10 e 11 (64 bits). Atalhos, iniciar com o Windows e desinstalador.</p>
+        <a class="btn solid" href="downloads/ScarletDM-2.0.0-Setup.exe" data-i="btn_win">Instalador para Windows</a>
+        <div class="files"><span class="mono" data-i="more_files">Outros arquivos</span>
+          <a class="file" href="downloads/ScarletDM-2.0.0-Portable.zip"><span><b data-i="portable">Portátil (64-bit)</b><small data-i="portable_d">Descompacte e rode. Bom para pendrive.</small><code>ScarletDM-2.0.0-Portable.zip</code></span><span class="dl">↓</span></a>
+        </div>
+      </div>
+      <div data-os="mac">
+        <div class="head mono"><span class="mine-tag">Plataforma</span><span>02</span></div>
+        <h3><span class="ic"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M11 8.4c0-1.6 1.3-2.4 1.4-2.5-.8-1.1-2-1.3-2.4-1.3-1-.1-2 .6-2.5.6s-1.3-.6-2.2-.6C4.1 4.6 3 5.3 2.4 6.4c-1.3 2.2-.3 5.5.9 7.3.6.9 1.3 1.8 2.2 1.8.9 0 1.2-.6 2.3-.6s1.4.6 2.3.6c.9 0 1.5-.9 2.1-1.8.7-1 .9-1.9.9-2-.1 0-1.9-.7-1.9-3.3zM9.4 3.4c.5-.6.8-1.4.7-2.2-.7 0-1.5.5-2 1.1-.4.5-.8 1.3-.7 2.1.8 0 1.5-.4 2-1z"/></svg></span>macOS</h3>
+        <p class="desc" data-i="mac_desc">macOS 11 ou mais novo. Arraste o app para a pasta Aplicativos.</p>
+        <a class="btn solid" href="downloads/ScarletDM-2.0.0-macos-arm64.dmg" data-i="btn_mac">Para Mac (Apple Silicon)</a>
+        <div class="files"><span class="mono" data-i="more_files">Outros arquivos</span>
+          <a class="file" href="downloads/ScarletDM-2.0.0-macos-x64.dmg"><span><b>Intel (x64)</b><small data-i="intel_d">Macs com processador Intel.</small><code>ScarletDM-2.0.0-macos-x64.dmg</code></span><span class="dl">↓</span></a>
+        </div>
+      </div>
+      <div data-os="linux">
+        <div class="head mono"><span class="mine-tag">Plataforma</span><span>03</span></div>
+        <h3><span class="ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="2.5" width="13" height="11" rx="1"/><path d="m4 6 2 2-2 2M8 10h4"/></svg></span>Linux</h3>
+        <p class="desc" data-i="lin_desc">AppImage: um arquivo só, roda em Ubuntu, Mint, Fedora, Debian, Arch e outras.</p>
+        <a class="btn solid" href="downloads/ScarletDM-2.0.0-linux-x64.AppImage" data-i="btn_lin">AppImage (x64)</a>
+        <div class="files"><span class="mono" data-i="more_files">Outros arquivos</span>
+          <a class="file" href="downloads/ScarletDM-2.0.0-linux-x64.tar.gz"><span><b>Tarball (x64)</b><small data-i="tar_d">Binários para descompactar onde quiser.</small><code>ScarletDM-2.0.0-linux-x64.tar.gz</code></span><span class="dl">↓</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="two">
+      <div>
+        <div class="mono" style="color:var(--muted)" data-i="release">Lançamento</div>
+        <h2><span data-i="ver">Versão</span> <span class="accent">2.0.0</span>.</h2>
+        <p class="lead" data-i="ver_lead">Grátis em todos os sistemas. Confira os arquivos com as somas SHA-256.</p>
+        <div class="files"><span class="mono" data-i="other_dl">Outros downloads</span>
+          <a class="file" href="downloads/ScarletDM-2.0.0-source.zip"><span><b data-i="src">Código-fonte</b><small data-i="src_d">Edição open source, licença MIT.</small><code>ScarletDM-2.0.0-source.zip</code></span><span class="dl">↓</span></a>
+          <a class="file" href="downloads/scarlet-dm-chromium.zip"><span><b data-i="ext_c">Extensão — Chrome, Edge, Brave, Opera</b><small data-i="ext_d">Pacote para as lojas de extensões.</small><code>scarlet-dm-chromium.zip</code></span><span class="dl">↓</span></a>
+          <a class="file" href="downloads/scarlet-dm-firefox.zip"><span><b data-i="ext_f">Extensão — Firefox</b><small data-i="ext_d">Pacote para as lojas de extensões.</small><code>scarlet-dm-firefox.zip</code></span><span class="dl">↓</span></a>
+          <a class="file" href="downloads/SHA256SUMS.txt"><span><b data-i="sums">Somas SHA-256</b><small data-i="sums_d">Para conferir cada download.</small><code>SHA256SUMS.txt</code></span><span class="dl">↓</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="mono" style="color:var(--muted)" data-i="from_src">Pelo código-fonte</div>
+        <h2 data-i="run_h">Rode <span class="accent">hoje</span>.</h2>
+        <p class="lead" data-i="run_lead">Precisa do Python 3.10 ou mais novo. Funciona igual no Windows, macOS e Linux.</p>
+        <div class="term"><div class="bar mono"><span>$_ Terminal</span><button id="copy" class="mono" data-i="copy">Copiar</button></div>
+<pre id="cmds">pip install -r requirements.txt
+python main.py</pre></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="navegador" data-spy="Navegador" data-spy-i="spy_browser">
+    <div class="label mono"><span data-i="lbl_br">05 / Navegador</span><span data-i="lbl_br2">Extensão</span></div>
+    <div class="pad">
+      <h2 class="reveal" data-i="br_h">Direto do <span class="accent">navegador</span>.</h2>
+      <p class="lead reveal" data-i="br_lead">Com a extensão, todo download que você clicar vai para o Scarlet DM — com cookies e login, para funcionar até em sites que pedem conta. Ela também acha os vídeos da página. Instale em Preferências › Navegador (30 segundos).</p>
+      <div class="chips mono reveal"><span class="chip">Chrome</span><span class="chip">Edge</span><span class="chip">Brave</span><span class="chip">Opera</span><span class="chip">Vivaldi</span><span class="chip">Firefox</span></div>
+    </div>
+  </section>
+
+  <section id="duvidas" data-spy="Dúvidas" data-spy-i="spy_faq">
+    <div class="label mono"><span data-i="lbl_faq">06 / Dúvidas</span><span>FAQ</span></div>
+    <div class="pad">
+      <h2 class="reveal" data-i="faq_h">Perguntas <span class="accent">frequentes</span>.</h2>
+      <details><summary data-i="q1">O Windows mostrou “O Windows protegeu o computador”.</summary><p data-i="a1">É o aviso padrão para programas novos com poucos downloads. Clique em “Mais informações” → “Executar assim mesmo”. Você pode conferir o arquivo com as somas SHA-256 desta página.</p></details>
+      <details><summary data-i="q2">O Mac diz que o app não pode ser aberto.</summary><p data-i="a2">Na primeira vez, clique com o botão direito no Scarlet DM em Aplicativos → “Abrir” → “Abrir”. Depois disso abre normal.</p></details>
+      <details><summary data-i="q3">Como abro o AppImage no Linux?</summary><p data-i="a3">Clique com o botão direito → Propriedades → “Permitir executar como programa”, ou no terminal: chmod +x ScarletDM-*.AppImage e dê dois cliques.</p></details>
+      <details><summary data-i="q4">É grátis mesmo?</summary><p data-i="a4">Sim. Sem anúncios, sem versão paga escondida e sem coleta de dados. O código é aberto (licença MIT).</p></details>
+      <details><summary data-i="q5">Baixa do Spotify ou da Netflix?</summary><p data-i="a5">Não. Esses serviços usam DRM (proteção contra cópia). YouTube, SoundCloud, Vimeo e +1000 sites funcionam. Baixe só o que você tem direito.</p></details>
+    </div>
+  </section>
+
+  <section class="final" data-spy="Comece" data-spy-i="spy_start">
+    <div class="mono" style="color:var(--muted)" data-i="final_k">Open source · grátis</div>
+    <h2 class="reveal" data-i="final_h">Baixe mais <span class="accent">rápido</span>.</h2>
+    <p class="lead reveal" style="margin:0 auto 28px" data-i="final_lead">Instale em um minuto. Sem conta, sem anúncio.</p>
+    <a class="btn solid reveal" href="#baixar" data-i="nav_cta">Baixar</a>
+  </section>
+
+  <footer>
+    <div><a href="#top" style="display:flex;gap:10px;align-items:center;font:700 16px var(--display);color:var(--ink)"><img src="assets/logo.png" alt="" width="24" height="24">Scarlet DM</a>
+      <p style="color:var(--ink2);font-size:14px;margin:12px 0 0" data-i="foot_d">O gerenciador de downloads rápido, leve e livre.</p></div>
+    <div><span class="mono" data-i="f_prod">Produto</span><a href="#baixar" data-i="nav_download">Baixar</a><a href="#recursos" data-i="nav_features">Recursos</a><a href="#navegador" data-i="nav_browser">Navegador</a></div>
+    <div><span class="mono" data-i="f_res">Ajuda</span><a href="#duvidas" data-i="nav_faq">Dúvidas</a><a href="downloads/SHA256SUMS.txt">SHA-256</a><a href="downloads/THIRD_PARTY_NOTICES.md" data-i="third">Componentes de terceiros</a></div>
+    <div><span class="mono" data-i="f_code">Código</span><a class="gh" href="#" target="_blank" rel="noopener">GitHub</a><a href="downloads/ScarletDM-2.0.0-source.zip" data-i="src">Código-fonte</a><a href="#baixar" data-i="lic">Licença MIT</a></div>
+  </footer>
+  <div class="legal mono"><span>© 2026 Scarlet DM</span><span data-i="made">Feito para quem baixa muito</span></div>
+</main>
+
+<script>
+// Endereço do repositório no GitHub (deixe vazio para esconder os botões do GitHub).
+const REPO = "";
+
+const T = {
+  en: {
+    nav_features:"Features", nav_shots:"Screens", nav_download:"Download", nav_browser:"Browser", nav_faq:"FAQ", nav_cta:"Download",
+    lbl_kind:"Download manager · 2.0", h1:'Your downloads at <span class="accent">full</span> speed.',
+    sub:"Up to 32 connections per file, videos and music from 1000+ sites, torrents and an extension for any browser. Light, ad-free — and the code is yours.",
+    btn_ext:"Browser extension", btn_gh:"View on GitHub",
+    other:"Other platforms and downloads ↓", free:"Free and open source", cap1:"Section map — 8 connections per file",
+    lbl_feat:"02 / Features", lbl_feat2:"Inside", feat_h:'What\'s <span class="accent">inside</span>.',
+    feat_lead:"Everything a download manager needs, with no account, no ads and no data collection.",
+    f1t:"Full speed", f1:"Splits each file into parts and downloads with up to 32 connections. If the connection drops, it resumes where it stopped.",
+    f2t:"Videos and music", f2:"YouTube, SoundCloud, Vimeo, Instagram, TikTok, X and 1000+ sites. Up to 4K, 30 or 60 fps, or MP3 up to 320 kbps.",
+    f3t:"Torrents and magnet", f3:"Pick the files inside a torrent, cap uploads and stop sharing whenever you want.",
+    f4t:"Any browser", f4:"Extension for Chrome, Edge, Brave, Opera, Vivaldi and Firefox. Anywhere else, just copy the link.",
+    f5t:"Built-in player", f5:"Watch what you downloaded without leaving the app: fullscreen, shortcuts and time preview on the bar.",
+    f6t:"Truly lightweight", f6:"Near-zero CPU when idle and a few MB of RAM in the tray. Runs even on old PCs.",
+    f7t:"Scheduler and limits", f7:"Download overnight, cap the speed with one click and shut the PC down when it's done.",
+    f8t:"From your phone", f8:"Follow and add downloads from your phone's browser on the same Wi-Fi, password-protected.",
+    f9t:"11 languages", lbl_shots:"03 / Screens", cap2:"YouTube video — pick the quality", cap3:"Preferences — in 11 languages",
+    lbl_get:"04 / Download", lbl_get2:"Free · open source", get_h:'Get Scarlet <span class="accent">DM</span>.',
+    get_lead:"Pick your system. Video components download themselves the first time you need them.",
+    win_desc:"Windows 10 and 11 (64-bit). Shortcuts, start with Windows and uninstaller.", btn_win:"Installer for Windows",
+    more_files:"Other files", portable:"Portable (64-bit)", portable_d:"Unzip and run. Great for USB drives.",
+    mac_desc:"macOS 11 or newer. Drag the app into Applications.", btn_mac:"For Mac (Apple Silicon)", intel_d:"Macs with an Intel processor.",
+    lin_desc:"AppImage: a single file that runs on Ubuntu, Mint, Fedora, Debian, Arch and more.", btn_lin:"AppImage (x64)",
+    tar_d:"Binaries to unpack anywhere.", release:"Release", ver:"Version", ver_lead:"Free on every system. Verify the files with the SHA-256 sums.",
+    other_dl:"Other downloads", src:"Source code", src_d:"Open source edition, MIT license.", ext_c:"Extension — Chrome, Edge, Brave, Opera",
+    ext_d:"Package for the extension stores.", ext_f:"Extension — Firefox", sums:"SHA-256 sums", sums_d:"To verify each download.",
+    from_src:"From source", run_h:'Run it <span class="accent">today</span>.', run_lead:"Needs Python 3.10 or newer. Works the same on Windows, macOS and Linux.",
+    copy:"Copy", lbl_br:"05 / Browser", lbl_br2:"Extension", br_h:'Straight from the <span class="accent">browser</span>.',
+    br_lead:"With the extension, every download you click goes to Scarlet DM — with cookies and login, so it works even on sites that need an account. It also finds the videos on the page. Install it in Preferences › Browser (30 seconds).",
+    lbl_faq:"06 / FAQ", faq_h:'Frequently <span class="accent">asked</span>.',
+    q1:"Windows said “Windows protected your PC”.", a1:"That's the standard warning for new programs with few downloads. Click “More info” → “Run anyway”. You can check the file against the SHA-256 sums on this page.",
+    q2:"My Mac says the app can't be opened.", a2:"The first time, right-click Scarlet DM in Applications → “Open” → “Open”. After that it opens normally.",
+    q3:"How do I open the AppImage on Linux?", a3:"Right-click → Properties → “Allow executing as program”, or in a terminal: chmod +x ScarletDM-*.AppImage, then double-click it.",
+    q4:"Is it really free?", a4:"Yes. No ads, no hidden paid tier and no data collection. The code is open (MIT license).",
+    q5:"Does it download from Spotify or Netflix?", a5:"No. Those services use DRM (copy protection). YouTube, SoundCloud, Vimeo and 1000+ sites work. Only download what you have the right to.",
+    final_k:"Open source · free", final_h:'Download <span class="accent">faster</span>.', final_lead:"Installs in a minute. No account, no ads.",
+    foot_d:"The fast, light and free download manager.", f_prod:"Product", f_res:"Help", f_code:"Code", third:"Third-party components", lic:"MIT License",
+    made:"Made for people who download a lot",
+  },
+  es: {
+    nav_features:"Funciones", nav_shots:"Pantallas", nav_download:"Descargar", nav_browser:"Navegador", nav_faq:"Preguntas", nav_cta:"Descargar",
+    lbl_kind:"Gestor de descargas · 2.0", h1:'Tus descargas a <span class="accent">máxima</span> velocidad.',
+    sub:"Hasta 32 conexiones por archivo, vídeos y música de más de 1000 sitios, torrents y extensión para cualquier navegador. Ligero, sin anuncios — y el código es tuyo.",
+    btn_ext:"Extensión del navegador", btn_gh:"Ver en GitHub",
+    other:"Otras plataformas y descargas ↓", free:"Gratis y open source", cap1:"Mapa de secciones — 8 conexiones por archivo",
+    lbl_feat:"02 / Funciones", lbl_feat2:"Por dentro", feat_h:'Lo que hay <span class="accent">dentro</span>.',
+    feat_lead:"Todo lo que necesita un gestor de descargas, sin cuenta, sin anuncios y sin recopilar datos.",
+    f1t:"Máxima velocidad", f1:"Divide cada archivo en partes y descarga con hasta 32 conexiones. Si se cae internet, sigue donde se quedó.",
+    f2t:"Vídeos y música", f2:"YouTube, SoundCloud, Vimeo, Instagram, TikTok, X y +1000 sitios. Hasta 4K, 30 o 60 fps, o MP3 hasta 320 kbps.",
+    f3t:"Torrents y magnet", f3:"Elige los archivos del torrent, limita la subida y deja de compartir cuando quieras.",
+    f4t:"Cualquier navegador", f4:"Extensión para Chrome, Edge, Brave, Opera, Vivaldi y Firefox. En los demás, basta con copiar el enlace.",
+    f5t:"Reproductor integrado", f5:"Mira lo que descargaste sin salir de la app: pantalla completa, atajos y vista previa del tiempo.",
+    f6t:"Ligero de verdad", f6:"Casi cero de CPU en reposo y pocos MB de RAM en la bandeja. Funciona hasta en PCs antiguos.",
+    f7t:"Programador y límites", f7:"Descarga de madrugada, limita la velocidad con un clic y apaga el PC al terminar.",
+    f8t:"Desde el móvil", f8:"Sigue y añade descargas desde el navegador del móvil en la misma Wi-Fi, con contraseña.",
+    f9t:"11 idiomas", lbl_shots:"03 / Pantallas", cap2:"Vídeo de YouTube — elige la calidad", cap3:"Preferencias — en 11 idiomas",
+    lbl_get:"04 / Descargar", lbl_get2:"Gratis · open source", get_h:'Descarga Scarlet <span class="accent">DM</span>.',
+    get_lead:"Elige tu sistema. Los componentes de vídeo se descargan solos la primera vez que los necesites.",
+    win_desc:"Windows 10 y 11 (64 bits). Accesos directos, inicio con Windows y desinstalador.", btn_win:"Instalador para Windows",
+    more_files:"Otros archivos", portable:"Portátil (64 bits)", portable_d:"Descomprime y ejecuta. Ideal para pendrive.",
+    mac_desc:"macOS 11 o superior. Arrastra la app a Aplicaciones.", btn_mac:"Para Mac (Apple Silicon)", intel_d:"Macs con procesador Intel.",
+    lin_desc:"AppImage: un solo archivo que funciona en Ubuntu, Mint, Fedora, Debian, Arch y más.", btn_lin:"AppImage (x64)",
+    tar_d:"Binarios para descomprimir donde quieras.", release:"Lanzamiento", ver:"Versión", ver_lead:"Gratis en todos los sistemas. Comprueba los archivos con las sumas SHA-256.",
+    other_dl:"Otras descargas", src:"Código fuente", src_d:"Edición open source, licencia MIT.", ext_c:"Extensión — Chrome, Edge, Brave, Opera",
+    ext_d:"Paquete para las tiendas de extensiones.", ext_f:"Extensión — Firefox", sums:"Sumas SHA-256", sums_d:"Para comprobar cada descarga.",
+    from_src:"Desde el código", run_h:'Ejecútalo <span class="accent">hoy</span>.', run_lead:"Necesita Python 3.10 o superior. Funciona igual en Windows, macOS y Linux.",
+    copy:"Copiar", lbl_br:"05 / Navegador", lbl_br2:"Extensión", br_h:'Directo desde el <span class="accent">navegador</span>.',
+    br_lead:"Con la extensión, cada descarga que hagas va a Scarlet DM — con cookies e inicio de sesión, para funcionar incluso en sitios que piden cuenta. También encuentra los vídeos de la página. Instálala en Preferencias › Navegador (30 segundos).",
+    lbl_faq:"06 / Preguntas", faq_h:'Preguntas <span class="accent">frecuentes</span>.',
+    q1:"Windows dijo «Windows protegió su PC».", a1:"Es el aviso estándar para programas nuevos con pocas descargas. Pulsa «Más información» → «Ejecutar de todas formas». Puedes comprobar el archivo con las sumas SHA-256.",
+    q2:"El Mac dice que la app no se puede abrir.", a2:"La primera vez, haz clic derecho en Scarlet DM en Aplicaciones → «Abrir» → «Abrir». Después abre normalmente.",
+    q3:"¿Cómo abro el AppImage en Linux?", a3:"Clic derecho → Propiedades → «Permitir ejecutar como programa», o en la terminal: chmod +x ScarletDM-*.AppImage y doble clic.",
+    q4:"¿De verdad es gratis?", a4:"Sí. Sin anuncios, sin versión de pago escondida y sin recopilar datos. El código es abierto (licencia MIT).",
+    q5:"¿Descarga de Spotify o Netflix?", a5:"No. Esos servicios usan DRM (protección anticopia). YouTube, SoundCloud, Vimeo y +1000 sitios funcionan. Descarga solo lo que tengas derecho a descargar.",
+    final_k:"Open source · gratis", final_h:'Descarga más <span class="accent">rápido</span>.', final_lead:"Se instala en un minuto. Sin cuenta, sin anuncios.",
+    foot_d:"El gestor de descargas rápido, ligero y libre.", f_prod:"Producto", f_res:"Ayuda", f_code:"Código", third:"Componentes de terceros", lic:"Licencia MIT",
+    made:"Hecho para quien descarga mucho",
+  },
+};
+// textos montados pelo script (botão principal conforme o sistema, índice lateral, "em breve")
+const X = {
+  pt: { get:{win:"Baixar para Windows", mac:"Baixar para macOS", linux:"Baixar para Linux"},
+        under:{win:"Para Windows · Instalador (64-bit)", mac:"Para macOS · Apple Silicon", linux:"Para Linux · AppImage (x64)"},
+        mine:"Seu sistema", plat:"Plataforma", soon:"em breve", spy:["Scarlet DM","Recursos","Telas","Baixar","Navegador","Dúvidas","Comece"] },
+  en: { get:{win:"Download for Windows", mac:"Download for macOS", linux:"Download for Linux"},
+        under:{win:"For Windows · Installer (64-bit)", mac:"For macOS · Apple Silicon", linux:"For Linux · AppImage (x64)"},
+        mine:"Your system", plat:"Platform", soon:"coming soon", spy:["Scarlet DM","Features","Screens","Download","Browser","FAQ","Get started"] },
+  es: { get:{win:"Descargar para Windows", mac:"Descargar para macOS", linux:"Descargar para Linux"},
+        under:{win:"Para Windows · Instalador (64 bits)", mac:"Para macOS · Apple Silicon", linux:"Para Linux · AppImage (x64)"},
+        mine:"Tu sistema", plat:"Plataforma", soon:"próximamente", spy:["Scarlet DM","Funciones","Pantallas","Descargar","Navegador","Preguntas","Empieza"] },
+};
+const PT = {};
+document.querySelectorAll("[data-i]").forEach((el) => { PT[el.dataset.i] = el.innerHTML; });
+let lang = "pt";
+const t = (k) => (T[lang] && T[lang][k]) || PT[k] || k;
+
+// sistema do visitante: botão principal e coluna "seu sistema"
+const ua = navigator.userAgent;
+const os = /Mac|iPhone|iPad/.test(ua) ? "mac" : (/Linux|X11|CrOS/.test(ua) && !/Android/.test(ua)) ? "linux" : "win";
+const PRIMARY = { win: "downloads/ScarletDM-2.0.0-Setup.exe", mac: "downloads/ScarletDM-2.0.0-macos-arm64.dmg",
+                  linux: "downloads/ScarletDM-2.0.0-linux-x64.AppImage" };
+const sections = [...document.querySelectorAll("section[data-spy]")];
+
+function apply() {
+  const x = X[lang] || X.pt;
+  document.querySelectorAll("[data-i]").forEach((el) => { el.innerHTML = t(el.dataset.i); });
+  document.documentElement.lang = lang === "pt" ? "pt-BR" : lang;
+  document.getElementById("lang").value = lang;
+  const p = document.getElementById("primary");
+  p.href = PRIMARY[os];
+  p.querySelector("span").textContent = x.get[os];
+  document.getElementById("under").textContent = x.under[os];
+  document.querySelectorAll(".os > div").forEach((d) => {
+    const mine = d.dataset.os === os;
+    d.classList.toggle("mine", mine);
+    d.querySelector(".mine-tag").textContent = mine ? x.mine : x.plat;
+  });
+  markSoon();
+  document.getElementById("spy").innerHTML = x.spy.map((s) => `<div>${s}</div>`).join("");
+  onScroll();
+}
+
+// GitHub: mostra os botões só se o endereço do repositório estiver preenchido
+document.querySelectorAll(".gh").forEach((a) => { if (REPO) a.href = REPO; else a.style.display = "none"; });
+if (REPO) document.getElementById("cmds").textContent =
+  `git clone ${REPO}.git\ncd ${REPO.split("/").pop()}\npip install -r requirements.txt\npython main.py`;
+
+// arquivos que ainda não foram publicados ficam apagados ("em breve")
+if (location.protocol.startsWith("http")) {
+  document.querySelectorAll("a.file, .os a.btn").forEach((a) => {
+    fetch(a.getAttribute("href"), { method: "HEAD" }).then((r) => {
+      if (!r.ok) {
+        a.classList.add("missing");
+        if (a.classList.contains("btn") && !a.querySelector(".soon")) a.insertAdjacentHTML("beforeend", '<span class="soon"></span>');
+        markSoon();
+      }
+    }).catch(() => {});
+  });
+}
+
+function markSoon() {
+  const soon = (X[lang] || X.pt).soon;
+  document.querySelectorAll(".missing code, .missing .soon").forEach((el) => el.setAttribute("data-soon", soon));
+}
+
+// índice grande à direita (capítulo atual) + porcentagem lida
+function onScroll() {
+  const y = window.scrollY + window.innerHeight * 0.35;
+  let cur = 0;
+  sections.forEach((s, i) => { if (s.offsetTop <= y) cur = i; });
+  document.querySelectorAll("#spy div").forEach((d, i) => d.classList.toggle("on", i === cur));
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById("pct").textContent = Math.round(max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+
+// aparecer ao rolar
+const io = new IntersectionObserver((es) => es.forEach((e) => {
+  if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+}), { threshold: 0.12 });
+document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+// tema claro/escuro (lembra a escolha)
+const root = document.documentElement;
+try { const th = localStorage.getItem("sdm-theme"); if (th) root.dataset.theme = th; } catch (e) { /* navegação privada */ }
+document.getElementById("theme").onclick = () => {
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem("sdm-theme", root.dataset.theme); } catch (e) { /* navegação privada */ }
+};
+
+document.getElementById("copy").onclick = () =>
+  navigator.clipboard && navigator.clipboard.writeText(document.getElementById("cmds").textContent);
+
+try { lang = localStorage.getItem("sdm-lang") || ""; } catch (e) { lang = ""; }
+if (!lang) { const n = (navigator.language || "pt").slice(0, 2); lang = n === "pt" ? "pt" : (T[n] ? n : "en"); }
+document.getElementById("lang").onchange = (e) => {
+  lang = e.target.value;
+  try { localStorage.setItem("sdm-lang", lang); } catch (x) { /* navegação privada */ }
+  apply();
+};
+apply();
+</script>
+</body>
+</html>

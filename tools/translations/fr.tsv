@@ -1,0 +1,498 @@
+0	Le téléchargement du composant est incomplet
+1	Paquet ffmpeg invalide
+2	Paquet Deno invalide
+3	Toutes les parties n'ont pas été téléchargées
+4	Le lien n'est pas une playlist HLS valide
+5	Les diffusions en direct ne sont pas prises en charge (playlist sans #EXT-X-ENDLIST)
+6	Playlist vide
+7	Playlist principale sans variantes
+8	Clé AES-128 invalide
+9	Le contenu protégé ({metodo}/DRM) n'est pas pris en charge
+10	Erreur de certificat SSL (désactivez la vérification dans les Préférences si vous faites confiance au site)
+11	Impossible de se connecter au serveur
+12	Le serveur ne répond plus
+13	Disque plein
+14	Téléchargement interrompu avant la fin
+15	accès refusé ou lien expiré (utilisez « Modifier le lien »)
+16	le fichier n'existe plus sur le serveur
+17	le lien a ouvert une page web, pas un fichier (connexion requise ou lien expiré)
+18	La somme de contrôle {algo} ne correspond pas
+19	Espace insuffisant sur {disco} : il manque {falta}, libre {livre}
+20	Le serveur n'accepte plus les téléchargements par parties
+21	plage invalide
+22	La taille du fichier sur le serveur a changé ; utilisez « Recommencer »
+23	Contenu protégé par DRM (Spotify, Netflix, Deezer…) : téléchargement impossible. La musique et les vidéos de YouTube, SoundCloud, Vimeo, etc. fonctionnent.
+24	La prise en charge des torrents n'est pas disponible dans cette installation
+25	Menace détectée par l'antivirus — n'ouvrez pas ce fichier
+26	Planificateur : téléchargements repris
+27	Planificateur : téléchargements en pause
+28	Fichier .torrent invalide : {erro}
+29	Torrent ajouté depuis le dossier surveillé : {nome}
+30	Torrent invalide dans le dossier surveillé : {nome} ({erro})
+31	meilleure qualité
+32	Moteur vidéo pas encore installé — il est téléchargé automatiquement au début du téléchargement
+33	Préparation du moteur vidéo…
+34	Téléchargement du convertisseur vidéo (une seule fois)…
+35	Téléchargement du composant YouTube (une seule fois)…
+36	Moteur vidéo indisponible
+37	Vidéo : {q}, {n} connexions par fragment
+38	essayez Préférences › Vidéos de sites › Mettre à jour
+39	Enregistré dans {caminho}
+40	impossible de lire la vidéo
+41	Impossible de télécharger un composant nécessaire ({erro}). Vérifiez votre connexion internet et réessayez.
+42	Le site a refusé la connexion ; nouvel essai ({n}/2)…
+43	Finalisation
+44	le téléchargement s'est terminé avec une erreur ({rc})
+45	Impossible de lire le titre au préalable : {erro}
+46	Fusion de l'audio et de la vidéo
+47	Conversion de l'audio
+48	Ajout de la pochette
+49	Écriture des informations
+50	Intégration des sous-titres
+51	Vérification des fichiers
+52	Récupération des métadonnées
+53	Partage (ratio {r})
+54	Sélectionnez un téléchargement pour voir les détails
+55	Lire
+56	Ouvrir
+57	Ouvrir le dossier
+58	Copier le lien
+59	Tout lire
+60	Compresser en ZIP
+61	Déplacer vers un dossier…
+62	Copier les liens
+63	Général
+64	Carte des sections
+65	Vitesse
+66	Décochez les fichiers que vous ne voulez pas télécharger.
+67	Fichiers
+68	Journal
+69	connexion active
+70	Début
+71	Fin
+72	Téléchargé
+73	Connexion
+74	Fichier
+75	Taille
+76	Progression
+77	Sélectionnez un téléchargement
+78	total (gris)
+79	 Lire
+80	{len} téléchargements dans la liste · {len2} terminés ({format_size}) · {act} actifs · vitesse actuelle {format_speed}
+81	{len} téléchargements sélectionnés
+82	Taille totale {format_size} · {len} terminés · {sum} en cours
+83	Cliquez pour lire
+84	Oui (par partie)
+85	Flux HLS → MP4
+86	 Lire {len}
+87	Cliquez pour ouvrir
+88	 · reste {eta}
+89	{peers} pairs ({seeds} sources)
+90	{len} sections
+91	correspond ✓
+92	ne correspond PAS
+93	Oui
+95	vérifié par pièce
+96	{len} sections · {act} connexions actives · {format_size} sur {format_size2}
+97	{name} : {format_speed} · total (gris)
+99	Non
+100	terminée
+101	En attente des métadonnées du torrent
+102	Vidéo/musique de site web
+103	Vidéo de site : {p}% du fichier actuel
+105	non installé — se télécharge automatiquement au besoin
+106	Limite de vitesse
+107	Annuler
+108	Appliquer
+109	Ajouter un téléchargement
+110	Collez des liens : fichiers (http/ftp), vidéos YouTube/SoundCloud/Vimeo/X/Instagram…, magnet, .m3u8 — un par ligne. Lot : photo[001-100].jpg
+111	Vidéo
+112	Audio seulement
+113	Parcourir…
+114	Nom du fichier
+115	automatique
+116	Démarrer maintenant
+117	  Options avancées
+118	par défaut des Préférences
+119	nom=valeur; autre=valeur
+120	Authorization: Bearer …\nX-Autre: valeur
+121	hash attendu (facultatif) : vérifie le fichier à la fin
+122	Traiter comme flux HLS (.m3u8)
+123	Traiter comme une page vidéo/musique
+127	En-têtes
+128	Somme de contrôle
+129	Ouvrir un .torrent…
+130	Télécharger
+131	Choisir un dossier
+132	Ouvrir un torrent
+134	audio seulement
+135	Supprimer
+136	Supprimer aussi les fichiers du disque
+137	Ne plus demander (modifiable dans Préférences › Général)
+138	Les fichiers incomplets (.sdm) sont toujours supprimés.
+139	Arrêt automatique
+140	Tous les téléchargements sont terminés.
+141	Éteindre maintenant
+142	Fermer
+143	Préférences
+144	Dossier de téléchargement
+145	Séparer en sous-dossiers par type (Vidéo, Musique, Programmes…)
+146	Si le fichier existe déjà
+147	Bouton Supprimer
+148	En fermant la fenêtre, rester dans la zone de notification
+149	Surveiller le presse-papiers et proposer les liens copiés
+150	Démarrer avec Windows (réduit dans la zone de notification)
+151	Empêcher la mise en veille du PC pendant les téléchargements
+152	Langue
+153	Liste compacte (lignes plus basses)
+154	Le double-clic sur une vidéo/chanson l'ouvre dans le lecteur de Scarlet
+155	Zoom de l'interface (redémarrer)
+156	Téléchargements
+157	Réessayer automatiquement ceux qui échouent à cause du réseau (jusqu'à 5 fois)
+158	Retirer de la liste les téléchargements dont le fichier a été supprimé
+159	Retirer de la liste les téléchargements terminés
+160	Ne pas télécharger de pages web (avertir quand le lien n'est pas un fichier)
+161	Marquer les fichiers téléchargés comme provenant d'internet (sécurité Windows)
+162	Utiliser la date du serveur pour le fichier téléchargé
+163	Sauvegarder la liste toutes les
+164	Connexions
+165	Téléchargements simultanés
+166	Connexions par téléchargement
+167	Maximum par serveur
+168	Maximum de connexions au total
+169	Tentatives par connexion
+170	Délai de lecture
+171	Vérifier les certificats SSL (recommandé)
+172	Scarlet réduit les connexions tout seul quand un serveur se plaint (HTTP 429/503).
+173	Limiter la vitesse de téléchargement
+174	Limite de téléchargement
+175	sans limite
+176	Limite d'envoi (torrent)
+177	Le bouton de vitesse de la barre du bas active et désactive rapidement la limite.
+179	Connexion directe (sans proxy)
+180	Utiliser le proxy du système
+181	Proxy manuel
+182	Adresse
+183	Navigateur
+184	Recevoir les liens de l'extension du navigateur
+185	Port local
+186	Afficher la fenêtre de confirmation pour les liens venant du navigateur
+187	Vidéos de sites
+188	vérification…
+189	Moteur vidéo
+190	Convertisseur vidéo
+191	Composant YouTube
+192	Installer / mettre à jour les composants maintenant
+193	Mettre à jour le moteur chaque semaine (les sites changent beaucoup)
+194	Télécharger en tant que (par défaut)
+195	Résolution par défaut
+196	FPS par défaut
+197	Format audio par défaut
+198	Qualité du MP3
+199	Format vidéo
+200	Préférer H.264/AAC (lisible sur les TV et anciens téléphones)
+201	Télécharger et intégrer les sous-titres (portugais et anglais)
+202	Fonctionne avec YouTube, YouTube Music, SoundCloud, Vimeo, X/Twitter, Instagram, TikTok, Facebook, Twitch, Reddit, Bandcamp et plus de 1000 sites. Les services avec DRM (Spotify, Netflix, Deezer…) non. Téléchargez seulement ce que vous avez le droit de télécharger.
+203	Port d'écoute
+204	Continuer à partager après la fin
+205	Arrêter le partage au ratio
+206	Chiffrement
+207	DHT (trouver plus de pairs sans tracker)
+208	Local Peer Discovery (pairs sur le réseau local)
+209	Ouvrir le port sur le routeur (UPnP / NAT-PMP)
+210	uTP (protocole qui ne sature pas le réseau)
+211	Surveiller un dossier de .torrent
+212	Démarrer sans confirmation les torrents trouvés dans le dossier
+213	Supprimer le fichier .torrent d'origine à la fin du téléchargement
+214	Utiliser Scarlet DM pour les liens magnet et les fichiers .torrent
+215	Moteur
+216	Antivirus
+217	Analyser chaque fichier avec l'antivirus à la fin du téléchargement
+218	Programme
+219	automatique pour Windows Defender ; utilisez %path% pour le fichier
+220	Arguments
+221	En cas de menace, le téléchargement est marqué en rouge et vous recevez un avertissement.
+222	Notifications
+223	Prévenir quand un téléchargement se termine
+224	Prévenir quand un téléchargement est ajouté
+225	Prévenir quand un téléchargement échoue
+226	Prévenir seulement quand la fenêtre de Scarlet n'est pas au premier plan
+227	Jouer un son avec la notification
+228	Planificateur
+229	Utiliser le planificateur quotidien
+230	Tout reprendre à
+231	Tout mettre en pause à
+232	Utile pour télécharger la nuit, quand internet est libre.
+233	Accès à distance
+234	Permettre de contrôler les téléchargements depuis un téléphone ou un autre PC du même réseau
+235	Port
+236	Générer
+237	Mot de passe
+238	Après l'enregistrement, l'adresse apparaît dans le badge « À distance » de la barre du bas. Windows peut demander l'autorisation du pare-feu la première fois.
+239	Avancé
+240	Qualité des flux .m3u8
+241	Lancer un programme à la fin d'un téléchargement
+242	Arguments (%path%)
+243	Dossier des données
+244	Enregistrer
+245	Choisir un programme
+246	Enregistré. Si un autre programme était déjà le programme par défaut, Windows demande de confirmer dans Applications par défaut. Ouvrir cet écran maintenant ?
+247	Vitesse maximale (ex. : 750 KB, 3 MB) :
+248	Résolution
+249	Format
+250	Qualité
+251	Télécharger en tant que
+252	Enregistrer dans
+253	Cette vidéo n'a pas de version en 60 fps
+254	Ce format garde l'audio d'origine, sans réencodage
+255	Spotify, Netflix, Deezer et les autres avec DRM (protection anticopie) ne peuvent pas être téléchargés. YouTube, SoundCloud, Vimeo et plus de 1000 sites fonctionnent.
+256	 (lot développé)
+257	Lecture des informations de la vidéo/musique…
+258	Vérification du lien…
+259	Flux HLS (.m3u8) : sera téléchargé par parties et enregistré en MP4
+260	Ce lien ouvre une page web, pas un fichier. Si c'est une page vidéo, cochez « Traiter comme une page vidéo » dans les Options avancées.
+261	taille inconnue
+262	reprise possible, plusieurs connexions
+263	sans reprise (1 connexion)
+264	libtorrent non installé (pip install libtorrent)
+265	chemin de l'antivirus (.exe)
+266	introuvable — les flux resteront en .ts
+267	La nouvelle langue sera utilisée au prochain démarrage de Scarlet DM.
+268	{len} fichier(s) .torrent : {names}
+269	Plusieurs vidéos/chansons
+270	La qualité choisie s'applique à tous.
+271	Torrent indisponible : installez avec  pip install libtorrent
+273	Trouvé ({detalhe}). Choisissez la qualité et cliquez sur Télécharger.
+274	Supprimer {count} téléchargement(s) de la liste ?
+275	L'ordinateur s'éteindra dans {left} s.
+276	À propos de {APP_NAME}
+277	Version {VERSION}
+278	Gestionnaire de téléchargements avec plusieurs connexions par fichier, reprise, file d'attente, limite de vitesse, planificateur, vidéos et musique de sites, flux HLS, torrents, antivirus, accès à distance et intégration au navigateur.\n\nTorrent : {__version__ifltelseindisponível}\nVidéos de sites : {prontoifytdlp_command}\nffmpeg : {find_ffmpeg}\nDonnées : {app_data_dir}
+279	Renommer (fichier (1).ext)
+280	Écraser
+281	Toujours demander
+282	Retirer seulement de la liste
+283	Retirer et supprimer les fichiers
+284	MP4 (lisible partout)
+285	Préférer le chiffrement
+286	Exiger le chiffrement
+287	Désactivé
+288	Programmes (*.exe)
+289	ffmpeg (ffmpeg.exe);;Exécutables (*.exe)
+290	Meilleure qualité disponible
+291	Taille minimale
+292	Programmes (*.exe *.bat *.cmd);;Tous (*.*)
+293	Espace libre : {format_size}
+294	 · {sum} vidéo/musique
+295	{len} liens seront ajoutés{extra}{kinds}
+296	Erreur de certificat SSL
+297	Playlist de {res} éléments — tous seront ajoutés
+298	Playlist : {res} éléments
+299	jusqu'à {h}p
+300	{res} — vous pouvez l'ajouter quand même et réessayer plus tard
+301	Espace insuffisant : il faut {format_size}, libre {format_size2}
+302	Automatique (langue de Windows)
+303	automatique : {defender}
+305	Impossible d'utiliser le dossier : {e}
+306	Impossible d'enregistrer : {e}
+307	Pas de réponse du serveur ({__name__})
+308	version {v} ✓
+309	erreur : {erro}
+310	Ajouter un téléchargement (Ctrl+N)
+311	Démarrer / reprendre (Espace)
+312	Pause (Espace)
+313	Supprimer (Suppr)
+314	Tout reprendre
+315	Tout mettre en pause
+316	Rechercher des téléchargements…
+317	Préférences (Ctrl+,)
+319	Ignorer
+320	Aucun téléchargement ici.\nCliquez sur  +  , collez un lien (Ctrl+V) ou glissez des liens dans la fenêtre.
+321	Vitesse totale de téléchargement
+322	Vitesse totale d'envoi (torrents)
+323	Sans limite
+324	Cliquez pour activer/désactiver la limite de vitesse
+325	Choisir la limite
+326	Intégration au navigateur
+327	À distance
+328	Accès à distance depuis le téléphone — cliquez pour copier l'adresse
+329	Détails
+330	Afficher/masquer le panneau de détails
+331	Personnalisé…
+332	Ajouter un téléchargement…\tCtrl+N
+333	Coller les liens du presse-papiers\tCtrl+V
+334	Importer des liens depuis un fichier…
+335	Ouvrir un fichier .torrent…
+336	Exporter les liens…
+337	Retirer les terminés de la liste
+338	Limiter la vitesse
+339	Éteindre le PC quand tout est terminé
+340	Préférences…\tCtrl+,
+341	À propos
+342	Quitter\tCtrl+Q
+343	Afficher la fenêtre
+344	Ajouter un téléchargement…
+345	Coller des liens
+346	Quitter
+347	Recommencer depuis le début
+348	Déplacer en haut de la file
+349	Déplacer en bas de la file
+350	Supprimer…\tDel
+352	Déplacer vers le dossier
+353	Modifier le lien
+354	Nouveau lien (utile quand l'ancien a expiré). La progression est conservée s'il s'agit du même fichier.
+355	Importer des liens
+356	Texte (*.txt *.csv *.html *.htm);;Tous (*.*)
+357	Exporter les liens
+358	Texte (*.txt)
+359	lien magnet
+360	L'ordinateur s'éteindra quand tous les téléchargements seront terminés.
+361	Ouvrir avec…
+362	Pause
+363	Modifier le lien…
+364	Copier le lien\tCtrl+Shift+C
+365	Calculer le hash
+366	Recommencer
+367	Aucun lien dans le presse-papiers.
+368	Aucun lien trouvé dans le fichier.
+369	Navigateur : désactivé
+370	Lien copié — cliquez pour télécharger
+371	Aucun résultat pour la recherche.
+372	Téléchargement terminé
+373	Extraire ici
+374	Compresser en ZIP…
+375	Calcul de {upper} de {name}…
+376	{upper} de {name} :\n\n{value}\n\n(copié dans le presse-papiers)
+377	Déjà dans la liste
+378	À distance : port occupé
+379	Navigateur : port occupé
+380	{first} et {len} de plus
+381	Je continue ici dans la zone de notification. Clic droit pour quitter.
+382	{n_q} en attente
+383	Échec du téléchargement
+384	Le fichier n'est plus sur le disque.\nUtilisez « Recommencer » pour le télécharger à nouveau.
+385	ZIP créé : {basename} ({format_size})
+386	{moved} élément(s) déplacé(s) vers {d}
+387	Extraction de {basename}…
+388	Extrait : {n} fichier(s) dans {out}
+389	Télécharger {len} téléchargement(s) depuis le début ? La progression actuelle sera perdue.
+390	Téléchargement ajouté
+391	{len} lien(s) exporté(s) vers {f}
+392	Limite : {format_size}/s
+393	À distance : {url}
+394	Adresse copiée : {url} — ouvrez-la dans le navigateur du téléphone (même Wi-Fi) et utilisez le mot de passe des Préférences.
+395	{len} téléchargement(s) reçu(s) du navigateur
+396	Lien copié : {label}
+397	Libre : {format_size}
+398	\n{n_act} actif(s), {n_q} en attente
+399	⚠ Menace détectée
+400	Lire {n} médias
+401	Échec de la compression : {e}
+402	Déplacement {i}/{len} : {name}…
+403	Échec du déplacement : {e}
+404	pour .rar/.7z/.iso installez 7-Zip (7-zip.org)
+405	Échec de l'extraction : {e}
+406	{len} lien(s) sont déjà dans la liste. Les ajouter quand même ?
+407	Navigateur : prêt (:{port})
+408	Impossible d'ouvrir le port {port} : {error}
+409	erreur : {e}
+410	{name}\nL'antivirus a trouvé une menace. N'ouvrez pas le fichier.
+411	Impossible d'ouvrir {basename} :\n{e}
+412	{len} téléchargements ajoutés
+413	Compression de {len} fichier(s)… {done100total}% ({format_size} sur {format_size2})
+414	Fichier manquant
+415	Vérification de la somme de contrôle…
+416	Erreur :
+417	{txt} · {peers} pairs
+418	{base} · {n} connexions
+419	Scarlet DM — Lecteur
+420	Précédent (P)
+421	Lecture/pause (Espace)
+422	Suivant (N)
+423	Muet (M)
+424	Plein écran (F)
+425	Quitter le plein écran (Échap)
+426	Échap ou double-clic pour quitter le plein écran
+428	Lecture impossible : {erro}. Utilisez « Ouvrir » pour le lire dans un autre programme.
+429	60 dernières s
+430	En attente
+431	Connexion…
+432	Téléchargement
+433	En pause
+434	Terminé
+435	Erreur
+436	Traitement…
+437	Partage
+438	Musique
+439	Documents
+440	Archives
+441	Programmes
+442	Images
+443	Autres
+444	Tous
+445	Actifs
+446	Terminés
+447	En pause
+448	Avec erreur
+449	Fichiers manquants
+450	Temps restant
+451	Reprise possible
+452	Type
+453	Ajouté
+454	Se connecter
+455	Mot de passe incorrect
+456	Tout mettre en pause
+457	Reprendre
+458	Collez un lien (fichier, YouTube, magnet…)
+459	Aucun téléchargement.
+460	Démarrer
+461	Meilleure disponible
+468	60 fps (plus fluide)
+469	30 fps (fichier plus petit)
+471	M4A (AAC, sans réencodage)
+472	OPUS (sans réencodage)
+473	FLAC (sans perte)
+474	320 kbps (maximum)
+477	128 kbps (minimum)
+=Nome	Nom
+=Estado	État
+=Restante	Restant
+=Pular sites, pular extensões e o tamanho mínimo ficam no ícone da extensão.	Sites ignorés, extensions ignorées et taille minimale se règlent dans l'icône de l'extension.
+=Qualquer outro navegador: deixe ligado “Monitorar a área de transferência” em Geral — copie o link e o Scarlet oferece o download.	Tout autre navigateur : laissez « Surveiller le presse-papiers » activé dans Général — copiez le lien et Scarlet propose de le télécharger.
+=Firefox: abra about:debugging → “Este Firefox” → “Carregar extensão temporária” e escolha o manifest.json da pasta “extension-firefox” (vale até fechar o Firefox; a versão permanente é a publicada na loja de extensões da Mozilla).	Firefox : ouvrez about:debugging → « Ce Firefox » → « Charger un module complémentaire temporaire » et choisissez le manifest.json du dossier « extension-firefox » (valable jusqu'à la fermeture de Firefox ; la version permanente est celle publiée sur la boutique de modules de Mozilla).
+=Chrome, Edge, Brave, Opera e Vivaldi: abra a página de extensões (chrome://extensions, edge://extensions…), ligue o “Modo do desenvolvedor”, clique em “Carregar sem compactação” e escolha a pasta “extension”.	Chrome, Edge, Brave, Opera et Vivaldi : ouvrez la page des extensions (chrome://extensions, edge://extensions…), activez le « Mode développeur », cliquez sur « Charger l'extension non empaquetée » et choisissez le dossier « extension ».
+=Preparando…	Préparation…
+=Criando atalhos…	Création des raccourcis…
+=Registrando…	Enregistrement…
+=O Scarlet DM está aberto. Feche-o (ícone perto do relógio → Sair) e clique em “Tentar de novo”.	Scarlet DM est ouvert. Fermez-le (icône près de l'horloge → Quitter) et cliquez sur « Réessayer ».
+=Tentar de novo	Réessayer
+=Fechar para mim	Le fermer pour moi
+=Instalar em	Installer dans
+=Criar atalho na Área de Trabalho	Créer un raccourci sur le Bureau
+=Criar atalho no Menu Iniciar	Créer un raccourci dans le menu Démarrer
+=Iniciar com o Windows (minimizado perto do relógio)	Démarrer avec Windows (réduit près de l'horloge)
+=Abrir links magnet e arquivos .torrent com o Scarlet DM	Ouvrir les liens magnet et les fichiers .torrent avec Scarlet DM
+=Instalar	Installer
+=Pronto! O Scarlet DM foi instalado.	Terminé ! Scarlet DM est installé.
+=Abrir o Scarlet DM agora	Ouvrir Scarlet DM maintenant
+=Concluir	Terminer
+=Remover o Scarlet DM deste computador?	Supprimer Scarlet DM de cet ordinateur ?
+=Apagar também a lista de downloads, as configurações e os componentes de vídeo	Supprimer aussi la liste des téléchargements, les réglages et les composants vidéo
+=Os arquivos que você baixou não são apagados.	Les fichiers que vous avez téléchargés ne sont pas supprimés.
+=Desinstalar	Désinstaller
+=O Scarlet DM foi removido.	Scarlet DM a été supprimé.
+=Para baixar direto do navegador (Chrome, Edge, Brave, Opera, Vivaldi ou Firefox), instale a extensão: Preferências › Navegador.	Pour télécharger directement depuis le navigateur (Chrome, Edge, Brave, Opera, Vivaldi ou Firefox), installez l'extension : Préférences › Navigateur.
+=Instalar {app}	Installer {app}
+=Versão {v} · gerenciador de downloads	Version {v} · gestionnaire de téléchargements
+=Para fixar na barra de tarefas: com o Scarlet aberto, clique com o botão direito no ícone dele na barra de tarefas → “Fixar na barra de tarefas” (o Windows não deixa programas fazerem isso sozinhos).	Pour l'épingler à la barre des tâches : Scarlet ouvert, faites un clic droit sur son icône dans la barre des tâches → « Épingler à la barre des tâches » (Windows ne permet pas aux programmes de le faire eux-mêmes).
+=Espaço necessário: {n}	Espace requis : {n}
+=Desinstalar {app}	Désinstaller {app}
+=Versão {v}	Version {v}
+=Não foi possível instalar:\n{erro}	Échec de l'installation :\n{erro}
+=Copiando arquivos… {p}%	Copie des fichiers… {p} %
+=Bem-vindo ao Scarlet DM	Bienvenue dans Scarlet DM
+=Vamos deixar tudo pronto em 10 segundos.	Préparons tout en 10 secondes.
+=Salvar downloads em	Enregistrer les téléchargements dans
+=Dica: para baixar direto do navegador, instale a extensão em Preferências › Navegador. Tudo isto pode ser mudado depois nas Preferências.	Astuce : pour télécharger directement depuis le navigateur, installez l'extension dans Préférences › Navigateur. Tout ceci peut être modifié plus tard dans les Préférences.
+=Começar	Commencer
+=Registrado.	Enregistré.

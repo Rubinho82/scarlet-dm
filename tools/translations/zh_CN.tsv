@@ -1,0 +1,503 @@
+0	组件下载不完整
+1	无效的 ffmpeg 包
+2	无效的 Deno 包
+3	并非所有分段都已下载
+4	该链接不是有效的 HLS 播放列表
+5	不支持直播（播放列表没有 #EXT-X-ENDLIST）
+6	播放列表为空
+7	主播放列表没有变体
+8	无效的 AES-128 密钥
+9	不支持受保护的内容（{metodo}/DRM）
+10	SSL 证书错误（如果信任该网站，可在“首选项”中关闭验证）
+11	无法连接到服务器
+12	服务器停止响应
+13	磁盘已满
+14	下载在完成前中断
+15	访问被拒绝或链接已过期（请使用“更改链接”）
+16	服务器上已不存在该文件
+17	链接打开的是网页而不是文件（需要登录或链接已过期）
+18	{algo} 校验和不匹配
+19	{disco} 空间不足：还差 {falta}，可用 {livre}
+20	服务器不再接受分段下载
+21	无效的范围
+22	服务器上的文件大小已改变；请使用“重新开始”
+23	受 DRM 保护的内容（Spotify、Netflix、Deezer…）无法下载。YouTube、SoundCloud、Vimeo 等的音乐和视频可以下载。
+24	此安装中没有 Torrent 支持
+25	杀毒软件检测到威胁 — 请勿打开此文件
+26	计划任务：已恢复下载
+27	计划任务：已暂停下载
+28	无效的 .torrent 文件：{erro}
+29	已从监视文件夹添加种子：{nome}
+30	监视文件夹中的种子无效：{nome}（{erro}）
+31	最佳质量
+32	视频引擎尚未安装 — 开始下载时会自动下载
+33	正在准备视频引擎…
+34	正在下载视频转换器（仅首次）…
+35	正在下载 YouTube 组件（仅首次）…
+36	视频引擎不可用
+37	视频：{q}，每个分片 {n} 个连接
+38	请尝试 首选项 › 网站视频 › 更新
+39	已保存到 {caminho}
+40	无法读取视频
+41	无法下载所需组件（{erro}）。请检查网络连接后重试。
+42	网站拒绝了连接；正在重试（{n}/2）…
+43	正在完成
+44	下载因错误结束（{rc}）
+45	无法预先读取标题：{erro}
+46	正在合并音频和视频
+47	正在转换音频
+48	正在添加封面
+49	正在写入信息
+50	正在嵌入字幕
+51	正在检查文件
+52	正在获取元数据
+53	做种中（分享率 {r}）
+54	选择一个下载以查看详情
+55	播放
+56	打开
+57	打开文件夹
+58	复制链接
+59	全部播放
+60	压缩为 ZIP
+61	移动到文件夹…
+62	复制链接
+63	常规
+64	分段图
+65	速度
+66	取消勾选不想下载的文件。
+67	文件
+68	日志
+69	活动连接
+70	开始
+71	结束
+72	已下载
+73	连接
+74	文件
+75	大小
+76	进度
+77	选择一个下载
+78	总计（灰色）
+79	 播放
+80	列表中 {len} 个下载 · {len2} 个已完成（{format_size}）· {act} 个进行中 · 当前速度 {format_speed}
+81	已选择 {len} 个下载
+82	总大小 {format_size} · {len} 个已完成 · {sum} 个进行中
+83	点击播放
+84	是（分段）
+85	HLS 流 → MP4
+86	 播放 {len} 个
+87	点击打开
+88	 · 剩余 {eta}
+89	{peers} 个对等方（{seeds} 个种子）
+90	{len} 个分段
+91	匹配 ✓
+92	不匹配
+93	是
+94	种子
+95	按块校验
+96	{len} 个分段 · {act} 个活动连接 · {format_size} / {format_size2}
+97	{name}：{format_speed} · 总计（灰色）
+99	否
+100	已完成
+101	正在等待种子元数据
+102	网站视频/音乐
+103	网站视频：当前文件 {p}%
+105	未安装 — 需要时自动下载
+106	速度限制
+107	取消
+108	应用
+109	添加下载
+110	粘贴链接：文件（http/ftp）、YouTube/SoundCloud/Vimeo/X/Instagram 视频…、magnet、.m3u8 — 每行一个。批量：foto[001-100].jpg
+111	视频
+112	仅音频
+113	浏览…
+114	文件名
+115	自动
+116	立即开始
+117	  高级选项
+118	首选项中的默认值
+119	名称=值; 其他=值
+120	Authorization: Bearer …\nX-Other: 值
+121	预期哈希（可选）：完成时校验文件
+122	作为 HLS 流（.m3u8）处理
+123	作为视频/音乐页面处理
+127	请求头
+128	校验和
+129	打开 .torrent…
+130	下载
+131	选择文件夹
+132	打开种子
+133	种子 (*.torrent)
+134	仅音频
+135	删除
+136	同时从磁盘删除文件
+137	不再询问（可在 首选项 › 常规 中更改）
+138	未完成的文件（.sdm）总是会被删除。
+139	自动关机
+140	所有下载已完成。
+141	立即关机
+142	关闭
+143	首选项
+144	下载文件夹
+145	按类型分到子文件夹（视频、音乐、程序…）
+146	如果文件已存在
+147	删除按钮
+148	关闭窗口时保留在通知区域
+149	监视剪贴板并提示复制的链接
+150	随 Windows 启动（最小化到通知区域）
+151	下载时阻止电脑睡眠
+152	语言
+153	紧凑列表（行更矮）
+154	双击视频/歌曲时在 Scarlet 播放器中打开
+155	界面缩放（需重启）
+156	下载
+157	因网络失败的下载自动重试（最多 5 次）
+158	从列表中移除文件已被删除的下载
+159	从列表中移除已完成的下载
+160	不下载网页（链接不是文件时提醒）
+161	将下载的文件标记为来自互联网（Windows 安全）
+162	使用服务器上的文件日期
+163	列表备份间隔
+164	连接
+165	同时下载数
+166	每个下载的连接数
+167	每个服务器最多
+168	总连接数上限
+169	每个连接的重试次数
+170	读取超时
+171	验证 SSL 证书（推荐）
+172	当服务器报错（HTTP 429/503）时，Scarlet 会自动减少连接。
+173	限制下载速度
+174	下载限制
+175	无限制
+176	上传限制（种子）
+177	底部栏的速度按钮可快速开关限速。
+178	代理
+179	直接连接（不使用代理）
+180	使用系统代理
+181	手动代理
+182	地址
+183	浏览器
+184	接收浏览器扩展发送的链接
+185	本地端口
+186	显示来自浏览器链接的确认窗口
+187	网站视频
+188	正在检查…
+189	视频引擎
+190	视频转换器
+191	YouTube 组件
+192	立即安装 / 更新组件
+193	每周更新引擎（网站经常变化）
+194	默认下载为
+195	默认分辨率
+196	默认帧率
+197	默认音频格式
+198	MP3 质量
+199	视频格式
+200	优先 H.264/AAC（电视和旧手机也能播放）
+201	下载并嵌入字幕（葡萄牙语和英语）
+202	支持 YouTube、YouTube Music、SoundCloud、Vimeo、X/Twitter、Instagram、TikTok、Facebook、Twitch、Reddit、Bandcamp 以及 1000 多个网站。带 DRM 的服务（Spotify、Netflix、Deezer…）不支持。请只下载你有权下载的内容。
+203	监听端口
+204	完成后继续做种
+205	达到分享率时停止做种
+206	加密
+207	DHT（无需 Tracker 找到更多对等方）
+208	本地对等发现（局域网中的对等方）
+209	在路由器上打开端口（UPnP / NAT-PMP）
+210	uTP（不会堵塞网络的协议）
+211	监视 .torrent 文件夹
+212	不经确认直接开始文件夹中找到的种子
+213	下载完成后删除原 .torrent 文件
+214	使用 Scarlet DM 打开 magnet 链接和 .torrent 文件
+215	引擎
+216	杀毒
+217	下载完成后用杀毒软件扫描每个文件
+218	程序
+219	Windows Defender 时自动；用 %path% 表示文件
+220	参数
+221	发现威胁时，下载会标红并向你发出警告。
+222	通知
+223	下载完成时通知
+224	添加下载时通知
+225	下载失败时通知
+226	仅当 Scarlet 窗口不在前台时通知
+227	通知时播放声音
+228	计划任务
+229	使用每日计划
+230	全部恢复于
+231	全部暂停于
+232	适合在夜间网络空闲时下载。
+233	远程访问
+234	允许同一网络中的手机或其他电脑控制下载
+235	端口
+236	生成
+237	密码
+238	保存后，地址会显示在底部栏的“远程”徽章中。首次使用时 Windows 可能会请求防火墙权限。
+239	高级
+240	.m3u8 流质量
+241	下载完成时运行程序
+242	参数（%path%）
+243	数据文件夹
+244	保存
+245	选择程序
+246	已保存。如果其他程序已是默认，Windows 会要求在“默认应用”中确认。现在打开该页面吗？
+247	最大速度（例如：750 KB、3 MB）：
+248	分辨率
+249	格式
+250	质量
+251	下载为
+252	保存到
+253	此视频没有 60 fps 版本
+254	此格式保留原始音频，不重新编码
+255	Spotify、Netflix、Deezer 等带 DRM（防复制保护）的服务无法下载。YouTube、SoundCloud、Vimeo 以及 1000 多个网站可以下载。
+256	（已展开批量）
+257	正在读取视频/音乐信息…
+258	正在检查链接…
+259	HLS 流（.m3u8）：将分段下载并保存为 MP4
+260	此链接打开的是网页而不是文件。如果是视频页面，请在高级选项中勾选“作为视频页面处理”。
+261	大小未知
+262	可续传，多连接
+263	不可续传（1 个连接）
+264	未安装 libtorrent（pip install libtorrent）
+265	杀毒软件路径（.exe）
+266	未找到 — 流将保持为 .ts
+267	新语言将在下次启动 Scarlet DM 时生效。
+268	{len} 个 .torrent 文件：{names}
+269	多个视频/歌曲
+270	所选质量适用于全部。
+271	种子不可用：请用  pip install libtorrent  安装
+273	已找到（{detalhe}）。选择质量后点击“下载”。
+274	从列表中删除 {count} 个下载？
+275	电脑将在 {left} 秒后关机。
+276	关于 {APP_NAME}
+277	版本 {VERSION}
+278	下载管理器：每个文件多连接、断点续传、队列、限速、计划任务、网站视频和音乐、HLS 流、种子、杀毒、远程访问和浏览器集成。\n\n种子：{__version__ifltelseindisponível}\n网站视频：{prontoifytdlp_command}\nffmpeg：{find_ffmpeg}\n数据：{app_data_dir}
+279	重命名（文件 (1).ext）
+280	覆盖
+281	总是询问
+282	仅从列表移除
+283	移除并删除文件
+284	MP4（到处都能播放）
+285	优先加密
+286	强制加密
+287	关闭
+288	程序 (*.exe)
+289	ffmpeg (ffmpeg.exe);;可执行文件 (*.exe)
+290	最佳可用质量
+291	最小大小
+292	程序 (*.exe *.bat *.cmd);;全部 (*.*)
+293	可用空间：{format_size}
+294	 · {sum} 个视频/音乐
+295	将添加 {len} 个链接{extra}{kinds}
+296	SSL 证书错误
+297	播放列表共 {res} 项 — 将全部添加
+298	播放列表：{res} 项
+299	最高 {h}p
+300	{res} — 仍可添加，稍后再试
+301	空间不足：需要 {format_size}，可用 {format_size2}
+302	自动（Windows 语言）
+303	自动：{defender}
+304	种子：{dn}
+305	无法使用该文件夹：{e}
+306	无法保存：{e}
+307	服务器无响应（{__name__}）
+308	版本 {v} ✓
+309	错误：{erro}
+310	添加下载 (Ctrl+N)
+311	开始 / 继续（空格）
+312	暂停（空格）
+313	删除 (Del)
+314	全部继续
+315	全部暂停
+316	搜索下载…
+317	首选项 (Ctrl+,)
+318	菜单
+319	忽略
+320	这里还没有下载。\n点击  +  ，粘贴链接 (Ctrl+V)，或把链接拖到窗口中。
+321	总下载速度
+322	总上传速度（种子）
+323	无限制
+324	点击开关限速
+325	选择限制
+326	浏览器集成
+327	远程
+328	手机远程访问 — 点击复制地址
+329	详情
+330	显示/隐藏详情面板
+331	自定义…
+332	添加下载…\tCtrl+N
+333	从剪贴板粘贴链接\tCtrl+V
+334	从文件导入链接…
+335	打开 .torrent 文件…
+336	导出链接…
+337	从列表移除已完成
+338	限制速度
+339	全部完成后关机
+340	首选项…\tCtrl+,
+341	关于
+342	退出\tCtrl+Q
+343	显示窗口
+344	添加下载…
+345	粘贴链接
+346	退出
+347	从头重新开始
+348	移到队列顶部
+349	移到队列底部
+350	删除…\tDel
+352	移动到文件夹
+353	更改链接
+354	新链接（旧链接过期时有用）。如果是同一文件，进度会保留。
+355	导入链接
+356	文本 (*.txt *.csv *.html *.htm);;全部 (*.*)
+357	导出链接
+358	文本 (*.txt)
+359	magnet 链接
+360	所有下载完成后电脑将关机。
+361	打开方式…
+362	暂停
+363	更改链接…
+364	复制链接\tCtrl+Shift+C
+365	计算哈希
+366	重新开始
+367	剪贴板中没有链接。
+368	文件中未找到链接。
+369	浏览器：已关闭
+370	已复制链接 — 点击下载
+371	没有符合搜索的结果。
+372	下载完成
+373	解压到此处
+374	压缩为 ZIP…
+375	正在计算 {name} 的 {upper}…
+376	{name} 的 {upper}：\n\n{value}\n\n（已复制到剪贴板）
+377	已在列表中
+378	远程：端口被占用
+379	浏览器：端口被占用
+380	{first} 等 {len} 个
+381	我会在通知区域继续运行。右键点击可退出。
+382	{n_q} 个排队中
+383	下载失败
+384	磁盘上已没有该文件。\n请使用“重新开始”再次下载。
+385	已创建 ZIP：{basename}（{format_size}）
+386	已将 {moved} 项移动到 {d}
+387	正在解压 {basename}…
+388	已解压：{n} 个文件到 {out}
+389	从头重新下载 {len} 个下载？当前进度将丢失。
+390	已添加下载
+391	已导出 {len} 个链接到 {f}
+392	限制：{format_size}/s
+393	远程：{url}
+394	已复制地址：{url} — 在手机浏览器中打开（同一 Wi-Fi），使用首选项中的密码。
+395	从浏览器收到 {len} 个下载
+396	已复制链接：{label}
+397	可用：{format_size}
+398	\n{n_act} 个进行中，{n_q} 个排队中
+399	⚠ 检测到威胁
+400	播放 {n} 个媒体
+401	压缩失败：{e}
+402	正在移动 {i}/{len}：{name}…
+403	移动失败：{e}
+404	.rar/.7z/.iso 请安装 7-Zip（7-zip.org）
+405	解压失败：{e}
+406	{len} 个链接已在列表中。仍然添加吗？
+407	浏览器：就绪（:{port}）
+408	无法打开端口 {port}：{error}
+409	错误：{e}
+410	{name}\n杀毒软件发现了威胁。请勿打开该文件。
+411	无法打开 {basename}：\n{e}
+412	已添加 {len} 个下载
+413	正在压缩 {len} 个文件… {done100total}%（{format_size} / {format_size2}）
+414	文件丢失
+415	正在校验…
+416	错误：
+417	{txt} · {peers} 个对等方
+418	{base} · {n} 个连接
+419	Scarlet DM — 播放器
+420	上一个 (P)
+421	播放/暂停（空格）
+422	下一个 (N)
+423	静音 (M)
+424	全屏 (F)
+425	退出全屏 (Esc)
+426	按 Esc 或双击退出全屏
+428	无法播放：{erro}。请使用“打开”在其他程序中播放。
+429	最近 60 秒
+430	排队中
+431	正在连接…
+432	下载中
+433	已暂停
+434	已完成
+435	错误
+436	处理中…
+437	做种中
+438	音乐
+439	文档
+440	压缩包
+441	程序
+442	图片
+443	其他
+444	全部
+445	进行中
+446	已完成
+447	已暂停
+448	出错
+449	文件丢失
+450	剩余时间
+451	可续传
+452	类型
+453	添加时间
+454	登录
+455	密码错误
+456	全部暂停
+457	继续
+458	粘贴链接（文件、YouTube、magnet…）
+459	没有下载。
+460	开始
+461	最佳可用
+468	60 fps（更流畅）
+469	30 fps（文件更小）
+471	M4A（AAC，不重新编码）
+472	OPUS（不重新编码）
+473	FLAC（无损）
+474	320 kbps（最高）
+477	128 kbps（最低）
+=Nome	名称
+=Estado	状态
+=Restante	剩余
+=Pular sites, pular extensões e o tamanho mínimo ficam no ícone da extensão.	跳过的网站、扩展名和最小大小在扩展图标中设置。
+=Qualquer outro navegador: deixe ligado “Monitorar a área de transferência” em Geral — copie o link e o Scarlet oferece o download.	其他浏览器：在“常规”中保持“监视剪贴板”开启 — 复制链接后 Scarlet 会提示下载。
+=Firefox: abra about:debugging → “Este Firefox” → “Carregar extensão temporária” e escolha o manifest.json da pasta “extension-firefox” (vale até fechar o Firefox; a versão permanente é a publicada na loja de extensões da Mozilla).	Firefox：打开 about:debugging → “此 Firefox” → “临时载入附加组件”，选择“extension-firefox”文件夹中的 manifest.json（关闭 Firefox 前有效；永久版本是发布在 Mozilla 附加组件商店中的版本）。
+=Chrome, Edge, Brave, Opera e Vivaldi: abra a página de extensões (chrome://extensions, edge://extensions…), ligue o “Modo do desenvolvedor”, clique em “Carregar sem compactação” e escolha a pasta “extension”.	Chrome、Edge、Brave、Opera 和 Vivaldi：打开扩展程序页面（chrome://extensions、edge://extensions…），开启“开发者模式”，点击“加载已解压的扩展程序”，选择“extension”文件夹。
+=Preparando…	正在准备…
+=Criando atalhos…	正在创建快捷方式…
+=Registrando…	正在注册…
+=O Scarlet DM está aberto. Feche-o (ícone perto do relógio → Sair) e clique em “Tentar de novo”.	Scarlet DM 正在运行。请关闭它（时钟旁的图标 → 退出），然后点击“重试”。
+=Tentar de novo	重试
+=Fechar para mim	帮我关闭
+=Instalar em	安装到
+=Criar atalho na Área de Trabalho	创建桌面快捷方式
+=Criar atalho no Menu Iniciar	创建开始菜单快捷方式
+=Iniciar com o Windows (minimizado perto do relógio)	随 Windows 启动（最小化到时钟旁）
+=Abrir links magnet e arquivos .torrent com o Scarlet DM	用 Scarlet DM 打开 magnet 链接和 .torrent 文件
+=Instalar	安装
+=Pronto! O Scarlet DM foi instalado.	完成！Scarlet DM 已安装。
+=Abrir o Scarlet DM agora	立即打开 Scarlet DM
+=Concluir	完成
+=Remover o Scarlet DM deste computador?	要从这台电脑上移除 Scarlet DM 吗？
+=Apagar também a lista de downloads, as configurações e os componentes de vídeo	同时删除下载列表、设置和视频组件
+=Os arquivos que você baixou não são apagados.	已下载的文件不会被删除。
+=Desinstalar	卸载
+=O Scarlet DM foi removido.	Scarlet DM 已移除。
+=Para baixar direto do navegador (Chrome, Edge, Brave, Opera, Vivaldi ou Firefox), instale a extensão: Preferências › Navegador.	要直接从浏览器（Chrome、Edge、Brave、Opera、Vivaldi 或 Firefox）下载，请安装扩展：首选项 › 浏览器。
+=Instalar {app}	安装 {app}
+=Versão {v} · gerenciador de downloads	版本 {v} · 下载管理器
+=Para fixar na barra de tarefas: com o Scarlet aberto, clique com o botão direito no ícone dele na barra de tarefas → “Fixar na barra de tarefas” (o Windows não deixa programas fazerem isso sozinhos).	固定到任务栏：在 Scarlet 打开时，右键点击任务栏上的图标 →“固定到任务栏”（Windows 不允许程序自行固定）。
+=Espaço necessário: {n}	所需空间：{n}
+=Desinstalar {app}	卸载 {app}
+=Versão {v}	版本 {v}
+=Não foi possível instalar:\n{erro}	安装失败：\n{erro}
+=Copiando arquivos… {p}%	正在复制文件… {p}%
+=Bem-vindo ao Scarlet DM	欢迎使用 Scarlet DM
+=Vamos deixar tudo pronto em 10 segundos.	10 秒钟就能准备好。
+=Salvar downloads em	下载保存到
+=Dica: para baixar direto do navegador, instale a extensão em Preferências › Navegador. Tudo isto pode ser mudado depois nas Preferências.	提示：要直接从浏览器下载，请在 首选项 › 浏览器 中安装扩展。以上设置之后都可以在首选项中修改。
+=Começar	开始
+=Registrado.	已注册。

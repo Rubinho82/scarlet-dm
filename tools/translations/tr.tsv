@@ -1,0 +1,499 @@
+0	Bileşen indirmesi eksik kaldı
+1	Geçersiz ffmpeg paketi
+2	Geçersiz Deno paketi
+3	Tüm parçalar indirilmedi
+4	Bağlantı geçerli bir HLS çalma listesi değil
+5	Canlı yayınlar desteklenmiyor (#EXT-X-ENDLIST olmayan liste)
+6	Boş çalma listesi
+7	Varyantsız ana çalma listesi
+8	Geçersiz AES-128 anahtarı
+9	Korumalı içerik ({metodo}/DRM) desteklenmiyor
+10	SSL sertifika hatası (siteye güveniyorsanız Tercihler'den doğrulamayı kapatın)
+11	Sunucuya bağlanılamadı
+12	Sunucu yanıt vermeyi bıraktı
+13	Disk dolu
+14	İndirme bitmeden kesildi
+15	erişim reddedildi veya bağlantının süresi doldu («Bağlantıyı değiştir»i kullanın)
+16	dosya artık sunucuda yok
+17	bağlantı bir dosya değil, web sayfası açtı (giriş gerekli veya bağlantı süresi dolmuş)
+18	{algo} sağlama toplamı eşleşmiyor
+19	{disco} üzerinde yeterli alan yok: {falta} eksik, {livre} boş
+20	Sunucu artık parçalı indirmeyi kabul etmiyor
+21	geçersiz aralık
+22	Sunucudaki dosya boyutu değişti; «Yeniden başlat»ı kullanın
+23	DRM korumalı içerik (Spotify, Netflix, Deezer…) indirilemez. YouTube, SoundCloud, Vimeo vb. müzik ve videolar çalışır.
+24	Bu kurulumda torrent desteği yok
+25	Antivirüs tehdit buldu — bu dosyayı açmayın
+26	Zamanlayıcı: indirmeler sürdürüldü
+27	Zamanlayıcı: indirmeler duraklatıldı
+28	Geçersiz .torrent dosyası: {erro}
+29	İzlenen klasörden torrent eklendi: {nome}
+30	İzlenen klasörde geçersiz torrent: {nome} ({erro})
+31	en iyi kalite
+32	Video motoru henüz kurulu değil — indirme başlarken otomatik indirilir
+33	Video motoru hazırlanıyor…
+34	Video dönüştürücü indiriliyor (yalnızca ilk sefer)…
+35	YouTube bileşeni indiriliyor (yalnızca ilk sefer)…
+36	Video motoru kullanılamıyor
+37	Video: {q}, parça başına {n} bağlantı
+38	Tercihler › Sitelerden videolar › Güncelle'yi deneyin
+39	{caminho} konumuna kaydedildi
+40	video okunamadı
+41	Gerekli bir bileşen indirilemedi ({erro}). İnternet bağlantınızı kontrol edip tekrar deneyin.
+42	Site bağlantıyı reddetti; yeniden deneniyor ({n}/2)…
+43	Tamamlanıyor
+44	indirme hatayla bitti ({rc})
+45	Başlık önceden okunamadı: {erro}
+46	Ses ve video birleştiriliyor
+47	Ses dönüştürülüyor
+48	Kapak ekleniyor
+49	Bilgiler yazılıyor
+50	Altyazılar gömülüyor
+51	Dosyalar denetleniyor
+52	Meta veriler alınıyor
+53	Paylaşılıyor (oran {r})
+54	Ayrıntıları görmek için bir indirme seçin
+55	Oynat
+56	Aç
+57	Klasörü aç
+58	Bağlantıyı kopyala
+59	Tümünü oynat
+60	ZIP olarak sıkıştır
+61	Klasöre taşı…
+62	Bağlantıları kopyala
+63	Genel
+64	Bölüm haritası
+65	Hız
+66	İndirmek istemediğiniz dosyaların işaretini kaldırın.
+67	Dosyalar
+68	Günlük
+69	etkin bağlantı
+70	Başlangıç
+71	Bitiş
+72	İndirilen
+73	Bağlantı
+74	Dosya
+75	Boyut
+76	İlerleme
+77	Bir indirme seçin
+78	toplam (gri)
+79	 Oynat
+80	Listede {len} indirme · {len2} tamamlandı ({format_size}) · {act} etkin · şu anki hız {format_speed}
+81	{len} indirme seçildi
+82	Toplam boyut {format_size} · {len} tamamlandı · {sum} sürüyor
+83	Oynatmak için tıklayın
+84	Evet (parçalı)
+85	HLS akışı → MP4
+86	 {len} oynat
+87	Açmak için tıklayın
+88	 · {eta} kaldı
+89	{peers} eş ({seeds} kaynak)
+90	{len} bölüm
+91	eşleşiyor ✓
+92	eşleşMİYOR
+93	Evet
+95	parça başına doğrulandı
+96	{len} bölüm · {act} etkin bağlantı · {format_size} / {format_size2}
+97	{name}: {format_speed} · toplam (gri)
+99	Hayır
+100	tamamlandı
+101	Torrent meta verileri bekleniyor
+102	Siteden video/müzik
+103	Siteden video: geçerli dosyanın %{p}'i
+105	kurulu değil — gerektiğinde otomatik indirilir
+106	Hız sınırı
+107	İptal
+108	Uygula
+109	İndirme ekle
+110	Bağlantıları yapıştırın: dosyalar (http/ftp), YouTube/SoundCloud/Vimeo/X/Instagram videoları…, magnet, .m3u8 — her satıra bir tane. Toplu: foto[001-100].jpg
+111	Video
+112	Yalnızca ses
+113	Gözat…
+114	Dosya adı
+115	otomatik
+116	Hemen başlat
+117	  Gelişmiş seçenekler
+118	Tercihlerdeki varsayılan
+119	ad=değer; diğer=değer
+120	Authorization: Bearer …\nX-Diğer: değer
+121	beklenen hash (isteğe bağlı): dosyayı sonunda doğrular
+122	HLS akışı (.m3u8) olarak işle
+123	Video/müzik sayfası olarak işle
+127	Başlıklar
+128	Sağlama toplamı
+129	.torrent aç…
+130	İndir
+131	Klasör seç
+132	Torrent aç
+134	yalnızca ses
+135	Sil
+136	Dosyaları diskten de sil
+137	Bir daha sorma (Tercihler › Genel'den değiştirilebilir)
+138	Eksik dosyalar (.sdm) her zaman silinir.
+139	Otomatik kapatma
+140	Tüm indirmeler bitti.
+141	Şimdi kapat
+142	Kapat
+143	Tercihler
+144	İndirme klasörü
+145	Türe göre alt klasörlere ayır (Video, Müzik, Programlar…)
+146	Dosya zaten varsa
+147	Sil düğmesi
+148	Pencere kapatılınca bildirim alanında kal
+149	Panoyu izle ve kopyalanan bağlantıları öner
+150	Windows ile başlat (bildirim alanında simge durumunda)
+151	İndirme sırasında bilgisayarın uyumasını engelle
+152	Dil
+153	Sıkışık liste (daha alçak satırlar)
+154	Bir video/şarkıya çift tıklamak onu Scarlet oynatıcısında açar
+155	Arayüz yakınlaştırma (yeniden başlat)
+156	İndirmeler
+157	Ağ yüzünden başarısız olanları otomatik yeniden dene (5 kereye kadar)
+158	Dosyası silinmiş indirmeleri listeden kaldır
+159	Tamamlanan indirmeleri listeden kaldır
+160	Web sayfası indirme (bağlantı dosya değilse uyar)
+161	İndirilen dosyaları internetten gelmiş olarak işaretle (Windows güvenliği)
+162	İndirilen dosya için sunucu tarihini kullan
+163	Listeyi yedekle, her
+164	Bağlantılar
+165	Eşzamanlı indirme
+166	İndirme başına bağlantı
+167	Sunucu başına en fazla
+168	Toplam en fazla bağlantı
+169	Bağlantı başına deneme
+170	Okuma zaman aşımı
+171	SSL sertifikalarını doğrula (önerilir)
+172	Bir sunucu şikâyet ettiğinde (HTTP 429/503) Scarlet bağlantıları kendisi azaltır.
+173	İndirme hızını sınırla
+174	İndirme sınırı
+175	sınırsız
+176	Yükleme sınırı (torrent)
+177	Alt çubuktaki hız düğmesi sınırı hızlıca açıp kapatır.
+179	Doğrudan bağlantı (proxy yok)
+180	Sistem proxy'sini kullan
+181	Elle proxy
+182	Adres
+183	Tarayıcı
+184	Tarayıcı uzantısından bağlantı al
+185	Yerel port
+186	Tarayıcıdan gelen bağlantılar için onay penceresi göster
+187	Sitelerden videolar
+188	denetleniyor…
+189	Video motoru
+190	Video dönüştürücü
+191	YouTube bileşeni
+192	Bileşenleri şimdi kur / güncelle
+193	Motoru her hafta güncelle (siteler sık değişir)
+194	Şu olarak indir (varsayılan)
+195	Varsayılan çözünürlük
+196	Varsayılan FPS
+197	Varsayılan ses biçimi
+198	MP3 kalitesi
+199	Video biçimi
+200	H.264/AAC tercih et (TV'lerde ve eski telefonlarda oynar)
+201	Altyazıları indir ve göm (Portekizce ve İngilizce)
+202	YouTube, YouTube Music, SoundCloud, Vimeo, X/Twitter, Instagram, TikTok, Facebook, Twitch, Reddit, Bandcamp ve 1000'den fazla siteyle çalışır. DRM'li hizmetler (Spotify, Netflix, Deezer…) çalışmaz. Yalnızca indirme hakkınız olanı indirin.
+203	Dinleme portu
+204	Bittikten sonra paylaşmaya devam et
+205	Şu oranda paylaşmayı durdur
+206	Şifreleme
+207	DHT (izleyici olmadan daha çok eş bul)
+208	Local Peer Discovery (yerel ağdaki eşler)
+209	Modemde portu aç (UPnP / NAT-PMP)
+210	uTP (ağı tıkamayan protokol)
+211	Bir .torrent klasörünü izle
+212	Klasörde bulunan torrentleri sormadan başlat
+213	İndirme bitince özgün .torrent dosyasını sil
+214	Magnet bağlantıları ve .torrent dosyaları için Scarlet DM'i kullan
+215	Motor
+216	Antivirüs
+217	İndirme bitince her dosyayı antivirüsle tara
+218	Program
+219	Windows Defender için otomatik; dosya için %path% kullanın
+220	Argümanlar
+221	Tehdit varsa indirme kırmızıyla işaretlenir ve uyarı alırsınız.
+222	Bildirimler
+223	Bir indirme bitince bildir
+224	Bir indirme eklenince bildir
+225	Bir indirme başarısız olunca bildir
+226	Yalnızca Scarlet penceresi önde değilken bildir
+227	Bildirimle birlikte ses çal
+228	Zamanlayıcı
+229	Günlük zamanlayıcıyı kullan
+230	Tümünü sürdürme saati
+231	Tümünü duraklatma saati
+232	İnternetin boş olduğu gece saatlerinde indirmek için kullanışlı.
+233	Uzaktan erişim
+234	İndirmelerin aynı ağdaki telefondan veya başka bir bilgisayardan yönetilmesine izin ver
+235	Port
+236	Oluştur
+237	Parola
+238	Kaydettikten sonra adres alt çubuktaki «Uzak» rozetinde görünür. Windows ilk seferde güvenlik duvarı izni isteyebilir.
+239	Gelişmiş
+240	.m3u8 akış kalitesi
+241	Bir indirme bitince program çalıştır
+242	Argümanlar (%path%)
+243	Veri klasörü
+244	Kaydet
+245	Program seç
+246	Kaydedildi. Varsayılan zaten başka bir programsa Windows, Varsayılan uygulamalar'da onay ister. O ekran şimdi açılsın mı?
+247	En yüksek hız (ör.: 750 KB, 3 MB):
+248	Çözünürlük
+249	Biçim
+250	Kalite
+251	Şu olarak indir
+252	Kaydetme yeri
+253	Bu videonun 60 fps sürümü yok
+254	Bu biçim özgün sesi yeniden kodlamadan korur
+255	Spotify, Netflix, Deezer ve DRM'li (kopya korumalı) diğerleri indirilemez. YouTube, SoundCloud, Vimeo ve 1000'den fazla site çalışır.
+256	 (toplu liste genişletildi)
+257	Video/müzik bilgileri okunuyor…
+258	Bağlantı denetleniyor…
+259	HLS akışı (.m3u8): parçalar halinde indirilip MP4 olarak kaydedilecek
+260	Bu bağlantı bir dosya değil, web sayfası açıyor. Bir video sayfasıysa Gelişmiş seçeneklerde «Video sayfası olarak işle»yi işaretleyin.
+261	boyut bilinmiyor
+262	devam ettirilebilir, çoklu bağlantı
+263	devam ettirilemez (1 bağlantı)
+264	libtorrent kurulu değil (pip install libtorrent)
+265	antivirüs yolu (.exe)
+266	bulunamadı — akışlar .ts olarak kalacak
+267	Yeni dil, Scarlet DM bir sonraki açılışında kullanılacak.
+268	{len} .torrent dosyası: {names}
+269	Birden çok video/şarkı
+270	Seçilen kalite hepsine uygulanır.
+271	Torrent kullanılamıyor: şu komutla kurun  pip install libtorrent
+273	Bulundu ({detalhe}). Kaliteyi seçip İndir'e tıklayın.
+274	{count} indirme listeden silinsin mi?
+275	Bilgisayar {left} sn içinde kapanacak.
+276	{APP_NAME} hakkında
+277	Sürüm {VERSION}
+278	Dosya başına çoklu bağlantı, devam ettirme, kuyruk, hız sınırı, zamanlayıcı, sitelerden video ve müzik, HLS akışları, torrent, antivirüs, uzaktan erişim ve tarayıcı entegrasyonu sunan indirme yöneticisi.\n\nTorrent: {__version__ifltelseindisponível}\nSitelerden videolar: {prontoifytdlp_command}\nffmpeg: {find_ffmpeg}\nVeriler: {app_data_dir}
+279	Yeniden adlandır (dosya (1).ext)
+280	Üzerine yaz
+281	Her zaman sor
+282	Yalnızca listeden kaldır
+283	Kaldır ve dosyaları sil
+284	MP4 (her yerde oynar)
+285	Şifrelemeyi tercih et
+286	Şifreleme zorunlu
+287	Kapalı
+288	Programlar (*.exe)
+289	ffmpeg (ffmpeg.exe);;Çalıştırılabilir dosyalar (*.exe)
+290	Mevcut en iyi kalite
+291	En küçük boyut
+292	Programlar (*.exe *.bat *.cmd);;Tümü (*.*)
+293	Boş alan: {format_size}
+294	 · {sum} video/müzik
+295	{len} bağlantı eklenecek{extra}{kinds}
+296	SSL sertifika hatası
+297	{res} öğelik çalma listesi — hepsi eklenecek
+298	Çalma listesi: {res} öğe
+299	{h}p'ye kadar
+300	{res} — yine de ekleyip daha sonra tekrar deneyebilirsiniz
+301	Yeterli alan yok: {format_size} gerekli, {format_size2} boş
+302	Otomatik (Windows dili)
+303	otomatik: {defender}
+305	Klasör kullanılamıyor: {e}
+306	Kaydedilemedi: {e}
+307	Sunucudan yanıt yok ({__name__})
+308	sürüm {v} ✓
+309	hata: {erro}
+310	İndirme ekle (Ctrl+N)
+311	Başlat / sürdür (Boşluk)
+312	Duraklat (Boşluk)
+313	Sil (Del)
+314	Tümünü sürdür
+315	Tümünü duraklat
+316	İndirmelerde ara…
+317	Tercihler (Ctrl+,)
+318	Menü
+319	Yok say
+320	Burada indirme yok.\n +  düğmesine tıklayın, bir bağlantı yapıştırın (Ctrl+V) veya bağlantıları pencereye sürükleyin.
+321	Toplam indirme hızı
+322	Toplam yükleme hızı (torrentler)
+323	Sınırsız
+324	Hız sınırını açıp kapatmak için tıklayın
+325	Sınırı seç
+326	Tarayıcı entegrasyonu
+327	Uzak
+328	Telefondan uzaktan erişim — adresi kopyalamak için tıklayın
+329	Ayrıntılar
+330	Ayrıntı panelini göster/gizle
+331	Özel…
+332	İndirme ekle…\tCtrl+N
+333	Panodan bağlantıları yapıştır\tCtrl+V
+334	Dosyadan bağlantı içe aktar…
+335	.torrent dosyası aç…
+336	Bağlantıları dışa aktar…
+337	Tamamlananları listeden kaldır
+338	Hızı sınırla
+339	Her şey bitince bilgisayarı kapat
+340	Tercihler…\tCtrl+,
+341	Hakkında
+342	Çıkış\tCtrl+Q
+343	Pencereyi göster
+344	İndirme ekle…
+345	Bağlantıları yapıştır
+346	Çıkış
+347	Baştan başlat
+348	Kuyruğun başına taşı
+349	Kuyruğun sonuna taşı
+350	Sil…\tDel
+352	Klasöre taşı
+353	Bağlantıyı değiştir
+354	Yeni bağlantı (eskisinin süresi dolduğunda işe yarar). Aynı dosyaysa ilerleme korunur.
+355	Bağlantıları içe aktar
+356	Metin (*.txt *.csv *.html *.htm);;Tümü (*.*)
+357	Bağlantıları dışa aktar
+358	Metin (*.txt)
+359	magnet bağlantısı
+360	Tüm indirmeler bitince bilgisayar kapanacak.
+361	Birlikte aç…
+362	Duraklat
+363	Bağlantıyı değiştir…
+364	Bağlantıyı kopyala\tCtrl+Shift+C
+365	Hash hesapla
+366	Yeniden başlat
+367	Panoda bağlantı yok.
+368	Dosyada bağlantı bulunamadı.
+369	Tarayıcı: kapalı
+370	Bağlantı kopyalandı — indirmek için tıklayın
+371	Aramayla eşleşen bir şey yok.
+372	İndirme tamamlandı
+373	Buraya çıkar
+374	ZIP olarak sıkıştır…
+375	{name} için {upper} hesaplanıyor…
+376	{name} için {upper}:\n\n{value}\n\n(panoya kopyalandı)
+377	Zaten listede
+378	Uzak: port meşgul
+379	Tarayıcı: port meşgul
+380	{first} ve {len} tane daha
+381	Bildirim alanında çalışmaya devam ediyorum. Çıkmak için sağ tıklayın.
+382	{n_q} kuyrukta
+383	İndirme başarısız
+384	Dosya artık diskte değil.\nYeniden indirmek için «Yeniden başlat»ı kullanın.
+385	ZIP oluşturuldu: {basename} ({format_size})
+386	{moved} öğe {d} konumuna taşındı
+387	{basename} çıkarılıyor…
+388	Çıkarıldı: {n} dosya, {out} içine
+389	{len} indirme baştan indirilsin mi? Mevcut ilerleme kaybolacak.
+390	İndirme eklendi
+391	{len} bağlantı {f} dosyasına aktarıldı
+392	Sınır: {format_size}/s
+393	Uzak: {url}
+394	Adres kopyalandı: {url} — telefonun tarayıcısında açın (aynı Wi-Fi) ve Tercihler'deki parolayı kullanın.
+395	Tarayıcıdan {len} indirme alındı
+396	Bağlantı kopyalandı: {label}
+397	Boş: {format_size}
+398	\n{n_act} etkin, {n_q} kuyrukta
+399	⚠ Tehdit bulundu
+400	{n} medya oynat
+401	Sıkıştırma başarısız: {e}
+402	Taşınıyor {i}/{len}: {name}…
+403	Taşıma başarısız: {e}
+404	.rar/.7z/.iso için 7-Zip kurun (7-zip.org)
+405	Çıkarma başarısız: {e}
+406	{len} bağlantı zaten listede. Yine de eklensin mi?
+407	Tarayıcı: hazır (:{port})
+408	{port} portu açılamadı: {error}
+409	hata: {e}
+410	{name}\nAntivirüs bir tehdit buldu. Dosyayı açmayın.
+411	{basename} açılamadı:\n{e}
+412	{len} indirme eklendi
+413	{len} dosya sıkıştırılıyor… %{done100total} ({format_size} / {format_size2})
+414	Dosya eksik
+415	Sağlama toplamı denetleniyor…
+416	Hata:
+417	{txt} · {peers} eş
+418	{base} · {n} bağlantı
+419	Scarlet DM — Oynatıcı
+420	Önceki (P)
+421	Oynat/duraklat (Boşluk)
+422	Sonraki (N)
+423	Sessiz (M)
+424	Tam ekran (F)
+425	Tam ekrandan çık (Esc)
+426	Tam ekrandan çıkmak için Esc veya çift tıklama
+428	Oynatılamadı: {erro}. Başka bir programda oynatmak için «Aç»ı kullanın.
+429	son 60 sn
+430	Kuyrukta
+431	Bağlanıyor…
+432	İndiriliyor
+433	Duraklatıldı
+434	Tamamlandı
+435	Hata
+436	İşleniyor…
+437	Paylaşılıyor
+438	Müzik
+439	Belgeler
+440	Arşivler
+441	Programlar
+442	Resimler
+443	Diğer
+444	Tümü
+445	Etkin
+446	Tamamlanan
+447	Duraklatılan
+448	Hatalı
+449	Eksik dosyalar
+450	Kalan süre
+451	Devam ettirilebilir
+452	Tür
+453	Eklenme
+454	Giriş
+455	Yanlış parola
+456	Tümünü duraklat
+457	Sürdür
+458	Bir bağlantı yapıştırın (dosya, YouTube, magnet…)
+459	İndirme yok.
+460	Başlat
+461	Mevcut en iyi
+468	60 fps (daha akıcı)
+469	30 fps (daha küçük dosya)
+471	M4A (AAC, yeniden kodlamasız)
+472	OPUS (yeniden kodlamasız)
+473	FLAC (kayıpsız)
+474	320 kbps (en yüksek)
+477	128 kbps (en düşük)
+=Nome	Ad
+=Estado	Durum
+=Restante	Kalan
+=Pular sites, pular extensões e o tamanho mínimo ficam no ícone da extensão.	Atlanacak siteler, uzantılar ve en küçük boyut uzantının simgesinden ayarlanır.
+=Qualquer outro navegador: deixe ligado “Monitorar a área de transferência” em Geral — copie o link e o Scarlet oferece o download.	Diğer tarayıcılar: Genel'de «Panoyu izle» açık kalsın — bağlantıyı kopyalayın, Scarlet indirmeyi önersin.
+=Firefox: abra about:debugging → “Este Firefox” → “Carregar extensão temporária” e escolha o manifest.json da pasta “extension-firefox” (vale até fechar o Firefox; a versão permanente é a publicada na loja de extensões da Mozilla).	Firefox: about:debugging → «Bu Firefox» → «Geçici eklenti yükle»yi açın ve «extension-firefox» klasöründeki manifest.json'u seçin (Firefox kapanana kadar geçerlidir; kalıcı sürüm Mozilla eklenti mağazasında yayınlanandır).
+=Chrome, Edge, Brave, Opera e Vivaldi: abra a página de extensões (chrome://extensions, edge://extensions…), ligue o “Modo do desenvolvedor”, clique em “Carregar sem compactação” e escolha a pasta “extension”.	Chrome, Edge, Brave, Opera ve Vivaldi: uzantılar sayfasını açın (chrome://extensions, edge://extensions…), «Geliştirici modu»nu açın, «Paketlenmemiş öğe yükle»ye tıklayın ve «extension» klasörünü seçin.
+=Preparando…	Hazırlanıyor…
+=Criando atalhos…	Kısayollar oluşturuluyor…
+=Registrando…	Kaydediliyor…
+=O Scarlet DM está aberto. Feche-o (ícone perto do relógio → Sair) e clique em “Tentar de novo”.	Scarlet DM açık. Kapatın (saatin yanındaki simge → Çıkış) ve «Tekrar dene»ye tıklayın.
+=Tentar de novo	Tekrar dene
+=Fechar para mim	Benim için kapat
+=Instalar em	Kurulum yeri
+=Criar atalho na Área de Trabalho	Masaüstüne kısayol oluştur
+=Criar atalho no Menu Iniciar	Başlat menüsüne kısayol oluştur
+=Iniciar com o Windows (minimizado perto do relógio)	Windows ile başlat (saatin yanında simge durumunda)
+=Abrir links magnet e arquivos .torrent com o Scarlet DM	Magnet bağlantılarını ve .torrent dosyalarını Scarlet DM ile aç
+=Instalar	Kur
+=Pronto! O Scarlet DM foi instalado.	Tamam! Scarlet DM kuruldu.
+=Abrir o Scarlet DM agora	Scarlet DM'i şimdi aç
+=Concluir	Bitir
+=Remover o Scarlet DM deste computador?	Scarlet DM bu bilgisayardan kaldırılsın mı?
+=Apagar também a lista de downloads, as configurações e os componentes de vídeo	İndirme listesini, ayarları ve video bileşenlerini de sil
+=Os arquivos que você baixou não são apagados.	İndirdiğiniz dosyalar silinmez.
+=Desinstalar	Kaldır
+=O Scarlet DM foi removido.	Scarlet DM kaldırıldı.
+=Para baixar direto do navegador (Chrome, Edge, Brave, Opera, Vivaldi ou Firefox), instale a extensão: Preferências › Navegador.	Doğrudan tarayıcıdan (Chrome, Edge, Brave, Opera, Vivaldi veya Firefox) indirmek için uzantıyı kurun: Tercihler › Tarayıcı.
+=Instalar {app}	{app} kurulumu
+=Versão {v} · gerenciador de downloads	Sürüm {v} · indirme yöneticisi
+=Para fixar na barra de tarefas: com o Scarlet aberto, clique com o botão direito no ícone dele na barra de tarefas → “Fixar na barra de tarefas” (o Windows não deixa programas fazerem isso sozinhos).	Görev çubuğuna sabitlemek için: Scarlet açıkken görev çubuğundaki simgesine sağ tıklayın → «Görev çubuğuna sabitle» (Windows programların bunu kendisinin yapmasına izin vermez).
+=Espaço necessário: {n}	Gereken alan: {n}
+=Desinstalar {app}	{app} kaldırma
+=Versão {v}	Sürüm {v}
+=Não foi possível instalar:\n{erro}	Kurulum başarısız:\n{erro}
+=Copiando arquivos… {p}%	Dosyalar kopyalanıyor… %{p}
+=Bem-vindo ao Scarlet DM	Scarlet DM'e hoş geldiniz
+=Vamos deixar tudo pronto em 10 segundos.	Her şeyi 10 saniyede hazırlayalım.
+=Salvar downloads em	İndirmeleri şuraya kaydet
+=Dica: para baixar direto do navegador, instale a extensão em Preferências › Navegador. Tudo isto pode ser mudado depois nas Preferências.	İpucu: doğrudan tarayıcıdan indirmek için uzantıyı Tercihler › Tarayıcı'dan kurun. Bunların hepsi sonra Tercihler'den değiştirilebilir.
+=Começar	Başla
+=Registrado.	Kaydedildi.

@@ -1,0 +1,100 @@
+{
+ "extName": {
+  "message": "Scarlet DM — 連携"
+ },
+ "extDesc": {
+  "message": "ブラウザーのダウンロード、リンク、動画（HLS）を Scarlet DM に送ります。"
+ },
+ "menuLink": {
+  "message": "Scarlet DM でダウンロード"
+ },
+ "menuMedia": {
+  "message": "このメディアを Scarlet DM でダウンロード"
+ },
+ "menuSelection": {
+  "message": "選択したリンクをダウンロード"
+ },
+ "menuPageMedia": {
+  "message": "このページの動画/音楽をダウンロード（YouTube、SoundCloud…）"
+ },
+ "menuPage": {
+  "message": "このページのファイルをすべてダウンロード"
+ },
+ "noFiles": {
+  "message": "ファイルが見つかりません。"
+ },
+ "noFilesPage": {
+  "message": "ページにファイルが見つかりません。"
+ },
+ "offline": {
+  "message": "Scarlet DM が起動していません（または設定でブラウザー連携がオフです）。"
+ },
+ "checking": {
+  "message": "確認中…"
+ },
+ "connected": {
+  "message": "接続済み"
+ },
+ "appClosed": {
+  "message": "アプリ終了中"
+ },
+ "detected": {
+  "message": "このタブで検出したメディア"
+ },
+ "btnPageMedia": {
+  "message": "このページの動画/音楽をダウンロード"
+ },
+ "btnPage": {
+  "message": "ページのファイルをダウンロード"
+ },
+ "btnShow": {
+  "message": "Scarlet DM を開く"
+ },
+ "prefs": {
+  "message": "設定"
+ },
+ "optIntercept": {
+  "message": "ブラウザーのダウンロードを横取りする"
+ },
+ "optMinSize": {
+  "message": "これより小さいファイルは無視（KB）"
+ },
+ "optSkipHtml": {
+  "message": "ウェブページは横取りしない"
+ },
+ "optSkipDomains": {
+  "message": "これらのサイトはスキップ（例：drive.google.com、mega.nz）"
+ },
+ "phSkipDomains": {
+  "message": "1 行に 1 つ、またはカンマ区切り"
+ },
+ "optSkipExts": {
+  "message": "これらの拡張子はスキップ（例：pdf、jpg）"
+ },
+ "optPort": {
+  "message": "アプリのポート"
+ },
+ "noMedia": {
+  "message": "動画や音声が見つかりません。動画を再生してから開き直してください。"
+ },
+ "hlsStream": {
+  "message": "HLS ストリーム"
+ },
+ "download": {
+  "message": "ダウンロード"
+ },
+ "sent": {
+  "message": "Scarlet DM に送信しました。"
+ },
+ "pageSent": {
+  "message": "ページを送信しました：Scarlet DM で品質を選んでください。"
+ },
+ "linksSent": {
+  "message": "$COUNT$ 件のリンクを送信しました。",
+  "placeholders": {
+   "count": {
+    "content": "$1"
+   }
+  }
+ }
+}

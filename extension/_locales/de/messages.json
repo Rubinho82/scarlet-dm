@@ -1,0 +1,100 @@
+{
+ "extName": {
+  "message": "Scarlet DM — Integration"
+ },
+ "extDesc": {
+  "message": "Sendet Downloads, Links und Videos (HLS) aus dem Browser an Scarlet DM."
+ },
+ "menuLink": {
+  "message": "Mit Scarlet DM herunterladen"
+ },
+ "menuMedia": {
+  "message": "Dieses Medium mit Scarlet DM herunterladen"
+ },
+ "menuSelection": {
+  "message": "Ausgewählte Links herunterladen"
+ },
+ "menuPageMedia": {
+  "message": "Video/Musik dieser Seite herunterladen (YouTube, SoundCloud…)"
+ },
+ "menuPage": {
+  "message": "Alle Dateien dieser Seite herunterladen"
+ },
+ "noFiles": {
+  "message": "Keine Dateien gefunden."
+ },
+ "noFilesPage": {
+  "message": "Keine Dateien auf der Seite gefunden."
+ },
+ "offline": {
+  "message": "Scarlet DM ist nicht geöffnet (oder die Browser-Integration ist in den Einstellungen aus)."
+ },
+ "checking": {
+  "message": "wird geprüft…"
+ },
+ "connected": {
+  "message": "verbunden"
+ },
+ "appClosed": {
+  "message": "App geschlossen"
+ },
+ "detected": {
+  "message": "In diesem Tab erkannte Medien"
+ },
+ "btnPageMedia": {
+  "message": "Video/Musik dieser Seite herunterladen"
+ },
+ "btnPage": {
+  "message": "Dateien der Seite herunterladen"
+ },
+ "btnShow": {
+  "message": "Scarlet DM öffnen"
+ },
+ "prefs": {
+  "message": "Einstellungen"
+ },
+ "optIntercept": {
+  "message": "Browser-Downloads abfangen"
+ },
+ "optMinSize": {
+  "message": "Dateien kleiner als (KB) ignorieren"
+ },
+ "optSkipHtml": {
+  "message": "Keine Webseiten abfangen"
+ },
+ "optSkipDomains": {
+  "message": "Diese Seiten überspringen (z. B. drive.google.com, mega.nz)"
+ },
+ "phSkipDomains": {
+  "message": "eine pro Zeile oder durch Kommas getrennt"
+ },
+ "optSkipExts": {
+  "message": "Diese Endungen überspringen (z. B. pdf, jpg)"
+ },
+ "optPort": {
+  "message": "App-Port"
+ },
+ "noMedia": {
+  "message": "Kein Video oder Audio erkannt. Starten Sie das Video und öffnen Sie dies erneut."
+ },
+ "hlsStream": {
+  "message": "HLS-Stream"
+ },
+ "download": {
+  "message": "Herunterladen"
+ },
+ "sent": {
+  "message": "An Scarlet DM gesendet."
+ },
+ "pageSent": {
+  "message": "Seite gesendet: Wählen Sie die Qualität in Scarlet DM."
+ },
+ "linksSent": {
+  "message": "$COUNT$ Link(s) gesendet.",
+  "placeholders": {
+   "count": {
+    "content": "$1"
+   }
+  }
+ }
+}

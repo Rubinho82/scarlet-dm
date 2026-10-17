@@ -1,0 +1,100 @@
+{
+ "extName": {
+  "message": "Scarlet DM — 연동"
+ },
+ "extDesc": {
+  "message": "브라우저의 다운로드, 링크, 동영상(HLS)을 Scarlet DM으로 보냅니다."
+ },
+ "menuLink": {
+  "message": "Scarlet DM으로 다운로드"
+ },
+ "menuMedia": {
+  "message": "이 미디어를 Scarlet DM으로 다운로드"
+ },
+ "menuSelection": {
+  "message": "선택한 링크 다운로드"
+ },
+ "menuPageMedia": {
+  "message": "이 페이지의 동영상/음악 다운로드(YouTube, SoundCloud…)"
+ },
+ "menuPage": {
+  "message": "이 페이지의 모든 파일 다운로드"
+ },
+ "noFiles": {
+  "message": "파일을 찾지 못했습니다."
+ },
+ "noFilesPage": {
+  "message": "페이지에서 파일을 찾지 못했습니다."
+ },
+ "offline": {
+  "message": "Scarlet DM이 열려 있지 않습니다(또는 환경설정에서 브라우저 연동이 꺼져 있습니다)."
+ },
+ "checking": {
+  "message": "확인 중…"
+ },
+ "connected": {
+  "message": "연결됨"
+ },
+ "appClosed": {
+  "message": "앱 닫힘"
+ },
+ "detected": {
+  "message": "이 탭에서 감지된 미디어"
+ },
+ "btnPageMedia": {
+  "message": "이 페이지의 동영상/음악 다운로드"
+ },
+ "btnPage": {
+  "message": "페이지 파일 다운로드"
+ },
+ "btnShow": {
+  "message": "Scarlet DM 열기"
+ },
+ "prefs": {
+  "message": "환경설정"
+ },
+ "optIntercept": {
+  "message": "브라우저 다운로드 가로채기"
+ },
+ "optMinSize": {
+  "message": "이보다 작은 파일 무시(KB)"
+ },
+ "optSkipHtml": {
+  "message": "웹 페이지는 가로채지 않기"
+ },
+ "optSkipDomains": {
+  "message": "이 사이트 건너뛰기(예: drive.google.com, mega.nz)"
+ },
+ "phSkipDomains": {
+  "message": "한 줄에 하나 또는 쉼표로 구분"
+ },
+ "optSkipExts": {
+  "message": "이 확장자 건너뛰기(예: pdf, jpg)"
+ },
+ "optPort": {
+  "message": "앱 포트"
+ },
+ "noMedia": {
+  "message": "동영상이나 오디오가 감지되지 않았습니다. 동영상을 재생한 뒤 다시 여세요."
+ },
+ "hlsStream": {
+  "message": "HLS 스트림"
+ },
+ "download": {
+  "message": "다운로드"
+ },
+ "sent": {
+  "message": "Scarlet DM으로 보냈습니다."
+ },
+ "pageSent": {
+  "message": "페이지를 보냈습니다: Scarlet DM에서 품질을 고르세요."
+ },
+ "linksSent": {
+  "message": "링크 $COUNT$개를 보냈습니다.",
+  "placeholders": {
+   "count": {
+    "content": "$1"
+   }
+  }
+ }
+}

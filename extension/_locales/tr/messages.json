@@ -1,0 +1,100 @@
+{
+ "extName": {
+  "message": "Scarlet DM — Entegrasyon"
+ },
+ "extDesc": {
+  "message": "Tarayıcıdaki indirmeleri, bağlantıları ve videoları (HLS) Scarlet DM'e gönderir."
+ },
+ "menuLink": {
+  "message": "Scarlet DM ile indir"
+ },
+ "menuMedia": {
+  "message": "Bu medyayı Scarlet DM ile indir"
+ },
+ "menuSelection": {
+  "message": "Seçili bağlantıları indir"
+ },
+ "menuPageMedia": {
+  "message": "Bu sayfanın videosunu/müziğini indir (YouTube, SoundCloud…)"
+ },
+ "menuPage": {
+  "message": "Bu sayfadaki tüm dosyaları indir"
+ },
+ "noFiles": {
+  "message": "Dosya bulunamadı."
+ },
+ "noFilesPage": {
+  "message": "Sayfada dosya bulunamadı."
+ },
+ "offline": {
+  "message": "Scarlet DM açık değil (veya tarayıcı entegrasyonu Tercihler'de kapalı)."
+ },
+ "checking": {
+  "message": "denetleniyor…"
+ },
+ "connected": {
+  "message": "bağlı"
+ },
+ "appClosed": {
+  "message": "uygulama kapalı"
+ },
+ "detected": {
+  "message": "Bu sekmede bulunan medyalar"
+ },
+ "btnPageMedia": {
+  "message": "Bu sayfanın videosunu/müziğini indir"
+ },
+ "btnPage": {
+  "message": "Sayfadaki dosyaları indir"
+ },
+ "btnShow": {
+  "message": "Scarlet DM'i aç"
+ },
+ "prefs": {
+  "message": "Tercihler"
+ },
+ "optIntercept": {
+  "message": "Tarayıcı indirmelerini yakala"
+ },
+ "optMinSize": {
+  "message": "Şundan küçük dosyaları yok say (KB)"
+ },
+ "optSkipHtml": {
+  "message": "Web sayfalarını yakalama"
+ },
+ "optSkipDomains": {
+  "message": "Bu siteleri atla (ör.: drive.google.com, mega.nz)"
+ },
+ "phSkipDomains": {
+  "message": "her satıra bir tane veya virgülle ayrılmış"
+ },
+ "optSkipExts": {
+  "message": "Bu uzantıları atla (ör.: pdf, jpg)"
+ },
+ "optPort": {
+  "message": "Uygulama portu"
+ },
+ "noMedia": {
+  "message": "Video veya ses bulunamadı. Videoyu oynatıp bunu yeniden açın."
+ },
+ "hlsStream": {
+  "message": "HLS akışı"
+ },
+ "download": {
+  "message": "İndir"
+ },
+ "sent": {
+  "message": "Scarlet DM'e gönderildi."
+ },
+ "pageSent": {
+  "message": "Sayfa gönderildi: kaliteyi Scarlet DM'de seçin."
+ },
+ "linksSent": {
+  "message": "$COUNT$ bağlantı gönderildi.",
+  "placeholders": {
+   "count": {
+    "content": "$1"
+   }
+  }
+ }
+}
