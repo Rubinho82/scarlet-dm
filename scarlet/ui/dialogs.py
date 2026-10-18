@@ -814,6 +814,7 @@ class SettingsDialog(QDialog):
         f.addRow("", self.autostart)
         self.prevent_sleep = self._check(f, _("Impedir que o PC entre em suspensão enquanto houver downloads"),
                                          "prevent_sleep")
+        self.check_updates = self._check(f, _("Avisar quando houver versão nova do Scarlet DM"), "check_updates")
         f.addRow(_hline())
         self.language = self._combo([(_("Automático (idioma do Windows)"), "")] + [(n, c) for c, n in LANGUAGES],
                                     s.get("language", ""))
@@ -1242,7 +1243,7 @@ class SettingsDialog(QDialog):
         s["download_dir"] = self.dir.text().strip() or s["download_dir"]
         checks = {
             "category_subfolders": self.subfolders, "close_to_tray": self.tray_close, "clipboard_monitor": self.clip,
-            "prevent_sleep": self.prevent_sleep, "compact": self.compact, "auto_retry": self.auto_retry,
+            "prevent_sleep": self.prevent_sleep, "check_updates": self.check_updates, "compact": self.compact, "auto_retry": self.auto_retry,
             "use_player": self.use_player,
             "autoremove_missing": self.autoremove_missing, "autoremove_completed": self.autoremove_completed,
             "skip_html": self.skip_html, "mark_downloaded": self.mark, "use_server_time": self.server_time,

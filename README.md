@@ -8,16 +8,16 @@ Licença MIT (veja `LICENSE` e `THIRD_PARTY_NOTICES.md`). 11 idiomas. **Windows,
 
 ## Para quem vai usar
 
-- **Windows — instalador:** `ScarletDM-2.0.1-Setup.exe` (Inno Setup) — instala só para o usuário (sem pedir
+- **Windows — instalador:** `ScarletDM-2.0.2-Setup.exe` (Inno Setup) — instala só para o usuário (sem pedir
   administrador), pergunta idioma, cria atalhos (Área de Trabalho e Menu Iniciar), pergunta se deve iniciar com o
   Windows e se abre links magnet/.torrent. Desinstala por Configurações › Aplicativos (pergunta se apaga os dados).
-- **macOS:** `ScarletDM-2.0.1-macos-arm64.dmg` (Apple Silicon) / `-macos-x64.dmg` (Intel) — arraste para Aplicativos.
+- **macOS:** `ScarletDM-2.0.2-macos-arm64.dmg` (Apple Silicon) / `-macos-x64.dmg` (Intel) — arraste para Aplicativos.
   Na primeira vez: botão direito → Abrir (sem a conta paga de desenvolvedor da Apple não há notarização).
-- **Linux:** `ScarletDM-2.0.1-linux-x64.AppImage` (um arquivo, qualquer distro de 2022 para cá; `chmod +x` e rode) ou
+- **Linux:** `ScarletDM-2.0.2-linux-x64.AppImage` (um arquivo, qualquer distro de 2022 para cá; `chmod +x` e rode) ou
   `.tar.gz`. Dados em `~/.local/share/ScarletDM`, iniciar com o sistema em `~/.config/autostart`, links magnet via
   `xdg-mime`.
   O Windows não deixa programas se fixarem sozinhos na barra de tarefas; o instalador ensina o clique direito → Fixar.
-- **Portátil:** `ScarletDM-2.0.1-Portable.zip` — descompacte e rode. Com o `portable.ini` ao lado do `.exe`, lista e
+- **Portátil:** `ScarletDM-2.0.2-Portable.zip` — descompacte e rode. Com o `portable.ini` ao lado do `.exe`, lista e
   configurações ficam em `data\` na própria pasta (bom para pendrive). Na primeira abertura aparece uma tela de
   boas-vindas (idioma, pasta, iniciar com o Windows, atalho).
 - Vídeos e músicas de sites: nada para instalar. Na primeira vez o app baixa sozinho, das fontes oficiais, o
@@ -155,7 +155,7 @@ ScarletDM.exe --quit                       :: fecha a instância aberta (salva t
 ScarletDM.exe --selftest [video] [--out x.json]
 ScarletDM.exe --uninstall [--silent [--remove-data]]
 
-ScarletDM-2.0.1-Setup.exe --silent [--dir PASTA] [--no-desktop] [--no-startmenu] [--autostart]
+ScarletDM-2.0.2-Setup.exe --silent [--dir PASTA] [--no-desktop] [--no-startmenu] [--autostart]
                           [--no-handlers] [--no-launch] [--lang en]
 ```
 

@@ -83,6 +83,9 @@ DEFAULTS = {
     "media_subs": False,
     "ytdlp_auto_update": True,
     "ytdlp_last_update": 0,
+    "check_updates": True,         # procura versão nova do Scarlet DM (1x por dia, no GitHub)
+    "update_last_check": 0,
+    "update_skip": "",             # versão que a pessoa mandou pular
     # acesso remoto
     "remote_enabled": False,
     "remote_port": 47332,

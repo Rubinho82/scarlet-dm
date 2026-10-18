@@ -124,17 +124,24 @@ Name: "{{autodesktop}}\\{{#AppName}}"; Filename: "{{app}}\\{{#AppExe}}"; Tasks: 
 
 [Run]
 ; grava idioma escolhido, "iniciar com o Windows" e associações usando o próprio app (mesma lógica das Preferências)
-Filename: "{{app}}\\{{#AppExe}}"; Parameters: "--setup-done {{language}}"; Flags: runhidden waituntilterminated; Tasks: not autostart and not magnet
-Filename: "{{app}}\\{{#AppExe}}"; Parameters: "--setup-done {{language}} --autostart"; Flags: runhidden waituntilterminated; Tasks: autostart and not magnet
-Filename: "{{app}}\\{{#AppExe}}"; Parameters: "--setup-done {{language}} --handlers"; Flags: runhidden waituntilterminated; Tasks: magnet and not autostart
-Filename: "{{app}}\\{{#AppExe}}"; Parameters: "--setup-done {{language}} --autostart --handlers"; Flags: runhidden waituntilterminated; Tasks: autostart and magnet
+Filename: "{{app}}\\{{#AppExe}}"; Parameters: "--setup-done {{language}}"; Flags: runhidden waituntilterminated; Check: not IsUpdate; Tasks: not autostart and not magnet
+Filename: "{{app}}\\{{#AppExe}}"; Parameters: "--setup-done {{language}} --autostart"; Flags: runhidden waituntilterminated; Check: not IsUpdate; Tasks: autostart and not magnet
+Filename: "{{app}}\\{{#AppExe}}"; Parameters: "--setup-done {{language}} --handlers"; Flags: runhidden waituntilterminated; Check: not IsUpdate; Tasks: magnet and not autostart
+Filename: "{{app}}\\{{#AppExe}}"; Parameters: "--setup-done {{language}} --autostart --handlers"; Flags: runhidden waituntilterminated; Check: not IsUpdate; Tasks: autostart and magnet
 Filename: "{{app}}\\{{#AppExe}}"; Description: "{{cm:LaunchProgram,{{#AppName}}}}"; Flags: nowait postinstall skipifsilent
+; atualização pelo próprio app (/UPDATE=1, silenciosa): não mexe nas preferências e reabre o Scarlet no fim
+Filename: "{{app}}\\{{#AppExe}}"; Flags: nowait; Check: IsUpdate
 
 [UninstallRun]
 Filename: "{{app}}\\{{#AppExe}}"; Parameters: "--quit"; Flags: runhidden waituntilterminated; RunOnceId: "QuitScarlet"
 Filename: "{{app}}\\{{#AppExe}}"; Parameters: "--unregister"; Flags: runhidden waituntilterminated; RunOnceId: "UnregScarlet"
 
 [Code]
+function IsUpdate: Boolean;
+begin
+  Result := ExpandConstant('{{param:UPDATE|0}}') = '1';
+end;
+
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 var
   Code: Integer;

@@ -40,6 +40,10 @@ class _HashSignal(QObject):
     done = Signal(str, str, str)
 
 
+class _UpdateSignal(QObject):
+    result = Signal(object, str, bool)     # info do lançamento (ou None), erro, verificação manual?
+
+
 class _JobSignal(QObject):
     progress = Signal(str)
     done = Signal(str, str)      # mensagem, caminho para abrir (ou "")
@@ -83,6 +87,9 @@ class MainWindow(QMainWindow):
         self._awake = False
         self._apply_view()
         QTimer.singleShot(8000, self._auto_update_ytdlp)
+        self._upd_sig = _UpdateSignal()
+        self._upd_sig.result.connect(self._update_result)
+        QTimer.singleShot(6000, lambda: self.check_app_update(manual=False))
 
         QApplication.clipboard().dataChanged.connect(self._on_clipboard)
         self._last_clip = QApplication.clipboard().text() or ""
@@ -332,6 +339,8 @@ class MainWindow(QMainWindow):
         self.act_shutdown.toggled.connect(self._shutdown_toggled)
         menu.addSeparator()
         menu.addAction(glyph("settings", C["muted"], 16), _("Preferências…\tCtrl+,"), self.open_settings)
+        menu.addAction(glyph("refresh", C["muted"], 16), _("Procurar atualizações"),
+                       lambda: self.check_app_update(manual=True))
         menu.addAction(glyph("info", C["muted"], 16), _("Sobre"), lambda: AboutDialog(self).exec())
         menu.addSeparator()
         menu.addAction(glyph("close", C["muted"], 16), _("Sair\tCtrl+Q"), self.quit_app)
@@ -1176,6 +1185,52 @@ class MainWindow(QMainWindow):
         elif act == "resume_all":
             self.m.resume_all()
         self._tick()
+
+    # ========================================================= atualização do próprio app
+    def check_app_update(self, manual=False):
+        """Pergunta ao GitHub se há versão nova (automático: no máximo 1x a cada 20 h)."""
+        if not manual:
+            if not self.st.get("check_updates", True):
+                return
+            if time.time() - float(self.st.get("update_last_check", 0) or 0) < 20 * 3600:
+                return
+
+        def work():
+            from .. import updater
+            try:
+                info = updater.check()
+                self.st["update_last_check"] = time.time()
+                self._upd_sig.result.emit(info, "", manual)
+            except Exception as e:  # noqa: BLE001 - sem internet etc.
+                self._upd_sig.result.emit(None, str(e), manual)
+        threading.Thread(target=work, daemon=True).start()
+
+    def _update_result(self, info, err, manual):
+        from .. import VERSION, updater
+        if err or not info:
+            if manual:
+                QMessageBox.warning(self, APP_NAME, _("Não foi possível procurar atualizações agora: {e}")
+                                    .format(e=err or "?"))
+            return
+        if not updater.is_newer(info["version"]):
+            if manual:
+                QMessageBox.information(self, APP_NAME, _("Você já está na versão mais recente ({v}).").format(v=VERSION))
+            return
+        if not manual and info["version"] == self.st.get("update_skip"):
+            return
+        self._update_info = info
+        text = _("Nova versão {v} do Scarlet DM disponível.").format(v=info["version"])
+        if manual or self.isVisible():
+            if manual:
+                self._show_update()
+            else:
+                self.banner_show("refresh", text, _("Atualizar"), self._show_update, timeout=10 * 60 * 1000)
+        else:
+            self._notify(text, _("Clique para atualizar."), lambda: (self.show_window(), self._show_update()), force=True)
+
+    def _show_update(self):
+        from .update_dialog import UpdateDialog
+        UpdateDialog(self._update_info, self.st, self, quit_app=self.quit_app).exec()
 
     # ========================================================= yt-dlp
     def _auto_update_ytdlp(self):
