@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacidade — Scarlet DM</title>
+<meta name="description" content="Política de privacidade do Scarlet DM e da extensão Scarlet DM — Integração.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<style>
+  :root { --bg:#0a0a0c; --panel:#111114; --text:#ededf1; --muted:#9a9aa5; --accent:#ff3d49; --rule:#26262c; }
+  @media (prefers-color-scheme: light) { :root { --bg:#f5f5f7; --panel:#fff; --text:#1b1b21; --muted:#5f5f69; --accent:#d01f2b; --rule:#d9d9e0; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:48px 16px 80px; }
+  a { color:var(--accent); }
+  header { display:flex; align-items:center; gap:12px; margin-bottom:28px; }
+  header img { width:40px; height:40px; }
+  header a { color:var(--text); text-decoration:none; font-weight:700; font-size:20px; }
+  h1 { font-size:30px; line-height:1.2; margin:0 0 6px; }
+  h2 { font-size:19px; margin:32px 0 6px; }
+  .muted { color:var(--muted); font-size:14px; }
+  section + section { border-top:1px solid var(--rule); margin-top:48px; padding-top:24px; }
+  ul { padding-left:20px; }
+</style>
+</head>
+<body>
+<main>
+<header><img src="assets/logo.png" alt=""><a href="./">Scarlet DM</a></header>
+
+<section lang="pt-BR">
+  <h1>Política de privacidade</h1>
+  <p class="muted">Vale para o app Scarlet DM e para a extensão “Scarlet DM — Integração”. Atualizada em 18/10/2026.</p>
+
+  <h2>Resumo</h2>
+  <p>O Scarlet DM <b>não coleta, não vende e não envia</b> seus dados para nós nem para terceiros. Não tem conta, anúncio, rastreador nem estatística de uso.</p>
+
+  <h2>O que a extensão faz com os dados</h2>
+  <p>Quando você baixa algo no navegador, a extensão passa para o app Scarlet DM <b>instalado no seu próprio computador</b>, pelo endereço local <code>127.0.0.1</code>:</p>
+  <ul>
+    <li>o link do arquivo ou vídeo, o nome do arquivo e a página de origem (referer);</li>
+    <li>os cookies daquele site, só para baixar arquivos que exigem login, como o próprio navegador faria;</li>
+    <li>o user-agent do navegador.</li>
+  </ul>
+  <p>A extensão não se conecta a nenhum outro endereço. O app usa essas informações só para fazer o download que você pediu, direto no site do arquivo.</p>
+
+  <h2>O que fica guardado</h2>
+  <ul>
+    <li>Na extensão: só as suas opções (captura ligada/desligada, porta, sites e extensões ignorados), no armazenamento local do navegador.</li>
+    <li>No app: a lista de downloads e as configurações, na pasta de dados do Scarlet DM no seu computador. Você pode apagar tudo quando quiser.</li>
+  </ul>
+
+  <h2>Conexões que o app faz</h2>
+  <ul>
+    <li>Aos sites dos arquivos que você mandou baixar.</li>
+    <li>Ao GitHub, para ver se há versão nova do Scarlet DM e baixar os componentes de vídeo (yt-dlp, ffmpeg, Deno). Dá para desligar o aviso de versão nova nas Preferências.</li>
+  </ul>
+  <p>Nenhuma dessas conexões envia dados pessoais seus.</p>
+
+  <h2>Relatar problema</h2>
+  <p>O relatório (Menu › Relatar problema) é um arquivo .zip gerado no seu computador. Ele não leva senhas, cookies nem links completos, e só é enviado se <b>você</b> anexar o arquivo em algum lugar.</p>
+
+  <h2>Código aberto</h2>
+  <p>Tudo isso pode ser conferido no código: <a href="https://github.com/Rubinho82/scarlet-dm">github.com/Rubinho82/scarlet-dm</a> (licença MIT). Dúvidas: abra um relato em <a href="https://github.com/Rubinho82/scarlet-dm/issues">Issues</a>.</p>
+</section>
+
+<section lang="en">
+  <h1>Privacy policy</h1>
+  <p class="muted">Applies to the Scarlet DM app and the “Scarlet DM — Integration” extension. Updated October 18, 2026.</p>
+
+  <h2>Summary</h2>
+  <p>Scarlet DM <b>does not collect, sell or send</b> your data to us or to anyone else. No account, no ads, no trackers, no usage analytics.</p>
+
+  <h2>What the extension does with data</h2>
+  <p>When you download something in the browser, the extension hands it to the Scarlet DM app <b>installed on your own computer</b>, through the local address <code>127.0.0.1</code>:</p>
+  <ul>
+    <li>the file or video link, the file name and the page it came from (referer);</li>
+    <li>that site's cookies, only to download files that require login, just as the browser itself would;</li>
+    <li>the browser's user agent.</li>
+  </ul>
+  <p>The extension connects to no other address. The app uses this information only to perform the download you asked for, directly from the file's site.</p>
+
+  <h2>What is stored</h2>
+  <ul>
+    <li>In the extension: only your options (capture on/off, port, skipped sites and file types), in the browser's local storage.</li>
+    <li>In the app: the download list and settings, in Scarlet DM's data folder on your computer. You can delete them at any time.</li>
+  </ul>
+
+  <h2>Connections the app makes</h2>
+  <ul>
+    <li>To the sites of the files you chose to download.</li>
+    <li>To GitHub, to check for a new Scarlet DM version and to download the video components (yt-dlp, ffmpeg, Deno). The update notice can be turned off in Preferences.</li>
+  </ul>
+  <p>None of these connections sends your personal data.</p>
+
+  <h2>Report a problem</h2>
+  <p>The report (Menu › Report a problem) is a .zip file created on your computer. It contains no passwords, cookies or full links, and it is only shared if <b>you</b> attach it somewhere.</p>
+
+  <h2>Open source</h2>
+  <p>All of this can be checked in the code: <a href="https://github.com/Rubinho82/scarlet-dm">github.com/Rubinho82/scarlet-dm</a> (MIT license). Questions: open an issue at <a href="https://github.com/Rubinho82/scarlet-dm/issues">Issues</a>.</p>
+</section>
+</main>
+</body>
+</html>
