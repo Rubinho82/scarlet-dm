@@ -11,6 +11,8 @@ DEFAULTS = {
     "connections": 8,
     "limit_enabled": False,
     "speed_limit": 2 * 1024 * 1024,
+    "per_download_limit_enabled": False,   # limite de cada download (além do limite total)
+    "per_download_limit": 1024 * 1024,
     "upload_limit": 0,
     "retries": 10,
     "timeout": 30,
@@ -63,6 +65,8 @@ DEFAULTS = {
     "welcome_done": False,         # tela de boas-vindas da 1ª abertura (o instalador já marca como feita)
     "use_player": True,
     "ui_scale": 100,
+    "theme": "dark",               # dark / light / system
+    "accent": "red",               # chave de theme.ACCENTS
     # torrent
     "torrent_ratio": 1.0,
     "torrent_dht": True,

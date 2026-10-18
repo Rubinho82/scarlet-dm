@@ -174,7 +174,7 @@ class DetailsPanel(QTabWidget):
         self.map_title.setObjectName("Muted")
         self.bar = SegmentBar()
         legend = QHBoxLayout()
-        for color, text in ((C["accent"], "baixado"), ("#ffffff", _("conexão ativa")), ("#1e1e24", "falta")):
+        for color, text in ((C["accent"], _("baixado")), (C["live"], _("conexão ativa")), (C["map_bg"], _("falta"))):
             sw = QLabel()
             sw.setFixedSize(12, 12)
             sw.setStyleSheet(f"background:{color}; border-radius:3px; border:1px solid {C['border']}")
@@ -237,7 +237,7 @@ class DetailsPanel(QTabWidget):
             self.thumbs.ready.connect(self._thumb_ready)
 
     def _button(self, icon, text, act, primary=False):
-        b = QPushButton(glyph(icon, "#ffffff" if primary else C["muted"], 14), " " + text)
+        b = QPushButton(glyph(icon, C["on_accent"] if primary else C["muted"], 14), " " + text)
         if primary:
             b.setObjectName("Primary")
         b.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -384,7 +384,7 @@ class DetailsPanel(QTabWidget):
             eta = format_eta(t.eta())
             if eta:
                 st += _(' · faltam {eta}').format(eta=eta)
-        color = C["accent_hi"] if t.status == ERROR or (t.status == COMPLETED and t.missing) else C["text"]
+        color = C["error"] if t.status == ERROR or (t.status == COMPLETED and t.missing) else C["text"]
         self.c_status.setStyleSheet(f"color:{color};")
         self.c_status.setText(st)
         info = self.thumbs.describe(self.thumbs.info(t)) if (self.thumbs and exists) else ""
@@ -420,7 +420,10 @@ class DetailsPanel(QTabWidget):
         v["size"].setText(display_total(t)[1])
         p = t.progress()
         pct = f" ({p * 100:.1f}%)".replace(".", ",") if p is not None else ""
-        v["done"].setText(format_size(t.done) + pct)
+        if t.kind == "convert":       # progresso é em tempo de vídeo, não em bytes
+            v["done"].setText(pct.strip(" ()") or "—")
+        else:
+            v["done"].setText(format_size(t.done) + pct)
         if t.kind == "torrent":
             v["speed"].setText(f"↓ {format_speed(t.speed) or '0'}   ↑ {format_speed(t.up_speed) or '0'}")
             v["conns"].setText(_('{peers} peers ({seeds} seeds)').format(peers=t.peers, seeds=t.seeds))
@@ -442,6 +445,11 @@ class DetailsPanel(QTabWidget):
             v["resume"].setText(_("Sim (por pedaço)"))
             v["type"].setText(_("Stream HLS → MP4"))
             v["extra"].setText(f"{len(t.done_set)}/{len(t.items)} pedaços · {t.variant_info or 'automática'}")
+            v["check"].setText("—")
+        elif t.kind == "convert":
+            v["resume"].setText(_("Não (recomeça do zero)"))
+            v["type"].setText(_("Conversão") + " · " + os.path.basename(t.source))
+            v["extra"].setText(t.stage or "—")
             v["check"].setText("—")
         elif t.kind == "media":
             v["resume"].setText(_("Sim"))

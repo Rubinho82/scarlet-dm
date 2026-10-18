@@ -34,7 +34,7 @@ class SegmentBar(QWidget):
         path = QPainterPath()
         path.addRoundedRect(r, 5, 5)
         p.setClipPath(path)
-        p.fillRect(r, QColor("#1e1e24"))
+        p.fillRect(r, QColor(C["map_bg"]))
         w = r.width()
         if self.ranges and self.total > 0:
             for start, end, pos, active in self.ranges:
@@ -46,7 +46,7 @@ class SegmentBar(QWidget):
                     g.setColorAt(1, QColor(C["accent_lo"]))
                     p.fillRect(QRectF(x0, r.top(), max(1.0, x1 - x0), r.height()), g)
                 if active and (end < 0 or pos < end):
-                    p.fillRect(QRectF(x1 - 1, r.top(), 2, r.height()), QColor("#ffffff"))
+                    p.fillRect(QRectF(x1 - 1, r.top(), 2, r.height()), QColor(C["live"]))
                 p.fillRect(QRectF(x0, r.top(), 1, r.height()), QColor(0, 0, 0, 160))
         elif self.pieces:
             n = len(self.pieces)
@@ -96,12 +96,12 @@ class SpeedGraph(QWidget):
         p.setFont(f)
         for i in range(5):
             y = r.bottom() - r.height() * i / 4
-            p.setPen(QPen(QColor("#202026"), 1))
+            p.setPen(QPen(QColor(C["grid"]), 1))
             p.drawLine(QPointF(r.left(), y), QPointF(r.right(), y))
             p.setPen(QColor(C["faint"]))
             p.drawText(QRectF(0, y - 8, 48, 16), Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter,
                        format_speed(top * i / 4) or "0")
-        for series, color, fill in ((self.series2, "#6b6b75", False), (self.series, C["accent"], True)):
+        for series, color, fill in ((self.series2, C["series2"], False), (self.series, C["accent"], True)):
             if len(series) < 2:
                 continue
             n = 120

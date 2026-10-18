@@ -1,4 +1,4 @@
-"""Tema vermelho e preto: cores, folha de estilo, ícones vetoriais e ícone do app."""
+"""Tema (escuro ou claro, cor de destaque à escolha): cores, folha de estilo, ícones vetoriais e ícone do app."""
 import os
 
 from PySide6.QtCore import Qt, QRectF, QPointF
@@ -23,7 +23,37 @@ C = {
     "sel": "#3b0f15",
     "warn": "#ff8a3d",
     "ok": "#e3222f",
+    # tons que antes estavam fixos no código
+    "track": "#2a2a31",        # trilho de slider
+    "bar_bg": "#232329",       # fundo da barra de progresso da lista
+    "map_bg": "#1e1e24",       # parte que falta no mapa de conexões
+    "bar_paused": "#5a1a20",
+    "bar_error": "#6e2a10",
+    "hover": "#131317",        # linha da lista sob o mouse
+    "scroll": "#2b2b32",
+    "btn_hover": "#24242a",
+    "box_border": "#3c3c45",   # caixinhas de marcar
+    "grid": "#202026",         # linhas do gráfico de velocidade
+    "series2": "#6b6b75",
+    "live": "#ffffff",         # marcador de conexão ativa
+    "knob": "#ffffff",
+    "on_accent": "#ffffff",    # texto/ícone sobre a cor de destaque
+    "error": "#ff3d49",        # erro fica vermelho mesmo com outra cor de destaque
 }
+DARK = dict(C)
+LIGHT = dict(DARK, **{
+    "bg": "#f5f5f7", "panel": "#ffffff", "panel2": "#f0f0f3", "panel3": "#e8e8ed", "border": "#d9d9e0",
+    "row": "#ececf0", "text": "#1b1b21", "muted": "#5f5f69", "faint": "#a0a0aa", "warn": "#c8570f",
+    "track": "#d6d6dd", "bar_bg": "#e3e3e9", "map_bg": "#e3e3e9", "hover": "#f0f0f4", "scroll": "#c6c6cf",
+    "btn_hover": "#f1f1f4", "box_border": "#b5b5bf", "error": "#d01f2b", "grid": "#e6e6eb", "series2": "#9a9aa4", "live": "#1b1b21",
+})
+# cor de destaque: nome -> (cor, rótulo)
+ACCENTS = {
+    "red": ("#e3222f", "Vermelho"), "blue": ("#2f6fed", "Azul"), "green": ("#1e9e57", "Verde"),
+    "purple": ("#8b5cf6", "Roxo"), "orange": ("#f0661a", "Laranja"), "pink": ("#e0457b", "Rosa"),
+    "teal": ("#0f9f9c", "Turquesa"),
+}
+THEME = {"mode": "dark", "accent": "red"}
 
 # Glifos das fontes de ícones do Windows (Segoe Fluent Icons / Segoe MDL2 Assets).
 G = {
@@ -41,6 +71,93 @@ CATEGORY_COLORS = {
     "video": "#ff4b57", "audio": "#ff6f86", "document": "#c9c9d2", "archive": "#ff9f43",
     "program": "#e3222f", "image": "#ff8fa3", "torrent": "#ff5e57", "other": "#9a9aa5", "stream": "#ff4b57",
 }
+_RED_CATEGORIES = dict(CATEGORY_COLORS)
+
+
+def _mix(c1, c2, t):
+    """Mistura duas cores "#rrggbb": t=0 dá c1, t=1 dá c2."""
+    a, b = QColor(c1), QColor(c2)
+    return QColor(round(a.red() + (b.red() - a.red()) * t), round(a.green() + (b.green() - a.green()) * t),
+                  round(a.blue() + (b.blue() - a.blue()) * t)).name()
+
+
+def system_is_dark():
+    """Tema do sistema (Windows/macOS/GNOME), quando dá para saber; senão, escuro."""
+    try:
+        from PySide6.QtGui import QGuiApplication
+        scheme = QGuiApplication.styleHints().colorScheme()
+        if scheme == Qt.ColorScheme.Light:
+            return False
+        if scheme == Qt.ColorScheme.Dark:
+            return True
+    except Exception:
+        pass
+    if os.name == "nt":
+        try:
+            import winreg
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER,
+                                r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize") as k:
+                return winreg.QueryValueEx(k, "AppsUseLightTheme")[0] == 0
+        except OSError:
+            pass
+    return True
+
+
+def is_dark():
+    return THEME["mode"] != "light"
+
+
+def apply_theme(mode="dark", accent="red"):
+    """Monta as cores antes de criar as janelas. mode: "dark", "light" ou "system"; accent: chave de ACCENTS ou
+    "#rrggbb". O vermelho no tema escuro fica exatamente como sempre foi."""
+    if mode == "system":
+        mode = "dark" if system_is_dark() else "light"
+    mode = "light" if mode == "light" else "dark"
+    if isinstance(accent, str) and accent.startswith("#") and QColor(accent).isValid():
+        base = QColor(accent).name()
+    else:
+        accent = accent if accent in ACCENTS else "red"
+        base = ACCENTS[accent][0]
+    THEME.update(mode=mode, accent=accent)
+    pal = dict(DARK if mode == "dark" else LIGHT)
+    red = base == ACCENTS["red"][0]
+    if mode == "dark" and not red:
+        pal.update(accent=base, accent_hi=_mix(base, "#ffffff", 0.22), accent_lo=_mix(base, "#000000", 0.45),
+                   sel=_mix(pal["bg"], base, 0.24), ok=base, bar_paused=_mix(pal["bg"], base, 0.35))
+    elif mode == "light":
+        pal.update(accent=base, accent_hi=_mix(base, "#000000", 0.12), accent_lo=_mix(base, "#ffffff", 0.55),
+                   sel=_mix("#ffffff", base, 0.16), ok=base, bar_paused=_mix("#ffffff", base, 0.35),
+                   bar_error=_mix("#ffffff", "#e0641c", 0.45), knob=base)
+    C.clear()
+    C.update(pal)
+    if red and mode == "dark":
+        CATEGORY_COLORS.update(_RED_CATEGORIES)
+    else:
+        strong, hi = C["accent"], C["accent_hi"]
+        toward = "#ffffff" if mode == "dark" else "#000000"
+        CATEGORY_COLORS.update(video=strong, stream=strong, torrent=hi, program=strong,
+                               audio=_mix(strong, toward, 0.25), image=_mix(strong, toward, 0.4),
+                               document="#c9c9d2" if mode == "dark" else "#6e6e78",
+                               other="#9a9aa5" if mode == "dark" else "#7c7c86",
+                               archive="#ff9f43" if mode == "dark" else "#d97a14")
+    _ICON_CACHE.clear()
+    return mode
+
+
+def palette():
+    """QPalette com as mesmas cores, para o que a folha de estilo não pinta (caixas de mensagem, calendário…)."""
+    from PySide6.QtGui import QPalette
+    p = QPalette()
+    R = QPalette.ColorRole
+    for role, key in ((R.Window, "bg"), (R.WindowText, "text"), (R.Base, "panel2"), (R.AlternateBase, "panel"),
+                      (R.Text, "text"), (R.Button, "panel3"), (R.ButtonText, "text"), (R.ToolTipBase, "panel3"),
+                      (R.ToolTipText, "text"), (R.Highlight, "accent"), (R.HighlightedText, "on_accent"),
+                      (R.Link, "accent_hi"), (R.PlaceholderText, "faint"), (R.Mid, "border"), (R.Dark, "panel3"),
+                      (R.Light, "panel"), (R.Midlight, "panel2"), (R.Shadow, "bg")):
+        p.setColor(role, QColor(C[key]))
+    for role in (R.WindowText, R.Text, R.ButtonText):
+        p.setColor(QPalette.ColorGroup.Disabled, role, QColor(C["faint"]))
+    return p
 
 _ICON_FAMILY = None
 _ICON_CACHE = {}
@@ -207,6 +324,9 @@ def _write_assets():
     svgs = {
         "check.svg": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" '
                      'fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        "check_menu.svg": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" '
+                          f'fill="none" stroke="{C["accent_hi"]}" stroke-width="2" stroke-linecap="round" '
+                          'stroke-linejoin="round"/></svg>',
         "chevron.svg": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" '
                        f'fill="none" stroke="{C["muted"]}" stroke-width="1.8" stroke-linecap="round"/></svg>',
         "up.svg": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 10l4-4 4 4" '
@@ -231,9 +351,9 @@ def stylesheet():
 QMainWindow, QDialog {{ background: {c['bg']}; }}
 QWidget#Player {{ background: {c['bg']}; }}
 QWidget#DialogFoot {{ background: {c['bg']}; border-top: 1px solid {c['border']}; }}
-QSlider::groove:horizontal {{ height: 5px; background: #2a2a31; border-radius: 2px; }}
+QSlider::groove:horizontal {{ height: 5px; background: {c['track']}; border-radius: 2px; }}
 QSlider::sub-page:horizontal {{ background: {c['accent']}; border-radius: 2px; }}
-QSlider::handle:horizontal {{ width: 13px; height: 13px; margin: -5px 0; border-radius: 6px; background: #ffffff; }}
+QSlider::handle:horizontal {{ width: 13px; height: 13px; margin: -5px 0; border-radius: 6px; background: {c['knob']}; }}
 QSlider::handle:horizontal:hover {{ background: {c['accent_hi']}; }}
 QScrollArea {{ background: transparent; border: none; }}
 QScrollArea > QWidget#qt_scrollarea_viewport, QScrollArea > QWidget > QWidget {{ background: transparent; }}
@@ -260,7 +380,7 @@ QPushButton#Filter:checked {{ color: {c['text']}; border-bottom: 2px solid {c['a
 QTableView {{ background: {c['bg']}; border: none; gridline-color: transparent;
     selection-background-color: {c['sel']}; selection-color: {c['text']}; outline: 0; }}
 QTableView::item {{ border-bottom: 1px solid {c['row']}; padding-left: 4px; }}
-QTableView::item:hover {{ background: #131317; }}
+QTableView::item:hover {{ background: {c['hover']}; }}
 QTableView::item:selected {{ background: {c['sel']}; }}
 QHeaderView {{ background: {c['panel']}; }}
 QHeaderView::section {{ background: {c['panel']}; color: {c['muted']}; border: none;
@@ -268,16 +388,16 @@ QHeaderView::section {{ background: {c['panel']}; color: {c['muted']}; border: n
 QHeaderView::section:hover {{ color: {c['text']}; }}
 QHeaderView::down-arrow, QHeaderView::up-arrow {{ width: 0; height: 0; }}
 QScrollBar:vertical {{ background: transparent; width: 10px; margin: 2px; }}
-QScrollBar::handle:vertical {{ background: #2b2b32; border-radius: 3px; min-height: 30px; }}
+QScrollBar::handle:vertical {{ background: {c['scroll']}; border-radius: 3px; min-height: 30px; }}
 QScrollBar::handle:vertical:hover {{ background: {c['accent_lo']}; }}
 QScrollBar:horizontal {{ background: transparent; height: 10px; margin: 2px; }}
-QScrollBar::handle:horizontal {{ background: #2b2b32; border-radius: 3px; min-width: 30px; }}
+QScrollBar::handle:horizontal {{ background: {c['scroll']}; border-radius: 3px; min-width: 30px; }}
 QScrollBar::handle:horizontal:hover {{ background: {c['accent_lo']}; }}
 QScrollBar::add-line, QScrollBar::sub-line {{ width: 0; height: 0; }}
 QScrollBar::add-page, QScrollBar::sub-page {{ background: transparent; }}
 QLineEdit, QPlainTextEdit, QTextEdit, QSpinBox, QComboBox, QTimeEdit {{ background: {c['panel2']};
     border: 1px solid {c['border']}; border-radius: 6px; padding: 6px 8px;
-    selection-background-color: {c['accent']}; selection-color: #ffffff; }}
+    selection-background-color: {c['accent']}; selection-color: {c['on_accent']}; }}
 QLineEdit:focus, QPlainTextEdit:focus, QSpinBox:focus, QComboBox:focus, QTimeEdit:focus {{ border: 1px solid {c['accent']}; }}
 QLineEdit:disabled, QSpinBox:disabled, QComboBox:disabled {{ color: {c['faint']}; }}
 QLineEdit#Search {{ background: {c['panel2']}; border-radius: 16px; padding: 6px 12px; }}
@@ -290,10 +410,10 @@ QComboBox::down-arrow {{ image: url({a}/chevron.svg); width: 11px; height: 11px;
 QComboBox QAbstractItemView {{ background: {c['panel2']}; border: 1px solid {c['border']};
     selection-background-color: {c['sel']}; outline: 0; padding: 4px; }}
 QPushButton {{ background: {c['panel3']}; border: 1px solid {c['border']}; border-radius: 6px; padding: 7px 16px; }}
-QPushButton:hover {{ border-color: {c['accent_lo']}; background: #24242a; }}
+QPushButton:hover {{ border-color: {c['accent_lo']}; background: {c['btn_hover']}; }}
 QPushButton:pressed {{ background: {c['accent_lo']}; }}
 QPushButton:disabled {{ color: {c['faint']}; }}
-QPushButton#Primary {{ background: {c['accent']}; border: 1px solid {c['accent']}; color: #ffffff; font-weight: 600; }}
+QPushButton#Primary {{ background: {c['accent']}; border: 1px solid {c['accent']}; color: {c['on_accent']}; font-weight: 600; }}
 QPushButton#Primary:hover {{ background: {c['accent_hi']}; border-color: {c['accent_hi']}; }}
 QPushButton#Link {{ background: transparent; border: none; color: {c['accent_hi']}; padding: 2px; text-align: left; }}
 QPushButton#Link:hover {{ text-decoration: underline; }}
@@ -303,7 +423,7 @@ QMenu::item:selected {{ background: {c['sel']}; }}
 QMenu::item:disabled {{ color: {c['faint']}; }}
 QMenu::separator {{ height: 1px; background: {c['border']}; margin: 5px 6px; }}
 QMenu::icon {{ padding-left: 6px; }}
-QMenu::indicator:checked {{ image: url({a}/check.svg); width: 14px; height: 14px; }}
+QMenu::indicator:checked {{ image: url({a}/check_menu.svg); width: 14px; height: 14px; }}
 QTabWidget::pane {{ border: none; border-top: 1px solid {c['border']}; background: {c['panel']}; }}
 QTabWidget#Details::pane {{ background: {c['panel']}; }}
 QTabBar {{ background: transparent; }}
@@ -312,11 +432,11 @@ QTabBar::tab {{ background: transparent; color: {c['muted']}; padding: 8px 14px;
 QTabBar::tab:hover {{ color: {c['text']}; }}
 QTabBar::tab:selected {{ color: {c['text']}; border-bottom: 2px solid {c['accent']}; }}
 QCheckBox, QRadioButton {{ spacing: 8px; }}
-QCheckBox::indicator {{ width: 16px; height: 16px; border: 1px solid #3c3c45; border-radius: 4px; background: {c['panel2']}; }}
+QCheckBox::indicator {{ width: 16px; height: 16px; border: 1px solid {c['box_border']}; border-radius: 4px; background: {c['panel2']}; }}
 QCheckBox::indicator:hover {{ border-color: {c['accent']}; }}
 QCheckBox::indicator:checked {{ background: {c['accent']}; border-color: {c['accent']}; image: url({a}/check.svg); }}
 QCheckBox:disabled {{ color: {c['faint']}; }}
-QRadioButton::indicator {{ width: 16px; height: 16px; border: 1px solid #3c3c45; border-radius: 8px; background: {c['panel2']}; }}
+QRadioButton::indicator {{ width: 16px; height: 16px; border: 1px solid {c['box_border']}; border-radius: 8px; background: {c['panel2']}; }}
 QRadioButton::indicator:checked {{ background: {c['accent']}; border-color: {c['accent']}; image: url({a}/radio.svg); }}
 QToolTip {{ background: {c['panel3']}; color: {c['text']}; border: 1px solid {c['border']}; padding: 5px; }}
 QSplitter::handle {{ background: {c['border']}; }}
@@ -326,7 +446,7 @@ QLabel#Muted {{ color: {c['muted']}; }}
 QLabel#Faint {{ color: {c['faint']}; }}
 QLabel#H1 {{ font-size: 15pt; font-weight: 600; }}
 QLabel#H2 {{ font-size: 11pt; font-weight: 600; }}
-QLabel#Error {{ color: {c['accent_hi']}; }}
+QLabel#Error {{ color: {c['error']}; }}
 QLabel#Empty {{ color: {c['faint']}; font-size: 12pt; }}
 QListWidget, QTreeWidget, QTableWidget {{ background: {c['panel2']}; border: 1px solid {c['border']};
     border-radius: 6px; outline: 0; alternate-background-color: {c['panel']}; }}
@@ -413,7 +533,7 @@ def keep_on_screen(widget, margin=40):
 
 
 def apply_dark_titlebar(widget):
-    """Barra de título escura com borda vermelha no Windows 11 (DWM)."""
+    """Barra de título nas cores do tema (escura ou clara, borda na cor de destaque) no Windows 11 (DWM)."""
     if os.name != "nt":
         return
     try:
@@ -430,7 +550,7 @@ def apply_dark_titlebar(widget):
             r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
             return (b << 16) | (g << 8) | r
 
-        setattr_(20, 1)                     # DWMWA_USE_IMMERSIVE_DARK_MODE
+        setattr_(20, 1 if is_dark() else 0)  # DWMWA_USE_IMMERSIVE_DARK_MODE
         setattr_(35, bgr(C["panel"]))       # DWMWA_CAPTION_COLOR
         setattr_(34, bgr(C["accent_lo"]))   # DWMWA_BORDER_COLOR
         setattr_(36, bgr(C["text"]))        # DWMWA_TEXT_COLOR
@@ -444,5 +564,5 @@ def pen(color, width=1.0):
     return p
 
 
-__all__ = ["C", "G", "glyph", "glyph_pixmap", "category_icon", "app_icon", "app_icon_pixmap", "stylesheet",
+__all__ = ["C", "G", "ACCENTS", "apply_theme", "palette", "is_dark", "glyph", "glyph_pixmap", "category_icon", "app_icon", "app_icon_pixmap", "stylesheet",
            "apply_dark_titlebar", "pen", "QPointF"]

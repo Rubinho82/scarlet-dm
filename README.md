@@ -8,16 +8,16 @@ Licença MIT (veja `LICENSE` e `THIRD_PARTY_NOTICES.md`). 11 idiomas. **Windows,
 
 ## Para quem vai usar
 
-- **Windows — instalador:** `ScarletDM-2.0.3-Setup.exe` (Inno Setup) — instala só para o usuário (sem pedir
+- **Windows — instalador:** `ScarletDM-2.1.0-Setup.exe` (Inno Setup) — instala só para o usuário (sem pedir
   administrador), pergunta idioma, cria atalhos (Área de Trabalho e Menu Iniciar), pergunta se deve iniciar com o
   Windows e se abre links magnet/.torrent. Desinstala por Configurações › Aplicativos (pergunta se apaga os dados).
-- **macOS:** `ScarletDM-2.0.3-macos-arm64.dmg` (Apple Silicon) / `-macos-x64.dmg` (Intel) — arraste para Aplicativos.
+- **macOS:** `ScarletDM-2.1.0-macos-arm64.dmg` (Apple Silicon) / `-macos-x64.dmg` (Intel) — arraste para Aplicativos.
   Na primeira vez: botão direito → Abrir (sem a conta paga de desenvolvedor da Apple não há notarização).
-- **Linux:** `ScarletDM-2.0.3-linux-x64.AppImage` (um arquivo, qualquer distro de 2022 para cá; `chmod +x` e rode) ou
+- **Linux:** `ScarletDM-2.1.0-linux-x64.AppImage` (um arquivo, qualquer distro de 2022 para cá; `chmod +x` e rode) ou
   `.tar.gz`. Dados em `~/.local/share/ScarletDM`, iniciar com o sistema em `~/.config/autostart`, links magnet via
   `xdg-mime`.
   O Windows não deixa programas se fixarem sozinhos na barra de tarefas; o instalador ensina o clique direito → Fixar.
-- **Portátil:** `ScarletDM-2.0.3-Portable.zip` — descompacte e rode. Com o `portable.ini` ao lado do `.exe`, lista e
+- **Portátil:** `ScarletDM-2.1.0-Portable.zip` — descompacte e rode. Com o `portable.ini` ao lado do `.exe`, lista e
   configurações ficam em `data\` na própria pasta (bom para pendrive). Na primeira abertura aparece uma tela de
   boas-vindas (idioma, pasta, iniciar com o Windows, atalho).
 - Vídeos e músicas de sites: nada para instalar. Na primeira vez o app baixa sozinho, das fontes oficiais, o
@@ -86,6 +86,8 @@ de extensões) e `SHA256SUMS.txt`.
 | Torrents e links magnet (escolher arquivos, retomar, semear opcional) | ✓ (libtorrent) | ✓ |
 | Fila com limite de downloads simultâneos, mover para topo/fim | ✓ | parcial |
 | Limite de velocidade global com um clique + predefinições | ✓ | ✓ |
+| **Limite por download** (padrão nas Preferências + limite próprio pelo botão direito) | ✓ | ✓ |
+| **Converter depois de baixar**: só o áudio em MP3, MP4 que toca em qualquer lugar, comprimir vídeo (até 720p) | ✓ | — |
 | Agendador diário (retomar/pausar em horários) | ✓ | — |
 | Desligar o PC quando tudo terminar (com contagem regressiva) | ✓ | ✓ |
 | Monitor da área de transferência | ✓ | ✓ |
@@ -105,6 +107,9 @@ de extensões) e `SHA256SUMS.txt`.
 | Torrent: criptografia, DHT/LSD/UPnP/uTP, parar na proporção, pasta monitorada, app padrão para magnet | ✓ | ✓ |
 | **Acesso remoto** pelo celular (página web na rede local, com senha — sem nuvem de terceiros) | ✓ | ✓ (via nuvem) |
 | Notificações configuráveis (concluído, adicionado, falha, só com janela inativa, som) | ✓ | ✓ |
+| **Tema escuro ou claro** (ou igual ao do sistema) e 7 cores de destaque | ✓ | parcial |
+| **Relatar problema**: gera um .zip sem senhas nem tokens e abre a página de relatos | ✓ | — |
+| Avisa e instala versões novas do próprio app (conferindo SHA-256) | ✓ | ✓ |
 | 11 idiomas (pt-BR, en, es, fr, de, it, ru, tr, zh-CN, ja, ko) no app, no instalador e na extensão | ✓ | ✓ |
 | Leve: ~0,3% de CPU parado, ~5 MB de RAM minimizado na bandeja | ✓ | — |
 | Velocidade medida: 82,8 MB/s com 8 conexões (curl com 8 conexões: 80,2 MB/s) | ✓ | — |
@@ -155,7 +160,7 @@ ScarletDM.exe --quit                       :: fecha a instância aberta (salva t
 ScarletDM.exe --selftest [video] [--out x.json]
 ScarletDM.exe --uninstall [--silent [--remove-data]]
 
-ScarletDM-2.0.3-Setup.exe --silent [--dir PASTA] [--no-desktop] [--no-startmenu] [--autostart]
+ScarletDM-2.1.0-Setup.exe --silent [--dir PASTA] [--no-desktop] [--no-startmenu] [--autostart]
                           [--no-handlers] [--no-launch] [--lang en]
 ```
 

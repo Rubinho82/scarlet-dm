@@ -206,6 +206,7 @@ class HlsTask(Task):
                     raise Stopped()
                 if limit:
                     self.manager.limiter.consume(len(chunk), self._halt)
+                    self.manager.task_limiter(self).consume(len(chunk), self._halt)
                     with self.lock:
                         self.bytes_done += len(chunk)
                 buf += chunk

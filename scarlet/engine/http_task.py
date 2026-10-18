@@ -508,6 +508,7 @@ class HttpTask(Task):
                         if self._halt.is_set():
                             break
                         limiter.consume(len(chunk), self._halt)
+                        self.manager.task_limiter(self).consume(len(chunk), self._halt)
                         with self.lock:
                             if seg.end >= 0:
                                 allowed = seg.end - seg.pos

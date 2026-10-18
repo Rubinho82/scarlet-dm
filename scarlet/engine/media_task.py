@@ -328,6 +328,7 @@ class MediaTask(Task):
         ] + (["--force-overwrites"] if st.get("on_exists") == "overwrite" else []) + [ "-N", str(n), "--http-chunk-size", "10M",
             "--continue", "--retries", str(st.get("retries", 10)), "--fragment-retries", str(st.get("retries", 10)),
             "--no-simulate", "--progress", "--newline",
+        ] + (["--limit-rate", str(self.manager.task_rate(self))] if self.manager.task_rate(self) else []) + [
             "--progress-template", "download:SDMPROG|%(progress.downloaded_bytes)s|%(progress.total_bytes)s|"
                                    "%(progress.total_bytes_estimate)s|%(progress.speed)s|%(progress.filename)s",
             "--progress-template", "postprocess:SDMPOST|%(progress.postprocessor)s|%(progress.status)s",

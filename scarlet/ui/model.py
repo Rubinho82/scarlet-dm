@@ -36,14 +36,17 @@ def status_text(t):
             return _('{base} · {n} conexões').format(base=base, n=n)
     if t.status == PROCESSING and t.kind == "http" and t.options.get("checksum", {}).get("value"):
         return _("Verificando checksum…")
-    if t.kind == "media" and t.status == PROCESSING and getattr(t, "stage", ""):
-        return t.stage + "…"
+    if t.kind in ("media", "convert") and t.status in (PROCESSING, STARTING) and getattr(t, "stage", ""):
+        return t.stage + ("" if t.stage.endswith(("%", "…")) else "…")
     if t.kind == "media" and t.status == DOWNLOADING:
         return f"{_(STATUS_LABELS[DOWNLOADING])} · {quality_label(t.options)}"
     return base
 
 
 def display_total(t):
+    if t.kind == "convert":       # o "total" da conversão é a duração; tamanho real só quando termina
+        size = os.path.getsize(t.path) if t.status == COMPLETED and os.path.isfile(t.path) else -1
+        return size, format_size(size) if size >= 0 else "—"
     if t.kind == "hls" and t.status != COMPLETED:
         est = t.est_total()
         return est, ("~" + format_size(est)) if est > 0 else "—"
@@ -150,7 +153,7 @@ class DownloadsModel(QAbstractTableModel):
         if role == Qt.ItemDataRole.ForegroundRole:
             if c == COL_STATUS:
                 if t.status == ERROR or (t.status == COMPLETED and t.missing):
-                    return QColor(C["accent_hi"])
+                    return QColor(C["error"])
                 if t.status in (DOWNLOADING, STARTING, PROCESSING, SEEDING):
                     return QColor(C["text"])
                 return QColor(C["muted"])
@@ -251,7 +254,7 @@ class ProgressDelegate(QStyledItemDelegate):
         painter.save()
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QColor("#232329"))
+        painter.setBrush(QColor(C["bar_bg"]))
         painter.drawRoundedRect(r, 4, 4)
         if p is not None and p > 0:
             fill = QRectF(r)
@@ -260,9 +263,9 @@ class ProgressDelegate(QStyledItemDelegate):
                 color = QColor(C["accent_lo"])
                 painter.setBrush(color)
             elif t.status in (PAUSED, QUEUED):
-                painter.setBrush(QColor("#5a1a20"))
+                painter.setBrush(QColor(C["bar_paused"]))
             elif t.status == ERROR:
-                painter.setBrush(QColor("#6e2a10"))
+                painter.setBrush(QColor(C["bar_error"]))
             else:
                 g = QLinearGradient(fill.topLeft(), fill.topRight())
                 g.setColorAt(0, QColor(C["accent_lo"]))

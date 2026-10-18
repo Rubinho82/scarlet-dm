@@ -13,6 +13,7 @@ import subprocess
 from .task import (QUEUED, PAUSED, COMPLETED, ERROR, ACTIVE_STATES, SEEDING)
 from .http_task import HttpTask, PART_EXT
 from .hls_task import HlsTask
+from .convert_task import ConvertTask
 from .media_task import MediaTask, is_media_url, is_drm_url
 from .torrent import TorrentTask, TorrentEngine, lt
 from .ratelimit import RateLimiter
@@ -20,7 +21,7 @@ from ..i18n import _
 from ..util import (app_data_dir, unique_path, category_for, CATEGORY_LABELS, sanitize_filename,
                     filename_from_url, mark_of_the_web)
 
-KINDS = {"http": HttpTask, "hls": HlsTask, "torrent": TorrentTask, "media": MediaTask}
+KINDS = {"http": HttpTask, "hls": HlsTask, "torrent": TorrentTask, "media": MediaTask, "convert": ConvertTask}
 CREATE_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
 
@@ -59,6 +60,39 @@ class Manager:
         st = self.settings
         self.limiter.set_rate(st.get("speed_limit", 0) if st.get("limit_enabled") else 0)
         self.torrents.apply_limits()
+        for t in list(getattr(self, "tasks", [])):
+            if hasattr(t, "apply_cap"):
+                t.apply_cap()
+
+    # ---------- limite por download ----------
+    def task_rate(self, t):
+        """Velocidade máxima deste download (bytes/s, 0 = sem limite próprio): o escolhido para ele no menu,
+        senão o "limite de cada download" das Preferências. O limite total continua valendo por cima."""
+        cap = int((t.options or {}).get("speed_cap") or 0)
+        if cap > 0:
+            return cap
+        st = self.settings
+        return int(st.get("per_download_limit", 0) or 0) if st.get("per_download_limit_enabled") else 0
+
+    def task_limiter(self, t):
+        lim = getattr(t, "_limiter", None)
+        if lim is None:
+            lim = t._limiter = RateLimiter()
+        rate = self.task_rate(t)
+        if lim.rate != rate:
+            lim.set_rate(rate)
+        return lim
+
+    def set_task_cap(self, t, rate):
+        """rate > 0: limite só deste download; 0: volta ao padrão das Preferências."""
+        if rate:
+            t.options["speed_cap"] = int(rate)
+        else:
+            t.options.pop("speed_cap", None)
+        if hasattr(t, "apply_cap"):
+            t.apply_cap()
+        self._structure_dirty = True
+        self.save(force=True)
 
     # ---------- persistência ----------
     def load(self):
@@ -235,6 +269,21 @@ class Manager:
         self._prev[t.id] = t.status
         self._structure_dirty = True
         t.logmsg("Adicionado")
+        return t
+
+    def convert(self, source, preset):
+        """Converte um arquivo baixado (MP3/MP4/comprimir). Vira um item da lista e começa na hora."""
+        from .convert_task import output_name
+        folder = os.path.dirname(source)
+        t = ConvertTask("", folder, output_name(source, preset), {"source": source, "preset": preset})
+        t.manager = self
+        t.status = QUEUED
+        with self.lock:
+            self.tasks.append(t)
+        self._prev[t.id] = t.status
+        self._structure_dirty = True
+        t.logmsg(f"Converter {source} ({preset})")
+        t.start()
         return t
 
     def add_torrent_file(self, path, save_dir=None, start=True):
@@ -435,7 +484,7 @@ class Manager:
     def _post_process(self, t):
         st = self.settings
         path = t.path
-        if t.kind != "torrent" and os.path.isfile(path):
+        if t.kind not in ("torrent", "convert") and os.path.isfile(path):
             if st.get("mark_downloaded", True):
                 mark_of_the_web(path, getattr(t, "final_url", "") or t.url, t.options.get("referer", ""))
             if st.get("use_server_time") and getattr(t, "last_modified", ""):

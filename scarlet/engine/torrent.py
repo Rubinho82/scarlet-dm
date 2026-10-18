@@ -187,6 +187,16 @@ class TorrentTask(Task):
         self.priorities = None   # lista de 0/4 por arquivo
         self.state_text = ""
 
+    def apply_cap(self):
+        """Limite próprio deste torrent (o total da sessão continua valendo)."""
+        h = self.handle
+        if h is not None and h.is_valid():
+            try:
+                rate = self.manager.task_rate(self)
+                h.set_download_limit(rate if rate > 0 else -1)
+            except Exception:
+                pass
+
     @property
     def name(self):
         if self.filename:
@@ -253,6 +263,7 @@ class TorrentTask(Task):
                 self.handle.prioritize_files(self.priorities)
             except Exception:
                 pass
+        self.apply_cap()
         self.logmsg(f"Adicionado à sessão de torrent ({self.info_hash})")
 
     def start(self):

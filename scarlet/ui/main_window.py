@@ -22,7 +22,7 @@ from ..engine.task import (ACTIVE_STATES, COMPLETED, QUEUED, PAUSED, ERROR, SEED
 from ..util import (extract_urls, is_downloadable_url, filename_from_url, format_size, format_speed, free_space,
                     looks_like_url, open_path, reveal_in_folder, keep_awake, trim_memory)
 from .details import DetailsPanel
-from .dialogs import AboutDialog, AddDialog, ConfirmDelete, SettingsDialog, ShutdownDialog, ask_speed
+from .dialogs import AboutDialog, AddDialog, ConfirmDelete, SettingsDialog, ShutdownDialog, ask_speed, ask_task_speed
 from .model import (COL_ADDED, COL_ETA, COL_NAME, COL_PROGRESS, COL_SIZE, COL_SPEED, COL_STATUS, FILTERS,
                     DownloadsModel, FilterProxy, ProgressDelegate, TaskRole, matches)
 from ..i18n import _
@@ -139,7 +139,7 @@ class MainWindow(QMainWindow):
         h.setContentsMargins(14, 10, 14, 10)
         h.setSpacing(4)
         self.btn_add = self._tool("add", _("Adicionar download (Ctrl+N)"), lambda: self.open_add_dialog(), 22,
-                                  "#ffffff", "AddButton")
+                                  C["on_accent"], "AddButton")
         self.btn_add.setFixedSize(46, 40)
         h.addWidget(self.btn_add)
         h.addSpacing(10)
@@ -339,6 +339,7 @@ class MainWindow(QMainWindow):
         self.act_shutdown.toggled.connect(self._shutdown_toggled)
         menu.addSeparator()
         menu.addAction(glyph("settings", C["muted"], 16), _("Preferências…\tCtrl+,"), self.open_settings)
+        menu.addAction(glyph("error", C["muted"], 16), _("Relatar problema…"), self._report)
         menu.addAction(glyph("refresh", C["muted"], 16), _("Procurar atualizações"),
                        lambda: self.check_app_update(manual=True))
         menu.addAction(glyph("info", C["muted"], 16), _("Sobre"), lambda: AboutDialog(self).exec())
@@ -720,6 +721,14 @@ class MainWindow(QMainWindow):
             menu.addAction(glyph("open", C["muted"], 16), _("Abrir com…"), lambda: self._open_with(t.path))
             if t.path.lower().endswith(ARCHIVE_EXTS):
                 menu.addAction(glyph("archive", C["muted"], 16), _("Extrair aqui"), lambda: self._extract(t))
+            from ..engine.convert_task import presets_for
+            presets = presets_for(t.path)
+            if presets:
+                cm = menu.addMenu(glyph("refresh", C["muted"], 16), _("Converter"))
+                labels = {"mp3": _("Só o áudio em MP3 (320 kbps)"), "mp4": _("MP4 que toca em qualquer lugar"),
+                          "compress": _("Comprimir vídeo (arquivo menor, até 720p)")}
+                for p in presets:
+                    cm.addAction(labels[p], lambda p=p: self._convert(t, p))
         menu.addAction(glyph("folder", C["muted"], 16), _("Abrir pasta"), self.open_folder_selected)
         if done:
             menu.addAction(glyph("archive", C["muted"], 16),
@@ -739,12 +748,36 @@ class MainWindow(QMainWindow):
             hm = menu.addMenu(glyph("check", C["muted"], 16), _("Calcular hash"))
             for algo in ("md5", "sha1", "sha256", "sha512"):
                 hm.addAction(algo.upper(), lambda a=algo: self._calc_hash(t, a))
+        if any(x.status != COMPLETED for x in sel):
+            caps = {int(x.options.get("speed_cap") or 0) for x in sel}
+            label = _("Velocidade deste download…")
+            if len(caps) == 1 and next(iter(caps)):
+                label = _("Velocidade deste download ({v})…").format(v=format_speed(next(iter(caps))))
+            menu.addAction(glyph("speed", C["muted"], 16), label, lambda: self._set_cap(sel))
         menu.addSeparator()
         menu.addAction(glyph("top", C["muted"], 16), _("Mover para o topo da fila"), lambda: self._move(sel, True))
         menu.addAction(glyph("bottom", C["muted"], 16), _("Mover para o fim da fila"), lambda: self._move(sel, False))
         menu.addSeparator()
         menu.addAction(glyph("delete", C["accent_hi"], 16), _("Excluir…\tDel"), self.delete_selected)
         menu.exec(self.table.viewport().mapToGlobal(pos))
+
+    def _convert(self, t, preset):
+        try:
+            self.m.convert(t.path, preset)
+        except Exception as e:  # noqa: BLE001
+            QMessageBox.warning(self, APP_NAME, str(e))
+        self._tick()
+
+    def _set_cap(self, tasks):
+        st = self.st
+        default = int(st.get("per_download_limit", 0) or 0) if st.get("per_download_limit_enabled") else 0
+        cur = int(tasks[0].options.get("speed_cap") or 0)
+        rate = ask_task_speed(self, cur, default)
+        if rate is None:
+            return
+        for t in tasks:
+            self.m.set_task_cap(t, rate)
+        self._tick()
 
     # ======================================================= mídia e arquivos
     @staticmethod
@@ -1143,6 +1176,29 @@ class MainWindow(QMainWindow):
             self._apply_view()
             self._disk_tick = 0
             self._tick()
+            if dlg.restart_needed:
+                ask = QMessageBox.question(self, APP_NAME, _("Reiniciar o Scarlet DM agora para aplicar? "
+                                                             "Os downloads continuam de onde pararam."))
+                if ask == QMessageBox.StandardButton.Yes:
+                    self.restart_app()
+
+    def restart_app(self):
+        """Abre uma instância nova (que espera esta fechar) e fecha esta."""
+        env = os.environ.copy()
+        if env.pop("SCARLETDM_SCALE_SET", None):           # o zoom novo vale na instância nova
+            env.pop("QT_SCALE_FACTOR", None)
+        if getattr(sys, "frozen", False):
+            cmd = [sys.executable, "--restarted"]
+        else:
+            cmd = [sys.executable, os.path.abspath(sys.argv[0]), "--restarted"]
+        flags = getattr(subprocess, "DETACHED_PROCESS", 0) | getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
+        try:
+            subprocess.Popen(cmd, env=env, close_fds=True, creationflags=flags,
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL)
+        except OSError as e:
+            QMessageBox.warning(self, APP_NAME, _("Não foi possível reiniciar: {e}").format(e=e))
+            return
+        self.quit_app()
 
     def _apply_view(self):
         self.table.verticalHeader().setDefaultSectionSize(28 if self.st.get("compact") else 38)
@@ -1227,6 +1283,10 @@ class MainWindow(QMainWindow):
         else:
             self._notify(text, _("Clique para atualizar."), lambda: (self.show_window(), self._show_update()), force=True)
 
+    def _report(self):
+        from .report_dialog import ReportDialog
+        ReportDialog(self.st, self.m, self).exec()
+
     def _show_update(self):
         from .update_dialog import UpdateDialog
         UpdateDialog(self._update_info, self.st, self, quit_app=self.quit_app).exec()
@@ -1262,7 +1322,7 @@ class MainWindow(QMainWindow):
         else:
             self.chip_browser.setText(_("Navegador: porta ocupada"))
             self.chip_browser.setToolTip(_('Não foi possível abrir a porta {port}: {error}').format(port=port, error=self.api.error))
-            self.chip_browser.setIcon(glyph("error", C["accent_hi"], 14))
+            self.chip_browser.setIcon(glyph("error", C["error"], 14))
 
     # ====================================================== navegador / args
     def _on_api(self, payload):

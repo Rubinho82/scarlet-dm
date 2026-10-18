@@ -33,6 +33,10 @@ def run(args):
         import cryptography  # noqa: F401
         from PySide6 import QtMultimedia, QtMultimediaWidgets, QtSvg, QtNetwork  # noqa: F401
         from scarlet.engine.torrent import lt
+        # módulos importados só na hora de usar: garante que entraram no pacote
+        from scarlet import report, updater  # noqa: F401
+        from scarlet.engine import convert_task  # noqa: F401
+        from scarlet.ui import report_dialog, update_dialog  # noqa: F401
         return {"pyside6": PySide6.__version__, "libtorrent": bool(lt)}
     check("imports", imports)
 

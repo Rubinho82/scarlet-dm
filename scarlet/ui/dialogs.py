@@ -9,7 +9,7 @@ import urllib.parse
 
 import requests
 from PySide6.QtCore import Qt, QObject, QTime, QTimer, Signal
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QColor, QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog, QDoubleSpinBox, QFileDialog, QFormLayout,
                                QGridLayout, QHBoxLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem,
                                QPlainTextEdit, QPushButton, QRadioButton, QScrollArea, QSpinBox, QStackedWidget,
@@ -25,7 +25,7 @@ from ..engine.torrent import lt
 from ..util import (open_path, expand_batch, extract_urls, filename_from_content_disposition, filename_from_url,
                     format_eta, format_size, free_space, guess_extension, sanitize_filename, find_ffmpeg,
                     app_data_dir, parse_speed)
-from .theme import C, glyph, app_icon_pixmap, apply_dark_titlebar, bring_to_front, keep_on_screen
+from .theme import ACCENTS, C, glyph, app_icon_pixmap, apply_dark_titlebar, bring_to_front, keep_on_screen
 
 _CR = re.compile(r"bytes\s+\d+-\d+/(\d+)")
 
@@ -426,7 +426,7 @@ class AddDialog(QDialog):
         return {"quality": self.quality.currentData() or "best", "fps": self.fps.currentData() or ""}
 
     def _set_info(self, icon, text, error=False):
-        self.info_icon.setPixmap(glyph(icon, C["accent_hi"] if error else C["muted"], 16).pixmap(16, 16))
+        self.info_icon.setPixmap(glyph(icon, C["error"] if error else C["muted"], 16).pixmap(16, 16))
         self.info.setObjectName("Error" if error else "Muted")
         self.info.setStyleSheet("")
         self.info.style().unpolish(self.info)
@@ -766,6 +766,19 @@ class AboutDialog(QDialog):
         QTimer.singleShot(0, lambda: keep_on_screen(self))
 
 
+def _swatch(color, size=14):
+    pm = QPixmap(size * 2, size * 2)
+    pm.fill(Qt.GlobalColor.transparent)
+    p = QPainter(pm)
+    p.setRenderHint(QPainter.RenderHint.Antialiasing)
+    p.setPen(Qt.PenStyle.NoPen)
+    p.setBrush(QColor(color))
+    p.drawEllipse(2, 2, size * 2 - 4, size * 2 - 4)
+    p.end()
+    pm.setDevicePixelRatio(2)
+    return QIcon(pm)
+
+
 class SettingsDialog(QDialog):
     PAGES = ["Geral", "Downloads", "Conexões", "Velocidade", "Proxy", "Navegador", "Vídeos de sites", "Torrent",
              "Antivírus", "Notificações", "Agendador", "Acesso remoto", "Avançado"]
@@ -773,6 +786,7 @@ class SettingsDialog(QDialog):
     def __init__(self, settings, parent=None):
         super().__init__(parent)
         self.st = settings
+        self.restart_needed = False
         self.setWindowTitle(_("Preferências"))
         self.resize(960, 640)
         self.sig = _Signals()
@@ -823,7 +837,18 @@ class SettingsDialog(QDialog):
         self.compact = self._check(f, _("Lista compacta (linhas mais baixas)"), "compact")
         self.use_player = self._check(f, _("Duplo clique em vídeo/música abre no reprodutor do Scarlet"), "use_player")
         self.scale = self._combo([("100%", 100), ("110%", 110), ("125%", 125), ("150%", 150)], s["ui_scale"])
-        f.addRow(_("Zoom da interface (reiniciar)"), self.scale)
+        f.addRow(_("Zoom da interface"), self.scale)
+        self.theme = self._combo([(_("Escuro"), "dark"), (_("Claro"), "light"), (_("Igual ao do sistema"), "system")],
+                                 s.get("theme", "dark"))
+        f.addRow(_("Tema"), self.theme)
+        self.accent = self._combo([(_(label), key) for key, (_c, label) in ACCENTS.items()], s.get("accent", "red"))
+        for i, key in enumerate(ACCENTS):
+            self.accent.setItemIcon(i, _swatch(ACCENTS[key][0]))
+        f.addRow(_("Cor de destaque"), self.accent)
+        hint = QLabel(_("Tema, cor, zoom e idioma mudam ao reiniciar o Scarlet DM (os downloads continuam de onde pararam)."))
+        hint.setObjectName("Faint")
+        hint.setWordWrap(True)
+        f.addRow("", hint)
 
         # --- Downloads
         f = self._page(_("Downloads"), "down")
@@ -870,6 +895,15 @@ class SettingsDialog(QDialog):
         self.limit = self._spin(16, 10_000_000, max(16, s["speed_limit"] // 1024))
         self.limit.setSuffix(" KB/s")
         f.addRow(_("Limite de download"), self.limit)
+        self.per_on = self._check(f, _("Limitar também cada download"), "per_download_limit_enabled")
+        self.per_limit = self._spin(16, 10_000_000, max(16, int(s.get("per_download_limit", 1048576)) // 1024))
+        self.per_limit.setSuffix(" KB/s")
+        f.addRow(_("Máximo por download"), self.per_limit)
+        per_hint = QLabel(_("Cada download fica no máximo nessa velocidade, mesmo com outros parados. Dá para mudar "
+                            "um download específico com o botão direito › Velocidade deste download."))
+        per_hint.setObjectName("Muted")
+        per_hint.setWordWrap(True)
+        f.addRow("", per_hint)
         self.up_limit = self._spin(0, 10_000_000, s["upload_limit"] // 1024)
         self.up_limit.setSuffix(" KB/s")
         self.up_limit.setSpecialValueText(_("sem limite"))
@@ -1249,6 +1283,7 @@ class SettingsDialog(QDialog):
             "autoremove_missing": self.autoremove_missing, "autoremove_completed": self.autoremove_completed,
             "skip_html": self.skip_html, "mark_downloaded": self.mark, "use_server_time": self.server_time,
             "verify_ssl": self.ssl, "limit_enabled": self.limit_on, "api_enabled": self.api_on,
+            "per_download_limit_enabled": self.per_on,
             "confirm_browser_links": self.confirm, "ytdlp_auto_update": self.ytdlp_auto,
             "media_compat": self.media_compat, "media_subs": self.media_subs, "torrent_seed": self.seed,
             "torrent_dht": self.dht, "torrent_lsd": self.lsd, "torrent_upnp": self.upnp, "torrent_utp": self.utp,
@@ -1259,8 +1294,8 @@ class SettingsDialog(QDialog):
         }
         for key, cb in checks.items():
             s[key] = cb.isChecked()
-        old_lang = s.get("language", "")
-        combos = {"language": self.language, "on_exists": self.on_exists, "delete_action": self.delete_action, "ui_scale": self.scale,
+        before = {k: s.get(k) for k in ("language", "theme", "accent", "ui_scale")}
+        combos = {"theme": self.theme, "accent": self.accent, "language": self.language, "on_exists": self.on_exists, "delete_action": self.delete_action, "ui_scale": self.scale,
                   "media_fps": self.media_fps, "media_audio_format": self.media_afmt,
                   "media_audio_kbps": self.media_kbps, "media_container": self.media_container,
                   "torrent_encryption": self.enc, "hls_quality": self.hls_q}
@@ -1276,6 +1311,7 @@ class SettingsDialog(QDialog):
         s["timeout"] = self.timeout.value()
         s["user_agent"] = self.ua.text().strip() or s["user_agent"]
         s["speed_limit"] = self.limit.value() * 1024
+        s["per_download_limit"] = self.per_limit.value() * 1024
         s["upload_limit"] = self.up_limit.value() * 1024
         s["proxy_mode"] = ["none", "system", "manual"][max(0, self.proxy_group.checkedId())]
         s["proxy_url"] = self.proxy_url.text().strip()
@@ -1297,10 +1333,44 @@ class SettingsDialog(QDialog):
         except OSError:
             pass
         s.save()
-        if s.get("language", "") != old_lang:
-            from PySide6.QtWidgets import QMessageBox
-            QMessageBox.information(self, APP_NAME, _("O novo idioma será usado na próxima vez que o Scarlet DM abrir."))
+        self.restart_needed = any(s.get(k) != v for k, v in before.items())
         self.accept()
+
+
+def ask_task_speed(parent, cap, default_rate):
+    """Limite de um download. Devolve None (cancelou), 0 (usar o padrão) ou bytes/s."""
+    d = QDialog(parent)
+    d.setWindowTitle(_("Velocidade deste download"))
+    lay = QVBoxLayout(d)
+    lay.setContentsMargins(20, 16, 20, 16)
+    lay.setSpacing(10)
+    use_default = QRadioButton(_("Usar o padrão ({v})").format(
+        v=(format_size(default_rate) + "/s") if default_rate else _("sem limite")))
+    own = QRadioButton(_("Limitar só este download a:"))
+    e = QLineEdit(format_size(cap or default_rate or 1048576))
+    (own if cap else use_default).setChecked(True)
+    e.setEnabled(bool(cap))
+    own.toggled.connect(e.setEnabled)
+    hint = QLabel(_("ex.: 500 KB, 2 MB"))
+    hint.setObjectName("Muted")
+    for w in (use_default, own, e, hint):
+        lay.addWidget(w)
+    b = QHBoxLayout()
+    b.addStretch(1)
+    c = QPushButton(_("Cancelar"))
+    c.clicked.connect(d.reject)
+    ok = QPushButton(_("Aplicar"))
+    ok.setObjectName("Primary")
+    ok.clicked.connect(d.accept)
+    b.addWidget(c)
+    b.addWidget(ok)
+    lay.addLayout(b)
+    apply_dark_titlebar(d)
+    if d.exec() != QDialog.DialogCode.Accepted:
+        return None
+    if use_default.isChecked():
+        return 0
+    return parse_speed(e.text()) or None
 
 
 def ask_speed(parent, current):

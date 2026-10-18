@@ -32,7 +32,7 @@ from scarlet import APP_ID, APP_NAME
 from scarlet.engine.manager import Manager
 from scarlet.settings import Settings
 from scarlet.ui.main_window import MainWindow
-from scarlet.ui.theme import app_icon, stylesheet
+from scarlet.ui.theme import app_icon, apply_theme, palette, stylesheet
 
 def _server_name():
     """Uma instância por usuário e por pasta de dados (o modo portátil/testes com outro APPDATA não se misturam)."""
@@ -43,6 +43,14 @@ def _server_name():
 
 
 SERVER_NAME = _server_name()
+
+
+def _running():
+    sock = QLocalSocket()
+    sock.connectToServer(SERVER_NAME)
+    ok = sock.waitForConnected(300)
+    sock.abort()
+    return ok
 
 
 def send_to_running(args):
@@ -59,6 +67,8 @@ def send_to_running(args):
 
 def main():
     args = sys.argv[1:]
+    from scarlet.report import install_crash_log
+    install_crash_log()          # erros inesperados vão para crash.log (entra no "Relatar problema")
     if "--selftest" in args:
         from scarlet.selftest import run
         return run(args)
@@ -96,6 +106,7 @@ def main():
     scale = int(settings.get("ui_scale", 100) or 100)
     if scale != 100 and "QT_SCALE_FACTOR" not in os.environ:
         os.environ["QT_SCALE_FACTOR"] = f"{scale / 100:.2f}"
+        os.environ["SCARLETDM_SCALE_SET"] = "1"
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     app = QApplication(sys.argv)
     from scarlet.i18n import install_qt_translator
@@ -104,6 +115,12 @@ def main():
     app.setOrganizationName(APP_ID)
     app.setQuitOnLastWindowClosed(False)
 
+    if "--restarted" in args:            # reinício pelas Preferências: espera a instância antiga fechar
+        import time
+        args = [a for a in args if a != "--restarted"]
+        end = time.time() + 30
+        while time.time() < end and _running():
+            time.sleep(0.25)
     if send_to_running(args or ["--show"]) or "--quit" in args:
         return 0
 
@@ -113,6 +130,8 @@ def main():
 
     app.setWindowIcon(app_icon())
     app.setStyle("Fusion")
+    apply_theme(settings.get("theme", "dark"), settings.get("accent", "red"))
+    app.setPalette(palette())
     app.setStyleSheet(stylesheet())
 
     if not settings.get("welcome_done") and "--tray" not in args:
