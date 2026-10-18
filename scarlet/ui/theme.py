@@ -339,6 +339,56 @@ QListWidget#SideNav::item:hover {{ color: {c['text']}; }}
 """
 
 
+def bring_to_front(widget):
+    """Traz a janela para a frente mesmo com outro programa em foco (ex.: o navegador que mandou o link).
+
+    O Windows bloqueia SetForegroundWindow de apps em segundo plano e só faz o ícone piscar na barra. A saída
+    documentada é "anexar" a fila de entrada à da janela que está na frente durante a troca de foco."""
+    widget.show()
+    if widget.isMinimized():
+        widget.showNormal()
+    widget.raise_()
+    widget.activateWindow()
+    if os.name != "nt":
+        return
+    try:
+        import ctypes
+        from ctypes import wintypes
+        u32, k32 = ctypes.windll.user32, ctypes.windll.kernel32
+        u32.GetForegroundWindow.restype = wintypes.HWND
+        u32.GetWindowThreadProcessId.argtypes = [wintypes.HWND, ctypes.c_void_p]
+        u32.AttachThreadInput.argtypes = [wintypes.DWORD, wintypes.DWORD, wintypes.BOOL]
+        for name in ("SetForegroundWindow", "BringWindowToTop", "SetActiveWindow", "SetFocus", "IsIconic"):
+            getattr(u32, name).argtypes = [wintypes.HWND]
+        u32.ShowWindow.argtypes = [wintypes.HWND, ctypes.c_int]
+        u32.SetWindowPos.argtypes = [wintypes.HWND, wintypes.HWND, ctypes.c_int, ctypes.c_int, ctypes.c_int,
+                                     ctypes.c_int, ctypes.c_uint]
+        hwnd = wintypes.HWND(int(widget.winId()))
+        fg = u32.GetForegroundWindow()
+        if fg == hwnd.value:
+            return
+        me = k32.GetCurrentThreadId()
+        other = u32.GetWindowThreadProcessId(fg, None) if fg else 0
+        attached = bool(other and other != me and u32.AttachThreadInput(me, other, True))
+        try:
+            u32.ShowWindow(hwnd, 9 if u32.IsIconic(hwnd) else 5)          # SW_RESTORE / SW_SHOW
+            u32.BringWindowToTop(hwnd)
+            u32.SetForegroundWindow(hwnd)
+            u32.SetActiveWindow(hwnd)
+            u32.SetFocus(hwnd)
+        finally:
+            if attached:
+                u32.AttachThreadInput(me, other, False)
+        if u32.GetForegroundWindow() != hwnd.value:
+            # último recurso: fica por cima de tudo por um instante (aparece na tela mesmo sem o foco)
+            flags = 0x0001 | 0x0002 | 0x0040                                  # NOSIZE | NOMOVE | SHOWWINDOW
+            u32.SetWindowPos(hwnd, wintypes.HWND(-1), 0, 0, 0, 0, flags)     # HWND_TOPMOST
+            u32.SetWindowPos(hwnd, wintypes.HWND(-2), 0, 0, 0, 0, flags)     # HWND_NOTOPMOST
+            u32.SetForegroundWindow(hwnd)
+    except Exception:
+        pass
+
+
 def keep_on_screen(widget, margin=40):
     """Encolhe e reposiciona a janela para caber inteira na tela (notebooks 1366x768, zoom de 125%/150%).
     Janelas maximizadas ou em tela cheia ficam como estão."""

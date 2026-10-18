@@ -26,7 +26,7 @@ from .dialogs import AboutDialog, AddDialog, ConfirmDelete, SettingsDialog, Shut
 from .model import (COL_ADDED, COL_ETA, COL_NAME, COL_PROGRESS, COL_SIZE, COL_SPEED, COL_STATUS, FILTERS,
                     DownloadsModel, FilterProxy, ProgressDelegate, TaskRole, matches)
 from ..i18n import _
-from .theme import C, apply_dark_titlebar, app_icon, glyph, keep_on_screen
+from .theme import C, apply_dark_titlebar, app_icon, bring_to_front, glyph, keep_on_screen
 from .thumbs import ThumbService, is_playable
 from .widgets import FilterBar
 
@@ -1013,8 +1013,7 @@ class MainWindow(QMainWindow):
             if torrent_files:
                 self._add_dlg.torrent_files += list(torrent_files)
                 self._add_dlg._show_torrents()
-            self._add_dlg.raise_()
-            self._add_dlg.activateWindow()
+            bring_to_front(self._add_dlg)
             return
         dlg = AddDialog(self.m, self, urls, options, filename, torrent_files)
         self._add_dlg = dlg
@@ -1277,7 +1276,6 @@ class MainWindow(QMainWindow):
         name = payload.get("filename") or None
         if self.st.get("confirm_browser_links") and not payload.get("silent"):
             self.show_window()
-            QApplication.alert(self)
             self.open_add_dialog(urls, opts, name if len(urls) == 1 else None)
         else:
             for u in urls:
@@ -1360,10 +1358,8 @@ class MainWindow(QMainWindow):
 
     # ============================================================= janela
     def show_window(self):
-        self.show()
         self.setWindowState((self.windowState() & ~Qt.WindowState.WindowMinimized) | Qt.WindowState.WindowActive)
-        self.raise_()
-        self.activateWindow()
+        bring_to_front(self)
 
     def _tray_activated(self, reason):
         if reason in (QSystemTrayIcon.ActivationReason.Trigger, QSystemTrayIcon.ActivationReason.DoubleClick):

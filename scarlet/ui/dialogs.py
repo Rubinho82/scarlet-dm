@@ -25,7 +25,7 @@ from ..engine.torrent import lt
 from ..util import (open_path, expand_batch, extract_urls, filename_from_content_disposition, filename_from_url,
                     format_eta, format_size, free_space, guess_extension, sanitize_filename, find_ffmpeg,
                     app_data_dir, parse_speed)
-from .theme import C, glyph, app_icon_pixmap, apply_dark_titlebar, keep_on_screen
+from .theme import C, glyph, app_icon_pixmap, apply_dark_titlebar, bring_to_front, keep_on_screen
 
 _CR = re.compile(r"bytes\s+\d+-\d+/(\d+)")
 
@@ -310,6 +310,7 @@ class AddDialog(QDialog):
         apply_dark_titlebar(self)
         QTimer.singleShot(0, lambda: keep_on_screen(self))
         QTimer.singleShot(0, self.fit_to_screen)
+        QTimer.singleShot(50, lambda: bring_to_front(self))     # link vindo do navegador: aparece na frente dele
         if not self.urls.toPlainText():
             self.urls.setFocus()
 
