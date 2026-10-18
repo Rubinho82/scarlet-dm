@@ -351,7 +351,15 @@ python main.py</pre></div>
 
 <script>
 // Endereço do repositório no GitHub (deixe vazio para esconder os botões do GitHub).
-const REPO = "";
+const REPO = "https://github.com/Rubinho82/scarlet-dm";
+// De onde vêm os arquivos: os "Releases" do GitHub. Vazio = pasta downloads/ ao lado desta página.
+const DL = REPO ? REPO + "/releases/download/v2.0.0/" : "";
+if (DL) {
+  document.querySelectorAll('a[href^="downloads/"]').forEach((a) => {
+    const f = a.getAttribute("href").slice("downloads/".length);
+    a.href = f === "THIRD_PARTY_NOTICES.md" ? REPO + "/blob/main/THIRD_PARTY_NOTICES.md" : DL + f;
+  });
+}
 
 const T = {
   en: {
@@ -453,8 +461,8 @@ const t = (k) => (T[lang] && T[lang][k]) || PT[k] || k;
 // sistema do visitante: botão principal e coluna "seu sistema"
 const ua = navigator.userAgent;
 const os = /Mac|iPhone|iPad/.test(ua) ? "mac" : (/Linux|X11|CrOS/.test(ua) && !/Android/.test(ua)) ? "linux" : "win";
-const PRIMARY = { win: "downloads/ScarletDM-2.0.0-Setup.exe", mac: "downloads/ScarletDM-2.0.0-macos-arm64.dmg",
-                  linux: "downloads/ScarletDM-2.0.0-linux-x64.AppImage" };
+const PRIMARY = { win: "ScarletDM-2.0.0-Setup.exe", mac: "ScarletDM-2.0.0-macos-arm64.dmg",
+                  linux: "ScarletDM-2.0.0-linux-x64.AppImage" };
 const sections = [...document.querySelectorAll("section[data-spy]")];
 
 function apply() {
@@ -463,7 +471,7 @@ function apply() {
   document.documentElement.lang = lang === "pt" ? "pt-BR" : lang;
   document.getElementById("lang").value = lang;
   const p = document.getElementById("primary");
-  p.href = PRIMARY[os];
+  p.href = (DL || "downloads/") + PRIMARY[os];
   p.querySelector("span").textContent = x.get[os];
   document.getElementById("under").textContent = x.under[os];
   document.querySelectorAll(".os > div").forEach((d) => {
@@ -482,7 +490,7 @@ if (REPO) document.getElementById("cmds").textContent =
   `git clone ${REPO}.git\ncd ${REPO.split("/").pop()}\npip install -r requirements.txt\npython main.py`;
 
 // arquivos que ainda não foram publicados ficam apagados ("em breve")
-if (location.protocol.startsWith("http")) {
+if (location.protocol.startsWith("http") && !DL) {
   document.querySelectorAll("a.file, .os a.btn").forEach((a) => {
     fetch(a.getAttribute("href"), { method: "HEAD" }).then((r) => {
       if (!r.ok) {

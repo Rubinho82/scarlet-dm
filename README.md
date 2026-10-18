@@ -1,5 +1,7 @@
 # Scarlet DM
 
+**Site e downloads:** https://rubinho82.github.io/scarlet-dm/ · [Releases](https://github.com/Rubinho82/scarlet-dm/releases/latest)
+
 Gerenciador de downloads para Windows com tema vermelho e preto, inspirado no Free Download Manager
 (a lógica de seções foi tirada da engenharia reversa do `downloadswww.dll` do FDM) e com recursos a mais.
 Licença MIT (veja `LICENSE` e `THIRD_PARTY_NOTICES.md`). 11 idiomas. **Windows, macOS e Linux.**
