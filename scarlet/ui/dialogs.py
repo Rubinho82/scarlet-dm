@@ -10,7 +10,7 @@ import urllib.parse
 import requests
 from PySide6.QtCore import Qt, QObject, QTime, QTimer, Signal
 from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import (QCheckBox, QComboBox, QDialog, QDoubleSpinBox, QFileDialog, QFormLayout,
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog, QDoubleSpinBox, QFileDialog, QFormLayout,
                                QGridLayout, QHBoxLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem,
                                QPlainTextEdit, QPushButton, QRadioButton, QScrollArea, QSpinBox, QStackedWidget,
                                QTimeEdit, QToolButton, QVBoxLayout, QWidget, QButtonGroup, QFrame)
@@ -25,7 +25,7 @@ from ..engine.torrent import lt
 from ..util import (open_path, expand_batch, extract_urls, filename_from_content_disposition, filename_from_url,
                     format_eta, format_size, free_space, guess_extension, sanitize_filename, find_ffmpeg,
                     app_data_dir, parse_speed)
-from .theme import C, glyph, app_icon_pixmap, apply_dark_titlebar
+from .theme import C, glyph, app_icon_pixmap, apply_dark_titlebar, keep_on_screen
 
 _CR = re.compile(r"bytes\s+\d+-\d+/(\d+)")
 
@@ -109,8 +109,20 @@ class AddDialog(QDialog):
         self.sig.media.connect(self._media_done)
         self.sig.thumb.connect(self._thumb_done)
 
-        lay = QVBoxLayout(self)
-        lay.setContentsMargins(22, 18, 22, 18)
+        # conteúdo numa área com rolagem; os botões Baixar/Cancelar ficam fixos embaixo (telas pequenas,
+        # notebooks 1366x768 e "Opções avançadas" aberto não escondem mais nada)
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.setSpacing(0)
+        self.scroll = QScrollArea()
+        self.scroll.setWidgetResizable(True)
+        self.scroll.setFrameShape(QFrame.Shape.NoFrame)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.body = QWidget()
+        self.scroll.setWidget(self.body)
+        outer.addWidget(self.scroll, 1)
+        lay = QVBoxLayout(self.body)
+        lay.setContentsMargins(22, 18, 22, 8)
         lay.setSpacing(10)
         h1 = QLabel(_("Adicionar download"))
         h1.setObjectName("H1")
@@ -274,7 +286,11 @@ class AddDialog(QDialog):
         self.ok.clicked.connect(self._accept)
         btns.addWidget(cancel)
         btns.addWidget(self.ok)
-        lay.addLayout(btns)
+        foot = QWidget()
+        foot.setObjectName("DialogFoot")
+        foot.setLayout(btns)
+        btns.setContentsMargins(22, 10, 22, 16)
+        outer.addWidget(foot)
 
         self._fill_quality([])
         self._timer = QTimer(self)
@@ -292,6 +308,8 @@ class AddDialog(QDialog):
     def showEvent(self, e):
         super().showEvent(e)
         apply_dark_titlebar(self)
+        QTimer.singleShot(0, lambda: keep_on_screen(self))
+        QTimer.singleShot(0, self.fit_to_screen)
         if not self.urls.toPlainText():
             self.urls.setFocus()
 
@@ -299,7 +317,22 @@ class AddDialog(QDialog):
     def _toggle_adv(self, on):
         self.adv.setVisible(on)
         self.adv_btn.setIcon(glyph("chevron" if not on else "up", C["muted"], 12))
-        self.adjustSize()
+        self.fit_to_screen()
+        if on:   # mostra as opções que acabaram de abrir
+            QTimer.singleShot(0, lambda: self.scroll.ensureWidgetVisible(self.adv, 0, 0))
+
+    def fit_to_screen(self):
+        """Altura do conteúdo, mas nunca maior que a tela disponível (o resto rola)."""
+        self.body.adjustSize()
+        screen = (self.windowHandle().screen() if self.windowHandle() else None) or QApplication.primaryScreen()
+        avail = screen.availableGeometry()
+        foot_h = self.layout().itemAt(1).widget().sizeHint().height()
+        want = self.body.sizeHint().height() + foot_h + 2
+        h = min(want, avail.height() - 60)          # 60 = barra de título e uma folga
+        self.resize(max(self.width(), self.minimumWidth()), h)
+        g = self.frameGeometry()
+        if g.bottom() > avail.bottom() or g.top() < avail.top():   # mantém a janela inteira dentro da tela
+            self.move(g.left(), max(avail.top(), avail.bottom() - g.height()))
 
     def _on_dir_edited(self):
         self._dir_edited = True
@@ -405,7 +438,10 @@ class AddDialog(QDialog):
         self.ok.setEnabled(bool(urls) or bool(self.torrent_files))
         single = len(urls) == 1
         media_any = any(self._is_media(u) for u in urls)
-        self.media_box.setVisible(media_any)
+        if self.media_box.isVisible() != media_any:
+            self.media_box.setVisible(media_any)
+            if self.isVisible():
+                QTimer.singleShot(0, self.fit_to_screen)
         self.thumb.clear()
         self.media_title.setText("")
         self.media_meta.setText("")
@@ -648,6 +684,7 @@ class ConfirmDelete(QDialog):
     def showEvent(self, e):
         super().showEvent(e)
         apply_dark_titlebar(self)
+        QTimer.singleShot(0, lambda: keep_on_screen(self))
 
 
 class ShutdownDialog(QDialog):
@@ -688,6 +725,7 @@ class ShutdownDialog(QDialog):
     def showEvent(self, e):
         super().showEvent(e)
         apply_dark_titlebar(self)
+        QTimer.singleShot(0, lambda: keep_on_screen(self))
 
 
 class AboutDialog(QDialog):
@@ -724,6 +762,7 @@ class AboutDialog(QDialog):
     def showEvent(self, e):
         super().showEvent(e)
         apply_dark_titlebar(self)
+        QTimer.singleShot(0, lambda: keep_on_screen(self))
 
 
 class SettingsDialog(QDialog):
@@ -1076,6 +1115,7 @@ class SettingsDialog(QDialog):
     def showEvent(self, e):
         super().showEvent(e)
         apply_dark_titlebar(self)
+        QTimer.singleShot(0, lambda: keep_on_screen(self))
 
     # ---------- construção ----------
     def _page(self, title, icon):

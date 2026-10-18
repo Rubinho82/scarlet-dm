@@ -14,7 +14,7 @@ from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QSlider, QStac
 
 from ..i18n import _
 from ..util import reveal_in_folder
-from .theme import C, apply_dark_titlebar, app_icon, glyph
+from .theme import C, apply_dark_titlebar, app_icon, glyph, keep_on_screen
 from .thumbs import AUDIO_EXTS, fmt_duration
 
 G_PREV, G_NEXT, G_VOL, G_MUTE = "", "", "", ""
@@ -212,6 +212,7 @@ class PlayerWindow(QWidget):
     def showEvent(self, e):
         super().showEvent(e)
         apply_dark_titlebar(self)
+        QTimer.singleShot(0, lambda: keep_on_screen(self))
         if not self._filter_on:
             QApplication.instance().installEventFilter(self)
             self._filter_on = True

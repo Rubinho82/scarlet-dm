@@ -230,6 +230,7 @@ def stylesheet():
      "Cantarell", "Ubuntu", "DejaVu Sans", sans-serif; font-size: 10pt; color: {c['text']}; }}
 QMainWindow, QDialog {{ background: {c['bg']}; }}
 QWidget#Player {{ background: {c['bg']}; }}
+QWidget#DialogFoot {{ background: {c['bg']}; border-top: 1px solid {c['border']}; }}
 QSlider::groove:horizontal {{ height: 5px; background: #2a2a31; border-radius: 2px; }}
 QSlider::sub-page:horizontal {{ background: {c['accent']}; border-radius: 2px; }}
 QSlider::handle:horizontal {{ width: 13px; height: 13px; margin: -5px 0; border-radius: 6px; background: #ffffff; }}
@@ -336,6 +337,29 @@ QListWidget#SideNav::item {{ padding: 9px 10px; border-radius: 6px; color: {c['m
 QListWidget#SideNav::item:selected {{ background: {c['sel']}; color: {c['text']}; }}
 QListWidget#SideNav::item:hover {{ color: {c['text']}; }}
 """
+
+
+def keep_on_screen(widget, margin=40):
+    """Encolhe e reposiciona a janela para caber inteira na tela (notebooks 1366x768, zoom de 125%/150%).
+    Janelas maximizadas ou em tela cheia ficam como estão."""
+    if widget.isMaximized() or widget.isFullScreen():
+        return
+    from PySide6.QtWidgets import QApplication
+    screen = (widget.windowHandle().screen() if widget.windowHandle() else None) or QApplication.primaryScreen()
+    if screen is None:
+        return
+    avail = screen.availableGeometry()
+    frame = widget.frameGeometry()
+    extra_w, extra_h = frame.width() - widget.width(), frame.height() - widget.height()   # bordas e barra de título
+    w = min(widget.width(), avail.width() - margin - extra_w)
+    h = min(widget.height(), avail.height() - margin - extra_h)
+    if (w, h) != (widget.width(), widget.height()):
+        widget.resize(max(w, widget.minimumWidth()), max(h, min(widget.minimumHeight(), h)))
+    frame = widget.frameGeometry()
+    x = min(max(frame.left(), avail.left()), avail.right() - frame.width() + 1)
+    y = min(max(frame.top(), avail.top()), avail.bottom() - frame.height() + 1)
+    if (x, y) != (frame.left(), frame.top()):
+        widget.move(x, max(avail.top(), y))
 
 
 def apply_dark_titlebar(widget):

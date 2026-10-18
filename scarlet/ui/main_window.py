@@ -26,7 +26,7 @@ from .dialogs import AboutDialog, AddDialog, ConfirmDelete, SettingsDialog, Shut
 from .model import (COL_ADDED, COL_ETA, COL_NAME, COL_PROGRESS, COL_SIZE, COL_SPEED, COL_STATUS, FILTERS,
                     DownloadsModel, FilterProxy, ProgressDelegate, TaskRole, matches)
 from ..i18n import _
-from .theme import C, apply_dark_titlebar, app_icon, glyph
+from .theme import C, apply_dark_titlebar, app_icon, glyph, keep_on_screen
 from .thumbs import ThumbService, is_playable
 from .widgets import FilterBar
 
@@ -1327,6 +1327,7 @@ class MainWindow(QMainWindow):
     def showEvent(self, e):
         super().showEvent(e)
         apply_dark_titlebar(self)
+        QTimer.singleShot(0, lambda: keep_on_screen(self))
         self._state_sig = None          # recalcula os contadores ao voltar
         QTimer.singleShot(0, self._tick)
 
